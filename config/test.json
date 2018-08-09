@@ -1,0 +1,7 @@
+{
+  "github": {
+    "token": "fake_token",
+    "host": "fake_host",
+    "timeout": 0
+  }
+}

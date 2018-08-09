@@ -1,0 +1,7 @@
+{
+  "logs": {
+    "prettyPrint": true,
+    "messageKey": "message",
+    "level": "info"
+  }
+}
