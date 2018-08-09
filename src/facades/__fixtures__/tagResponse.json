@@ -1,0 +1,23 @@
+[
+  {
+    "name": "v0.2.1",
+    "commit": {
+      "sha": "123",
+      "url": "https://github.com/api/v3/repos/example/example/commits/123"
+    }
+  },
+  {
+    "name": "v0.2.0",
+    "commit": {
+      "sha": "456",
+      "url": "https://github.com/api/v3/repos/example/example/commits/456"
+    }
+  },
+  {
+    "name": "v0.1.0",
+    "commit": {
+      "sha": "789",
+      "url": "https://github.com/api/v3/repos/example/example/commits/789"
+    }
+  }
+]
