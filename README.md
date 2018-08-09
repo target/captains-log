@@ -167,6 +167,14 @@ After you've written to the `.drone.yml`, you can run the following in the direc
 
 This process replicates what the the plugin goes through when running live. If the run passes and you see what you expect, there will be a much higher confidence that things are operating correctly.
 
+# Contributors
+
+Thanks to all of these contributors for making this repo possible.
+
+| [<img src="https://avatars2.githubusercontent.com/u/8508556?s=460&v=4" width="100px;"/><br /><sub><b>Theryn Groetken</b></sub>](https://github.com/therynamo) | [<img src="https://avatars1.githubusercontent.com/u/11198076?s=460&v=4" width="100px;"/><br /><sub><b>Rebecca Mozdy</b></sub>](https://github.com/remoz) | [<img src="https://avatars0.githubusercontent.com/u/615381?s=460&v=4" width="100px;"/><br /><sub><b>Anders D Johnson</b></sub>](https://github.com/AndersDJohnson) |
+| :-----------------------------------------------------------------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------------------------------------------------------: |
+
+
 # Code Of Conduct
 
 [Code of Conduct](./.github/CODE_OF_CONDUCT.md)
