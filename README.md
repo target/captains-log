@@ -134,13 +134,13 @@ Drone secrets, however, are their names alone. Therefore, `SLACK_TOKEN`, `SLACK_
 The following is an example of all environment variables you will need in order to run Captains Log:
 
 ```bash
-GITHUB_TOKEN=<insert_GH_token> PLUGIN_GITHUB_OWNER=<repo_owner> PLUGIN_GITHUB_REPO=<your_repo> node index.js
+GITHUB_TOKEN=<insert_GH_token> PLUGIN_GITHUB_OWNER=<repo_owner> PLUGIN_GITHUB_REPO=<your_repo> PLUGIN_JIRA_TEAM_DOMAIN=<your_namespace> node index.js
 ```
 
 If you want to run it with `teams`, you can use the following example and modify it as needed:
 
 ```bash
-GITHUB_TOKEN=<insert_GH_token> PLUGIN_GITHUB_OWNER=<repo_owner> PLUGIN_GITHUB_REPO=<your_repo>  PLUGIN_GITHUB_TAG_ID='v([0-9]+-release)$' PLUGIN_TEAMS="[{\"name\":\"MY_TEAM\",\"color\":\"#FFDC18\",\"emoji\":\"<2728>\",\"mentions\":\"@person1  @person2\",\"issueTracking\":{\"jira\":{\"projects\":[\"DISCO\",\"SUPER\"]}}}]"
+GITHUB_TOKEN=<insert_GH_token> PLUGIN_GITHUB_OWNER=<repo_owner> PLUGIN_GITHUB_REPO=<your_repo> PLUGIN_JIRA_TEAM_DOMAIN=<your_namespace> PLUGIN_GITHUB_TAG_ID='v([0-9]+-release)$' PLUGIN_TEAMS="[{\"name\":\"MY_TEAM\",\"color\":\"#FFDC18\",\"emoji\":\"<2728>\",\"mentions\":\"@person1  @person2\",\"issueTracking\":{\"jira\":{\"projects\":[\"DISCO\",\"SUPER\"]}}}]"
 ```
 
 If you'd like to test sending this to a slack channel, you can either prepend the `SLACK_URL` or `SLACK_TOKEN` and `PLUGIN_SLACK_CHANNEL`.
@@ -159,6 +159,7 @@ Once you've got the Drone CLI, you'll want to create a temp or test directory in
       secrets: [ SLACK_TOKEN, SLACK_URL, GITHUB_TOKEN ]
       github_owner: ReactTraining
       github_repo: react-media
+      jira_team_domain: myteamnamespace
 ```
 
 After you've written to the `.drone.yml`, you can run the following in the directory where you've saved your file:
