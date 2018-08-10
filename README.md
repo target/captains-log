@@ -11,6 +11,7 @@ my-release-log-step:
   github_owner: ReactTraining
   github_repo: react-media
   slack_channel: reactify
+  jira_team_domain: myteamnamespace
   teams:
     - name: Team1
       color: "#FFDC18"
@@ -35,6 +36,7 @@ my-release-log-step:
 
 - `github_owner` - Owner of the repository
 - `github_repo` - Target repository name
+- `jira_team_domain` - (**required** until Jira is not the only issue tracker) - namespace of Jira workspace (e.g. `jira.myteamnamespace.com`)
 
 **Required Secrets**
 
