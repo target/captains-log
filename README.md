@@ -110,7 +110,7 @@ Once you've completed your work, you should test your changes.
 There are two ways to test your changes.
 
 1.  Command Line - runs node directly, but you have to provide the plugin values
-2.  Drone Exec - runs the plugin in drone as it would in the pipeline, you will still have to provide the secretes.
+2.  Drone Exec - runs the plugin in drone as it would in the pipeline, you will still have to provide the secrets.
 
 **Command Line**
 
