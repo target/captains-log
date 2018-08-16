@@ -180,4 +180,4 @@ Thanks to all of these contributors for making this repo possible.
 
 # Code Of Conduct
 
-[Code of Conduct](./.github/CODE_OF_CONDUCT.md)
+[Code of Conduct](./CODE_OF_CONDUCT.md)
