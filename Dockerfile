@@ -1,5 +1,7 @@
 FROM node:10.4.1-alpine
 
+RUN yarn
+
 COPY ./src/ /opt/src
 COPY ./config/ /opt/config
 COPY ./index.js /opt/index.js
