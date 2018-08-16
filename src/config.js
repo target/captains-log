@@ -48,7 +48,7 @@ nconf.set('development', process.env.NODE_ENV === DEVELOPMENT);
 nconf.set('regexp', process.env.PLUGIN_REGEXP);
 
 // Github
-nconf.set('github:domain', process.env.PLUGIN_GITHUB_DOMAIN);
+nconf.set('github:domain', process.env.PLUGIN_ENTERPRISE_HOST);
 nconf.set('github:host', process.env.PLUGIN_GITHUB_HOST);
 nconf.set('github:token', process.env.GITHUB_TOKEN);
 nconf.set('github:owner', process.env.PLUGIN_GITHUB_OWNER);
