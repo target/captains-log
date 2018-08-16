@@ -4,7 +4,7 @@
     "timeout": 0,
     "token": "<REPLACE_ME>",
     "host": "https://github.com/api/v3",
-    "domain": "https://github.com"
+    "domain": null
   },
   "slack": {
     "channel": "<REPLACE_ME>",
