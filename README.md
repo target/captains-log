@@ -48,6 +48,7 @@ my-release-log-step:
 - `github_tag_id` - you can use this as regex to match on specific tags.
 - `slack_channel`/`SLACK_URL` - when using the API, you should use `slack_channel` to specify which room you'd like to post to. When using `SLACK_URL` you should not specify the room (i.e. `slack_channel`) because the room is already a part of the webhook. ([Setting Up A Webhook (e.g. SLACK_URL)](https://api.slack.com/incoming-webhooks), [Setting Up A Slack Token](https://api.slack.com/docs/token-types#verification))
 - `teams` - a list of teams which allows you to organize the output of Captains Log into meaningful chunks. (more below)
+- `enterprise_host` - if you use Enterprise Github, this is where you would supply the custom domain. (e.g. https://git.myCompany.com)
 
 **Example of `github_tag_id`**
 
