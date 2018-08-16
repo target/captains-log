@@ -1,7 +1,12 @@
 const Github = require('@octokit/rest');
 const config = require('../config');
 
-const { host, timeout, token } = config.get('github');
+const {
+  domain,
+  host,
+  timeout,
+  token,
+} = config.get('github');
 
 const accepts = [
   'application/vnd.github.v3+json',
@@ -18,7 +23,7 @@ const github = new Github({
     accept: accepts.join(','),
     'user-agent': 'octokit/rest v15.8.1',
   },
-  baseUrl: host,
+  baseUrl: domain || host,
 });
 
 github.authenticate({
