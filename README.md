@@ -2,6 +2,10 @@
 
 A drone plugin that will send release information via slack.
 
+# Example Output
+
+![ ](./static/example-output.png)
+
 # Example Drone Usage
 
 ```yaml
