@@ -59,4 +59,14 @@ describe('Team', () => {
 
     expect(team.teamMessages).toEqual('Hi\n Bye');
   });
+
+  it('should add a title to existing titles', () => {
+    const team = Team({ ...exampleTeam, titles: 'This Is A Title' });
+
+    expect(team.teamTitles).toEqual('This Is A Title');
+
+    team.addMessage('', 'Bye');
+
+    expect(team.teamTitles).toEqual('This Is A Title\n Bye');
+  });
 });

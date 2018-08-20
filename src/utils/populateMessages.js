@@ -5,17 +5,16 @@ const populateMessages = function populateMessages(defaultTeam) {
     let filteredMessages = messages;
 
     if (teamsToPopulate.length === 0) {
-      filteredMessages.forEach(({ message = '' }) => defaultTeam.addMessage(message));
+      filteredMessages.forEach(({ message = '', title = '' }) => defaultTeam.addMessage(message, title));
       return true;
     }
 
     const [team, ...remainingTeams] = teamsToPopulate;
 
-    filteredMessages = messages.filter(({ message = '' }) => {
+    filteredMessages = messages.filter(({ message = '', title = '' }) => {
       if (team.messageMatch(message)) {
-        team.addMessage(message);
+        team.addMessage(message, title);
       }
-
       return !team.messageMatch(message);
     });
 
