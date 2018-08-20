@@ -1,8 +1,8 @@
 const Message = function Message(type = 'slack', team = {}) {
   const {
-    color = '#3ef2c5', mentions = '', emoji = '🌱', teamMessages = '', name = 'General',
+    color = '#3ef2c5', mentions = '', emoji = '🌱', teamMessages = '', name = 'General', teamTitles = '',
   } = team;
-  const teamTitle = `${name} ${emoji}`;
+  const teamName = `${name} ${emoji}`;
 
   const generateSlack = function generateSlack(message = '') {
     if (!teamMessages && !message) return '';
@@ -17,7 +17,7 @@ const Message = function Message(type = 'slack', team = {}) {
         },
         {
           title: 'Details',
-          value: '... coming soon',
+          value: teamTitles,
           short: true,
         },
       ];
@@ -26,7 +26,7 @@ const Message = function Message(type = 'slack', team = {}) {
     return {
       fallback: teamMessages || message,
       color,
-      title: teamTitle,
+      title: teamName,
       text: mentions,
       fields,
     };

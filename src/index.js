@@ -38,11 +38,12 @@ const createAttachment = (hasMessages) => {
 const formatChangeMessage = ({
   change = {}, owner, repo, jiraTeam, githubDomain,
 }) => {
-  const { jiraTickets, number } = change;
+  const { jiraTickets, number, title } = change;
   if (!jiraTickets.length) return null;
   return jiraTickets.map(ticket => ({
     message: `<https://jira.${jiraTeam}.com/browse/${ticket}|[${ticket}]> - <${githubDomain}/${owner}/${repo}/pull/${number}|#${number}>`,
     name: ticket,
+    title,
   }));
 };
 
@@ -83,7 +84,6 @@ module.exports = async function App(config) {
   populateMessages(defaultTeam)(teamList, sortedMessages);
 
   const { message, attachments } = createAttachment(messages.length);
-
   logger.info(message, JSON.stringify(attachments));
 
   await releaseCommunication.sendMessage(message, attachments);

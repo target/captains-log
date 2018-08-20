@@ -39,6 +39,7 @@ describe('ReleaseCommunicationFacade', () => {
         jiraTickets: ['JIRA-1234'],
         message: pullRequestResponse.body,
         number: 1,
+        title: 'bla',
       },
     ];
 
@@ -54,6 +55,7 @@ describe('ReleaseCommunicationFacade', () => {
         jiraTickets: ['JIRA-1234'],
         message: pullRequestResponseRawLink.body,
         number: 1,
+        title: 'bla',
       },
     ];
 

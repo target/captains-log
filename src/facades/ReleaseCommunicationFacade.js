@@ -80,11 +80,11 @@ class ReleaseCommunication {
     const pullRequestMessages = pullRequests.map((pr) => {
       const noCommentBody = pr.body.replace(PR_TEMPLATE_COMMENT_REGEX, '');
       const jiraTickets = uniq(groupFinder(JIRA_REGEX, noCommentBody) || []);
-
       return {
         number: pr.number,
         message: pr.body,
         jiraTickets,
+        title: pr.title,
       };
     });
 
