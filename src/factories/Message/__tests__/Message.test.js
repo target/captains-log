@@ -9,6 +9,7 @@ describe('Message', () => {
     issueTracking: { jira: { teams: ['ACCOUNTING', 'ASSISTANT_TO_THE_REGIONAL_MANAGER'] } },
     mentions: '@Dwight.K.Schrute @Michael.J.Scott @Pam.Beasley',
     messages: 'Where is Michael Scarn!?',
+    titles: 'No. NOOOOO.',
   });
 
   it('should create a default Message object', () => {
@@ -44,8 +45,8 @@ describe('Message', () => {
         },
         {
           short: true,
-          title: expect.any(String),
-          value: expect.any(String),
+          title: 'Details',
+          value: 'No. NOOOOO.',
         },
       ],
     }));

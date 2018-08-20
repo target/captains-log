@@ -5,9 +5,11 @@ describe('populateMessages', () => {
   const messages = [
     {
       message: 'CHANDLER-123: The one with the wedding',
+      title: 'bugfix: find missing Chandler',
     },
     {
       message: 'JOEY-4345: The one with the duck',
+      title: 'ducks!!!',
     },
   ];
 
@@ -43,9 +45,16 @@ describe('populateMessages', () => {
     expect(exampleTeam.teamMessages).toEqual(messages[0].message);
   });
 
-  it('should add messages to default team if no team bucket exist', () => {
+  it('should assign team titles if given teams and relevant team titles', () => {
     populateMessages(defaultTeam)([exampleTeam], messages);
 
-    expect(defaultTeam.teamMessages).toEqual(messages[1].message);
+    expect(exampleTeam.teamTitles).toEqual(messages[0].title);
+  });
+
+
+  it('should add titles to default team if no team bucket exist', () => {
+    populateMessages(defaultTeam)([exampleTeam], messages);
+
+    expect(defaultTeam.teamTitles).toEqual(messages[1].title);
   });
 });
