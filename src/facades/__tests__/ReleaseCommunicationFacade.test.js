@@ -6,7 +6,9 @@ const handlers = require('../../handlers');
 const tagResponse = require('../__fixtures__/tagResponse.json');
 const pullRequestResponse = require('../__fixtures__/pullRequestResponse.json');
 const pullRequestResponseRawLink = require('../__fixtures__/pullRequestResponseRawLink.json');
-const diffResponse = require('../__fixtures__/diffResponse.json');
+const squashDiffResponse = require('../__fixtures__/squashDiffResponse.json');
+const mergedDiffResponse = require('../__fixtures__/mergeDiffResponse.json');
+const searchIssueResponse = require('../__fixtures__/searchIssueResponse');
 
 describe('ReleaseCommunicationFacade', () => {
   let RC;
@@ -17,9 +19,9 @@ describe('ReleaseCommunicationFacade', () => {
 
   it('should retrieve and return a diff of two commits given the repo and owner', async () => {
     handlers.getTagsHandler.mockResolvedValue(tagResponse);
-    handlers.getTagDiffHandler.mockResolvedValue(diffResponse);
+    handlers.getTagDiffHandler.mockResolvedValue(squashDiffResponse);
     const diff = await RC.diff();
-    const expectedDiff = diffResponse;
+    const expectedDiff = squashDiffResponse;
 
     expect(diff).toEqual(expectedDiff);
   });
@@ -33,7 +35,7 @@ describe('ReleaseCommunicationFacade', () => {
   it('should parse a diff response', async () => {
     expect.assertions(1);
     handlers.getPullRequestHandler.mockResolvedValueOnce(pullRequestResponse);
-    const diff = await RC.parseDiff(diffResponse);
+    const diff = await RC.parseDiff(squashDiffResponse);
     const expectedDiff = [
       {
         jiraTickets: ['JIRA-1234'],
@@ -46,10 +48,27 @@ describe('ReleaseCommunicationFacade', () => {
     expect(diff).toEqual(expectedDiff);
   });
 
+  it('should handle the retrieval and parse of non-squashed commits', async () => {
+    expect.assertions(2);
+    handlers.getTagsHandler.mockResolvedValue(tagResponse);
+    handlers.getTagDiffHandler.mockResolvedValue(mergedDiffResponse);
+    handlers.getPullRequestHandler.mockResolvedValueOnce(pullRequestResponse);
+    handlers.searchIssuesByCommitHandler.mockResolvedValueOnce(searchIssueResponse);
+
+    const diff = await RC.diff();
+    const expectedDiff = mergedDiffResponse;
+
+    expect(diff).toEqual(expectedDiff);
+
+    await RC.parseDiff(mergedDiffResponse);
+
+    expect(handlers.getPullRequestHandler).toHaveBeenCalledWith('fakeOwner', 'fakeRepo', 13);
+  });
+
   it('should parse a diff response with raw link', async () => {
     expect.assertions(1);
     handlers.getPullRequestHandler.mockResolvedValueOnce(pullRequestResponseRawLink);
-    const diff = await RC.parseDiff(diffResponse);
+    const diff = await RC.parseDiff(squashDiffResponse);
     const expectedDiff = [
       {
         jiraTickets: ['JIRA-1234'],
