@@ -4,6 +4,7 @@ const teamHelper = require('./teamHelper');
 const nameSort = require('./nameSort');
 const truncate = require('./truncate');
 const populateMessages = require('./populateMessages');
+const ticketFinder = require('./ticketFinder');
 
 module.exports = {
   groupFinder,
@@ -12,4 +13,5 @@ module.exports = {
   populateMessages,
   teams: teamHelper,
   truncate,
+  ticketFinder,
 };

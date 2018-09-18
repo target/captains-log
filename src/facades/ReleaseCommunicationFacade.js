@@ -1,5 +1,4 @@
 const idx = require('idx');
-const nconf = require('nconf');
 const { uniq } = require('lodash');
 const {
   getPullRequestHandler,
@@ -8,11 +7,10 @@ const {
   postMessageHandler,
   searchIssuesByCommitHandler,
 } = require('../handlers');
-const { groupFinder, getTagDiffFromTagId } = require('../utils');
+const { getTagDiffFromTagId, ticketFinder } = require('../utils');
 
 const PR_TEMPLATE_COMMENT_REGEX = new RegExp(/<!--[\s\S]*?-->/, 'gm');
-const regex = nconf.get('regex') || /(?:\[|https:\/\/jira\..*\.com\/browse\/)([A-Z0-9]+-[0-9]+)\]?/;
-const JIRA_REGEX = new RegExp(regex, 'g');
+
 const SQUASH_PR_REGEX = new RegExp(/\(#(.*)\)/, 'g');
 
 class ReleaseCommunication {
@@ -93,16 +91,17 @@ class ReleaseCommunication {
 
     const pullRequests = await Promise.all(uniquePRNumbers.map(async prNum => getPullRequestHandler(this.owner, this.repo, prNum)));
 
-    const pullRequestMessages = pullRequests.map((pr) => {
+    const pullRequestMessages = Promise.all(pullRequests.map(async (pr) => {
       const noCommentBody = pr.body.replace(PR_TEMPLATE_COMMENT_REGEX, '');
-      const jiraTickets = uniq(groupFinder(JIRA_REGEX, noCommentBody) || []);
+      const ticketGroups = await ticketFinder(noCommentBody);
+
       return {
         number: pr.number,
         message: pr.body,
-        jiraTickets,
+        ...ticketGroups,
         title: pr.title,
       };
-    });
+    }));
 
     return pullRequestMessages;
   }

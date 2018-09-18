@@ -71,7 +71,12 @@ describe('ReleaseCommunicationFacade', () => {
     const diff = await RC.parseDiff(squashDiffResponse);
     const expectedDiff = [
       {
+<<<<<<< HEAD
         jiraTickets: ['JIRA-1234', 'JIRA2-3455'],
+=======
+        github: [],
+        jira: ['JIRA-1234'],
+>>>>>>> feat: Implement Ticket Finders
         message: pullRequestResponseRawLink.body,
         number: 1,
         title: 'bla',

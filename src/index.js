@@ -38,9 +38,9 @@ const createAttachment = (hasMessages) => {
 const formatChangeMessage = ({
   change = {}, owner, repo, jiraTeam, githubDomain,
 }) => {
-  const { jiraTickets, number, title } = change;
-  if (!jiraTickets.length) return null;
-  return jiraTickets.map(ticket => ({
+  const { jira = [], number, title } = change;
+  if (!jira.length) return null;
+  return jira.map(ticket => ({
     message: `<https://jira.${jiraTeam}.com/browse/${ticket}|[${ticket}]> - <${githubDomain}/${owner}/${repo}/pull/${number}|#${number}>`,
     name: ticket,
     title,
