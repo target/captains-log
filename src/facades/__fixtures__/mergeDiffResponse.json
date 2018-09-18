@@ -1,0 +1,10 @@
+{
+  "commits": [
+    {
+      "sha": "123456789",
+      "commit": {
+        "message": "I don't have a squash message, I'm more of a merge message"
+      }
+    }
+  ]
+}

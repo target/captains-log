@@ -7,7 +7,7 @@ const Message = require('./factories/Message');
 const { populateMessages, teams, nameSort } = require('./utils');
 
 const defaultTeam = Team();
-const teamList = teams.map(team => Team(team));
+const teamList = teams.length ? teams.map(team => Team(team)) : [];
 
 const createAttachment = (hasMessages) => {
   let message = EMPTY_MESSAGE;
