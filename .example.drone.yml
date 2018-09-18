@@ -1,0 +1,21 @@
+---
+  captains-log:
+  image: target/captains-log:1
+  pull: true
+  secrets:
+    - source: GITHUB_TOKEN
+      target: GITHUB_TOKEN
+    - source: SLACK_URL
+      target: SLACK_URL
+  github_owner: target
+  github_repo: captains-log
+  jira_team_domain: anonymous
+  teams:
+    - name: captain-admins
+      color: "#f06d06"
+      emoji: "👩‍✈️"
+      mentions: "<@therynamo> <@remoz>"
+      issueTracking:
+        jira:
+          projects:
+            - CAP
