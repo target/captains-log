@@ -2,7 +2,11 @@ const idx = require('idx');
 const nconf = require('nconf');
 const { uniq } = require('lodash');
 const {
-  getPullRequestHandler, getTagsHandler, getTagDiffHandler, postMessageHandler,
+  getPullRequestHandler,
+  getTagsHandler,
+  getTagDiffHandler,
+  postMessageHandler,
+  searchIssuesByCommitHandler,
 } = require('../handlers');
 const { groupFinder, getTagDiffFromTagId } = require('../utils');
 
@@ -57,6 +61,7 @@ class ReleaseCommunication {
    */
   async parseDiff(diff = {}) {
     const { commits = [] } = diff;
+    const nonSquashedPRs = [];
 
     const pullRequestNumbers = commits.reduce((acc, commit) => {
       let prNumber = null;
@@ -72,10 +77,21 @@ class ReleaseCommunication {
 
       if (prNumber) return [...acc, prNumber[1]];
 
+      nonSquashedPRs.push(idx(commit, _ => _.sha));
+
       return acc;
     }, []);
 
-    const pullRequests = await Promise.all(pullRequestNumbers.map(async prNum => getPullRequestHandler(this.owner, this.repo, prNum)));
+    if (nonSquashedPRs.length) {
+      const prNumbersByCommit = await Promise.all(nonSquashedPRs.map(async commit => searchIssuesByCommitHandler(commit)));
+      // There should only ever be one issue for a commit
+      prNumbersByCommit.forEach(pr => pullRequestNumbers.push(idx(pr, _ => _.items[0].number)));
+    }
+
+    // Uniq the array and remove falsy elements
+    const uniquePRNumbers = uniq(pullRequestNumbers).filter(n => n);
+
+    const pullRequests = await Promise.all(uniquePRNumbers.map(async prNum => getPullRequestHandler(this.owner, this.repo, prNum)));
 
     const pullRequestMessages = pullRequests.map((pr) => {
       const noCommentBody = pr.body.replace(PR_TEMPLATE_COMMENT_REGEX, '');
