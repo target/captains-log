@@ -11,7 +11,7 @@ const {
 const { groupFinder, getTagDiffFromTagId } = require('../utils');
 
 const PR_TEMPLATE_COMMENT_REGEX = new RegExp(/<!--[\s\S]*?-->/, 'gm');
-const regex = nconf.get('regex') || /(?:\[|https:\/\/jira\..*\.com\/browse\/)([A-Z]+-[0-9]+)\]?/;
+const regex = nconf.get('regex') || /(?:\[|https:\/\/jira\..*\.com\/browse\/)([A-Z0-9]+-[0-9]+)\]?/;
 const JIRA_REGEX = new RegExp(regex, 'g');
 const SQUASH_PR_REGEX = new RegExp(/\(#(.*)\)/, 'g');
 
