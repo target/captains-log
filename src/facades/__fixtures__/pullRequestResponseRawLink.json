@@ -2,5 +2,5 @@
   "number": 1,
   "title": "bla",
   "body":
-    "Nonesense test\r\nasdfasdf;lkj\r\nhttps://jira.bla.com/browse/JIRA-1234)\r\n\r\nTestingasdf;lkj\r\n\r\n```Code```\r\n\r\n``codebad`"
+    "Nonesense test\r\nasdfasdf;lkj\r\nhttps://jira.bla.com/browse/JIRA-1234)\r\n\r\nTestingasdf;lkj\r\n\r\n```Code```\r\n\r\n``codebad` https://jira.bla.com/browse/JIRA2-3455"
 }

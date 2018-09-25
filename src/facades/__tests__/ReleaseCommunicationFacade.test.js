@@ -38,7 +38,7 @@ describe('ReleaseCommunicationFacade', () => {
     const diff = await RC.parseDiff(squashDiffResponse);
     const expectedDiff = [
       {
-        jiraTickets: ['JIRA-1234'],
+        jiraTickets: ['JIRA-1234', 'JIRA2-3455'],
         message: pullRequestResponse.body,
         number: 1,
         title: 'bla',
@@ -71,7 +71,7 @@ describe('ReleaseCommunicationFacade', () => {
     const diff = await RC.parseDiff(squashDiffResponse);
     const expectedDiff = [
       {
-        jiraTickets: ['JIRA-1234'],
+        jiraTickets: ['JIRA-1234', 'JIRA2-3455'],
         message: pullRequestResponseRawLink.body,
         number: 1,
         title: 'bla',
