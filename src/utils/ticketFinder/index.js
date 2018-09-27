@@ -12,7 +12,7 @@ const getFinderFunctions = async () => {
 
     if (isDir) return file;
 
-    return Promise.resolve();
+    return null;
   }));
 
   const finderFunctions = finderFiles.filter(n => n).map(file => require(`${finderPath}/${file}`)); // eslint-disable-line
