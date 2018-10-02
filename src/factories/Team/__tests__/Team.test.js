@@ -1,3 +1,4 @@
+/* eslint max-len: [0, 120] */
 const Team = require('..');
 
 describe('Team', () => {
@@ -44,6 +45,17 @@ describe('Team', () => {
     expect(team.messageMatch('CHANDLER')).toEqual(true);
   });
 
+  it('should match on a github message mentioning a team', () => {
+    const team = Team({ ...exampleTeam, issueTracking: { github: { projects: ['my_owner/my_repo'] } } });
+
+    expect(team.messageMatch('<https://github.com/my_owner/my_repo/issues/3|example_user/example_project/#3> - <https://github.com/tester/project/pull/2|#2')).toEqual(true);
+  });
+
+  it('should not match on a github message not mentioning a team', () => {
+    const team = Team({ ...exampleTeam, issueTracking: { github: { projects: ['my_owner/my_repo'] } } });
+
+    expect(team.messageMatch('<https://github.com/test/project/issues/3|example_user/example_project/#3> - <https://github.com/my_owner/my_repo/pull/2|#2')).toEqual(false);
+  });
   it('should not match on a message not mentioning a team', () => {
     const team = Team(exampleTeam);
 

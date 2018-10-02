@@ -38,7 +38,8 @@ describe('ReleaseCommunicationFacade', () => {
     const diff = await RC.parseDiff(squashDiffResponse);
     const expectedDiff = [
       {
-        jiraTickets: ['JIRA-1234', 'JIRA2-3455'],
+        github: { name: 'github', tickets: [] },
+        jira: { name: 'jira', tickets: [{ name: 'JIRA-1234' }, { name: 'JIRA-3455' }] },
         message: pullRequestResponse.body,
         number: 1,
         title: 'bla',
@@ -72,11 +73,16 @@ describe('ReleaseCommunicationFacade', () => {
     const expectedDiff = [
       {
 <<<<<<< HEAD
+<<<<<<< HEAD
         jiraTickets: ['JIRA-1234', 'JIRA2-3455'],
 =======
         github: [],
         jira: ['JIRA-1234'],
 >>>>>>> feat: Implement Ticket Finders
+=======
+        github: { name: 'github', tickets: [] },
+        jira: { name: 'jira', tickets: [{ name: 'JIRA-1234' }] },
+>>>>>>> Draw Owl, add tests, get issues working
         message: pullRequestResponseRawLink.body,
         number: 1,
         title: 'bla',

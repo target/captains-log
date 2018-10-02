@@ -4,7 +4,9 @@ const { DEFAULT_HEADING, EMPTY_MESSAGE } = require('./constants');
 const logger = require('./logger');
 const Team = require('./factories/Team');
 const Message = require('./factories/Message');
-const { populateMessages, teams, nameSort } = require('./utils');
+const {
+  populateMessages, teams, nameSort, formatMessages,
+} = require('./utils');
 
 const defaultTeam = Team();
 const teamList = teams.length ? teams.map(team => Team(team)) : [];
@@ -35,18 +37,6 @@ const createAttachment = (hasMessages) => {
   return { message, attachments };
 };
 
-const formatChangeMessage = ({
-  change = {}, owner, repo, jiraTeam, githubDomain,
-}) => {
-  const { jira = [], number, title } = change;
-  if (!jira.length) return null;
-  return jira.map(ticket => ({
-    message: `<https://jira.${jiraTeam}.com/browse/${ticket}|[${ticket}]> - <${githubDomain}/${owner}/${repo}/pull/${number}|#${number}>`,
-    name: ticket,
-    title,
-  }));
-};
-
 module.exports = async function App(config) {
   const {
     repo, owner, tagId, domain: githubDomain,
@@ -65,14 +55,15 @@ module.exports = async function App(config) {
   const diff = await releaseCommunication.diff();
   const changes = await releaseCommunication.parseDiff(diff);
   const messages = changes.reduce((acc, change) => {
-    const changeMessages = formatChangeMessage({
+    const changeMessages = formatMessages({
       change,
       owner,
       repo,
       githubDomain,
       jiraTeam,
     });
-    if (changeMessages) {
+
+    if (changeMessages.length) {
       return [...acc, ...changeMessages];
     }
 

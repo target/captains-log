@@ -12,4 +12,10 @@ describe('IssueTracker', () => {
 
     expect(trackers).toEqual({ jira: { matches: ['AWESOME'] } });
   });
+
+  it('should create a github tracker', () => {
+    const trackers = IssueTracker({ github: { projects: ['my_owner/my_repo'] } });
+
+    expect(trackers).toEqual({ github: { matches: ['my_owner/my_repo/issues'] } });
+  });
 });

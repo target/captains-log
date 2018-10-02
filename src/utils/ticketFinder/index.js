@@ -1,6 +1,10 @@
 const fs = require('fs').promises;
 const path = require('path');
 
+/**
+ * Dynamically imports any finders that are placed in `./finders`
+ * @return {Promise} resolves to Array of finder functions
+ */
 const getFinderFunctions = async () => {
   const finderPath = `${__dirname}/finders`;
   const finderDirs = await fs.readdir(finderPath);
@@ -20,20 +24,23 @@ const getFinderFunctions = async () => {
   return finderFunctions;
 };
 
+/**
+ * Finds tickets in pull request bodies based on pre-defined regexs
+ * @param  {String}  body pull request body
+ * @return {Promise}      resolves to return an object with separated buckets that have matches
+ */
 const ticketFinder = async (body) => {
   const finders = await getFinderFunctions();
   const ticketMap = {};
 
   finders.forEach((finder) => {
-    const { tickets = null, name = null } = finder(body);
+    const { name = null, tickets } = finder(body);
 
-    if (tickets) {
-      if (!ticketMap[name]) {
-        ticketMap[name] = [];
-      }
-
-      ticketMap[name].push(...tickets);
+    if (!ticketMap[name]) {
+      ticketMap[name] = {};
     }
+
+    ticketMap[name] = { ...ticketMap[name], name, tickets };
   });
 
   return { ...ticketMap };
