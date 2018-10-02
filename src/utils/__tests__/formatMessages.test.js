@@ -1,3 +1,4 @@
+/* eslint max-len: [0, 120] */
 const {
   emptyMessages,
   jiraOnlyMessages,
@@ -27,7 +28,7 @@ describe('format', () => {
       repo,
       githubDomain,
       jiraTeam,
-    })).toEqual(null);
+    })).toEqual([]);
   });
 
   it('should handle jira only messages', () => {
@@ -61,13 +62,13 @@ describe('format', () => {
     })).toEqual([
       {
         message:
-          '<https://github.com/example_user/example_project/issues/3|example_user/example_project/#3> - <https://github.com/tester/project/pull/2|#2',
+          '<https://github.com/example_user/example_project/issues/3|example_user/example_project/#3> - <https://github.com/tester/project/pull/2|#2>',
         name: '3',
         title: 'fix: The Thing',
       },
       {
         message:
-          '<https://github.com/example_user/example_project/issues/4|example_user/example_project/#4> - <https://github.com/tester/project/pull/2|#2',
+          '<https://github.com/example_user/example_project/issues/4|example_user/example_project/#4> - <https://github.com/tester/project/pull/2|#2>',
         name: '4',
         title: 'fix: The Thing',
       },
@@ -94,13 +95,13 @@ describe('format', () => {
       },
       {
         message:
-          '<https://github.com/example_user/example_project/issues/3|example_user/example_project/#3> - <https://github.com/tester/project/pull/2|#2',
+          '<https://github.com/example_user/example_project/issues/3|example_user/example_project/#3> - <https://github.com/tester/project/pull/2|#2>',
         name: '3',
         title: 'fix: The Thing',
       },
       {
         message:
-          '<https://github.com/example_user/example_project/issues/4|example_user/example_project/#4> - <https://github.com/tester/project/pull/2|#2',
+          '<https://github.com/example_user/example_project/issues/4|example_user/example_project/#4> - <https://github.com/tester/project/pull/2|#2>',
         name: '4',
         title: 'fix: The Thing',
       },
