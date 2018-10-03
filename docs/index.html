@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>captains-log - List out release notes in a digestable way</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <meta name="description" content="List out release notes in a digestable way">
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <link rel="stylesheet" href="//unpkg.com/docsify/lib/themes/vue.css">
+</head>
+<body>
+  <div id="app"></div>
+  <script>
+  window.$docsify = {
+    loadSidebar: true,
+    subMaxLevel: 2,
+    search: {
+      maxAge: 86400000, // Expiration time, the default one day
+      paths: 'auto', // or 'auto'
+      placeholder: 'Type to search',
+
+      // Localization
+      placeholder: {
+        '/zh-cn/': '搜索',
+        '/': 'Type to search'
+      },
+
+      noData: 'No Results!',
+
+      // Localization
+      noData: {
+        '/zh-cn/': '找不到结果',
+        '/': 'No Results'
+      },
+
+      // Headline depth, 1 - 6
+      depth: 2
+    },
+  name: 'Captain\'s Log',
+  repo: 'https://github.com/target/captains-log'
+}
+</script>
+<script src="//unpkg.com/docsify/lib/docsify.min.js"></script>
+<script src="//unpkg.com/prismjs/components/prism-yaml.min.js"></script>
+<script src="//unpkg.com/prismjs/components/prism-bash.min.js"></script>
+<script src="//unpkg.com/docsify-copy-code"></script>
+<script src="//unpkg.com/docsify/lib/plugins/emoji.min.js"></script>
+<script src="//unpkg.com/docsify/lib/plugins/zoom-image.min.js"></script>
+</body>
+</html>
