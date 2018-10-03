@@ -1,0 +1,94 @@
+# Configuration
+
+## Options
+
+**Required Fields**
+
+- `github_owner` - Owner of the the target repository. Example: `github.com/frank/cool_repo`, **frank** would be the _owner_
+- `github_repo` - Target repository name. Example: `github.com/frank/cool_repo`, **cool_repo** would be the _repo_
+
+**Required Secrets**
+
+- `GITHUB_TOKEN` - secure github token used to fetch information on releases/tags (consider using a non-user/bot account)
+- `SLACK_TOKEN` or `SLACK_URL` - tokens/channel urls are used to send messages to the correct channels
+
+**Optional Fields**
+
+- `jira_team_domain` - **Required** if you use the Jira issue tracker. Namespace of the Jira your workspace (e.g. `jira.myteamnamespace.com`, **myteamnamespace** would be the value for this key).
+- `github_tag_id` - you can use this as regex to match on specific tags. Useful when your tags are not in chronological order (e.g. `-rc0`, `-rc1`, `-release`).
+- `slack_channel`/`SLACK_URL` - when using the API, you should use `slack_channel` to specify which room you'd like to post to. When using `SLACK_URL` you should **not** specify the room (i.e. `slack_channel`) because the room is already a part of the incoming webhook. ([Setting Up A Webhook (e.g. SLACK_URL)](https://api.slack.com/incoming-webhooks), [Setting Up A Slack Token](https://api.slack.com/docs/token-types#verification))
+- `teams` - a list of teams which allows you to organize the output of Captain's Log into meaningful chunks. (more below)
+- `enterprise_host` - **Required** if you use Enterprise Github. This is where you would supply the custom domain. (e.g. https://git.myCompany.com, `/api/v3` will be appended to this **do not include it for this value**).
+
+### Example
+
+```yaml
+image: target/captains-log:1
+pull: true
+secrets:
+  - source: GITHUB_TOKEN
+    target: GITHUB_TOKEN
+  - source: SLACK_URL
+    target: SLACK_URL
+github_owner: target
+github_repo: captains-log
+github_tag_id: 'v([0-9]+-release)$'
+enterprise_host: https://git.myteam.com
+jira_team_domain: myteamnamespace
+teams:
+  ...
+```
+
+## Github Tag Ids
+
+**Example of `github_tag_id`**
+
+Some repositories use release candidates, so the format for releasing will look something like this:
+
+```
+v2-release
+v2-rc1
+v2-rc0
+v1-release
+```
+
+In order to compare against the right tag, you'll want to target the unique identifier. In this example, the `tag_id` used will be a regex matching on numbers and `-release`.
+
+The `yaml` for the plugin would look something like this
+
+```yaml
+github_tag_id: 'v([0-9]+-release)$'
+```
+
+## Using Teams to Structure Output
+
+`teams` is a **list** of teams which allows you to logically group the output of Captain's Log into focused chunks. You only need a few things to configure a team.
+
+```yaml
+teams:
+  - name: Team 1
+    color: '#f06d06'
+    emoji: '🐶'
+    mentions: '<@sam.i.am>'
+    issueTracking:
+      - github:
+          projects:
+            - my_org/my_repo
+      - jira:
+          projects:
+            - MYJIRA
+```
+
+- `name` - this value will be used to identify the particular team name in the output
+- `color` - this will be the side strip color of the team's output
+- `emoji` - this will be the emoji next to the team name
+- `mentions` - this value is used to mention any people or groups about this section of the log. (Note: you will need to wrap all mentions in `<>` due to slack conventions. You can mention groups by using the following format: `<!subteam^1234ASDF|super-cool-team>` where **super-cool-team** is the group and `1234ASDF` is the unique group identifier found in the slack web client)
+- `issueTracking` - **required** - this is a list of different issue trackers. Currently Jira is the only supported issue tracker, there may be more in the future.
+  - `jira` - this value is an object that has a `projects` array inside of it. Any string inside of the `projects` array will be used to match against issues found when scraping pull requests. For example `MYJIRA` will match `https://jira.myteamnamespace.com/browse/MYJIRA-1234`.
+  - `github` - this value is an object that has a `projects` array inside of it. You'll want to use a project value that will match issues found. For instance, if you're trying to match `https://github.com/my_waffle/waffle_team` you would use the value of `my_waffle/waffle_team`.
+
+If teams are not included, the issues will be grouped alphabetically under a title of `General`.
+
+---
+
+Next: [Contributing](/contributing/)
