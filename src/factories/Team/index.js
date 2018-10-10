@@ -29,11 +29,11 @@ const Team = function Team(team = {}) {
   const addMessage = function addMessage(message = '', title = '', githubPr = '') {
     // Slack lines wrap after ~36 characters. Most formatted messages will
     // include links so we'll say we're wrapping at higher char counts
-    const hasMessageWrap = message.length > 105;
+    const hasMessageWrap = message.length > 90;
     // Titles will have PR Numbers in them, so we'll give them a little less before truncating
-    const hasTitleWrap = title.length > 59;
+    const hasTitleWrap = title.length > 30;
 
-    const formattedTitle = hasTitleWrap ? truncate(title, 60) : title;
+    const formattedTitle = hasTitleWrap ? truncate(title, 55) : title;
 
     const details = githubPr ? `${githubPr}: ${formattedTitle}` : formattedTitle;
 
@@ -45,11 +45,11 @@ const Team = function Team(team = {}) {
 
     if (hasMessageWrap && !hasTitleWrap) {
       messageStories = `${messageStories}`;
-      messageDetails = `${messageDetails} \n`;
+      messageDetails = `${messageDetails} \n `;
     }
 
     if (!hasMessageWrap && hasTitleWrap) {
-      messageStories = `${messageStories} \n`;
+      messageStories = `${messageStories} \n `;
       messageDetails = `${messageDetails}`;
     }
 
