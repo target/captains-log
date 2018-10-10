@@ -6,6 +6,14 @@ const JiraTracker = function JiraTracker(tracker = {}) {
   };
 };
 
+const GithubTracker = function GithubTracker(tracker = {}) {
+  const { projects = [] } = tracker;
+
+  return {
+    matches: projects.map(project => `${project}/issues`),
+  };
+};
+
 const IssueTracker = function IssueTracker(issueTrackers = {}) {
   const trackerList = Object.keys(issueTrackers);
 
@@ -15,6 +23,9 @@ const IssueTracker = function IssueTracker(issueTrackers = {}) {
     switch (tracker) {
       case 'jira':
         acc[tracker] = JiraTracker(issueTrackers[tracker]);
+        break;
+      case 'github':
+        acc[tracker] = GithubTracker(issueTrackers[tracker]);
         break;
       default:
         break;

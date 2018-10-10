@@ -47,22 +47,25 @@ nconf.set('development', process.env.NODE_ENV === DEVELOPMENT);
 // PR RegExp
 nconf.set('regexp', process.env.PLUGIN_REGEXP);
 
-// Github
-nconf.set('github:domain', process.env.PLUGIN_ENTERPRISE_HOST);
-nconf.set('github:host', process.env.PLUGIN_GITHUB_HOST);
-nconf.set('github:token', process.env.GITHUB_TOKEN);
-nconf.set('github:owner', process.env.PLUGIN_GITHUB_OWNER);
-nconf.set('github:repo', process.env.PLUGIN_GITHUB_REPO);
-nconf.set('github:tagId', process.env.PLUGIN_GITHUB_TAG_ID);
+if (process.env.NODE_ENV !== 'test') {
+  // Github
+  nconf.set('github:domain', process.env.PLUGIN_ENTERPRISE_HOST);
+  nconf.set('github:host', process.env.PLUGIN_GITHUB_HOST);
+  nconf.set('github:token', process.env.GITHUB_TOKEN);
+  nconf.set('github:owner', process.env.PLUGIN_GITHUB_OWNER);
+  nconf.set('github:repo', process.env.PLUGIN_GITHUB_REPO);
+  nconf.set('github:tagId', process.env.PLUGIN_GITHUB_TAG_ID);
 
-// Team Configuration
-nconf.set('teams', process.env.PLUGIN_TEAMS);
+  // Team Configuration
+  nconf.set('teams', process.env.PLUGIN_TEAMS);
 
-// Slack
-nconf.set('slack:token', process.env.SLACK_TOKEN);
-nconf.set('slack:channelUrl', process.env.SLACK_URL);
-nconf.set('slack:channel', process.env.PLUGIN_SLACK_CHANNEL);
+  // Slack
+  nconf.set('slack:token', process.env.SLACK_TOKEN);
+  nconf.set('slack:channelUrl', process.env.SLACK_URL);
+  nconf.set('slack:channel', process.env.PLUGIN_SLACK_CHANNEL);
 
-// Jira
-nconf.set('jira:teamDomain', process.env.PLUGIN_JIRA_TEAM_DOMAIN);
+  // Jira
+  nconf.set('jira:teamDomain', process.env.PLUGIN_JIRA_TEAM_DOMAIN);
+}
+
 module.exports = nconf;

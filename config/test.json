@@ -2,6 +2,8 @@
   "github": {
     "token": "fake_token",
     "host": "fake_host",
-    "timeout": 0
+    "timeout": 0,
+    "owner": "test_owner",
+    "repo": "test_repo"
   }
 }
