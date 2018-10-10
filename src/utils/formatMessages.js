@@ -1,12 +1,9 @@
 const idx = require('idx');
 
-const jiraMessage = ({
-  jiraTeam, githubDomain, owner, repo,
-}, { name }, number) =>
-  `<https://jira.${jiraTeam}.com/browse/${name}|[${name}]> - <${githubDomain}/${owner}/${repo}/pull/${number}|#${number}>`;
+const jiraMessage = ({ jiraTeam }, { name }) => `<https://jira.${jiraTeam}.com/browse/${name}|[${name}]>`;
 
-const githubMessage = ({ githubDomain, owner, repo }, { fullLinkedUrl, issueNumber, project }, number) =>
-  `<${fullLinkedUrl}|${project}/#${issueNumber}> - <${githubDomain}/${owner}/${repo}/pull/${number}|#${number}>`;
+const githubMessage = (args, { fullLinkedUrl, issueNumber, project }) =>
+  `<${fullLinkedUrl}|${project}/#${issueNumber}>`;
 
 /**
  * Map function for issue tracker formatting. Needed to normalize ticket structures for sorting.
@@ -15,6 +12,7 @@ const githubMessage = ({ githubDomain, owner, repo }, { fullLinkedUrl, issueNumb
  */
 const formatter = (formatArgs, number, title, messageCreator) => ticket => ({
   message: messageCreator(formatArgs, ticket, number),
+  githubPr: `<${formatArgs.githubDomain}/${formatArgs.owner}/${formatArgs.repo}/pull/${number}|#${number}>`,
   name: ticket.name,
   title,
 });

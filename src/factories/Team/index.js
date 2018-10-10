@@ -3,7 +3,13 @@ const { truncate } = require('../../utils');
 
 const Team = function Team(team = {}) {
   const {
-    color = '#3ef2c5', emoji = '🌱', issueTracking = {}, mentions = '', messages = '', titles = '', name = 'General',
+    color = '#3ef2c5',
+    emoji = '🌱',
+    issueTracking = {},
+    mentions = '',
+    messages = '',
+    titles = '',
+    name = 'General',
   } = team;
   this.teamTitles = titles;
   this.teamMessages = messages;
@@ -20,11 +26,36 @@ const Team = function Team(team = {}) {
     return isMatch;
   };
 
-  const addMessage = function addMessage(message = '', title = '') {
-    const msg = `${this.teamMessages.length ? `\n ${message}` : message}`;
-    const t = `${this.teamTitles.length ? `\n ${truncate(title)}` : truncate(title)}`;
-    this.teamTitles = this.teamTitles.concat(t);
-    this.teamMessages = this.teamMessages.concat(msg);
+  const addMessage = function addMessage(message = '', title = '', githubPr = '') {
+    // Slack lines wrap after ~36 characters. Most formatted messages will
+    // include links so we'll say we're wrapping at higher char counts
+    const hasMessageWrap = message.length > 105;
+    // Titles will have PR Numbers in them, so we'll give them a little less before truncating
+    const hasTitleWrap = title.length > 59;
+
+    const formattedTitle = hasTitleWrap ? truncate(title, 60) : title;
+
+    const details = githubPr ? `${githubPr}: ${formattedTitle}` : formattedTitle;
+
+    const hasTeamTitles = !!this.teamTitles.length;
+    const hasTeamMessages = !!this.teamMessages.length;
+
+    let messageStories = hasTeamMessages ? `\n ${message}` : message;
+    let messageDetails = hasTeamTitles ? `\n ${details}` : details;
+
+    if (hasMessageWrap && !hasTitleWrap) {
+      messageStories = `${messageStories}`;
+      messageDetails = `${messageDetails} \n`;
+    }
+
+    if (!hasMessageWrap && hasTitleWrap) {
+      messageStories = `${messageStories} \n`;
+      messageDetails = `${messageDetails}`;
+    }
+
+    this.teamTitles = this.teamTitles.concat(messageDetails);
+    this.teamMessages = this.teamMessages.concat(messageStories);
+
     return this.teamMessages;
   };
 

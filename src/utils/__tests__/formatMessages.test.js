@@ -40,12 +40,14 @@ describe('format', () => {
       jiraTeam,
     })).toEqual([
       {
-        message: '<https://jira.FRANK.com/browse/CAT-123|[CAT-123]> - <https://github.com/tester/project/pull/2|#2>',
+        message: '<https://jira.FRANK.com/browse/CAT-123|[CAT-123]>',
+        githubPr: '<https://github.com/tester/project/pull/2|#2>',
         name: 'CAT-123',
         title: 'fix: The Thing',
       },
       {
-        message: '<https://jira.FRANK.com/browse/DOG-345|[DOG-345]> - <https://github.com/tester/project/pull/2|#2>',
+        message: '<https://jira.FRANK.com/browse/DOG-345|[DOG-345]>',
+        githubPr: '<https://github.com/tester/project/pull/2|#2>',
         name: 'DOG-345',
         title: 'fix: The Thing',
       },
@@ -61,14 +63,14 @@ describe('format', () => {
       jiraTeam,
     })).toEqual([
       {
-        message:
-          '<https://github.com/example_user/example_project/issues/3|example_user/example_project/#3> - <https://github.com/tester/project/pull/2|#2>',
+        message: '<https://github.com/example_user/example_project/issues/3|example_user/example_project/#3>',
+        githubPr: '<https://github.com/tester/project/pull/2|#2>',
         name: '3',
         title: 'fix: The Thing',
       },
       {
-        message:
-          '<https://github.com/example_user/example_project/issues/4|example_user/example_project/#4> - <https://github.com/tester/project/pull/2|#2>',
+        message: '<https://github.com/example_user/example_project/issues/4|example_user/example_project/#4>',
+        githubPr: '<https://github.com/tester/project/pull/2|#2>',
         name: '4',
         title: 'fix: The Thing',
       },
@@ -84,24 +86,26 @@ describe('format', () => {
       jiraTeam,
     })).toEqual([
       {
-        message: '<https://jira.FRANK.com/browse/CAT-123|[CAT-123]> - <https://github.com/tester/project/pull/2|#2>',
+        message: '<https://jira.FRANK.com/browse/CAT-123|[CAT-123]>',
+        githubPr: '<https://github.com/tester/project/pull/2|#2>',
         name: 'CAT-123',
         title: 'fix: The Thing',
       },
       {
-        message: '<https://jira.FRANK.com/browse/DOG-345|[DOG-345]> - <https://github.com/tester/project/pull/2|#2>',
+        message: '<https://jira.FRANK.com/browse/DOG-345|[DOG-345]>',
+        githubPr: '<https://github.com/tester/project/pull/2|#2>',
         name: 'DOG-345',
         title: 'fix: The Thing',
       },
       {
-        message:
-          '<https://github.com/example_user/example_project/issues/3|example_user/example_project/#3> - <https://github.com/tester/project/pull/2|#2>',
+        message: '<https://github.com/example_user/example_project/issues/3|example_user/example_project/#3>',
+        githubPr: '<https://github.com/tester/project/pull/2|#2>',
         name: '3',
         title: 'fix: The Thing',
       },
       {
-        message:
-          '<https://github.com/example_user/example_project/issues/4|example_user/example_project/#4> - <https://github.com/tester/project/pull/2|#2>',
+        message: '<https://github.com/example_user/example_project/issues/4|example_user/example_project/#4>',
+        githubPr: '<https://github.com/tester/project/pull/2|#2>',
         name: '4',
         title: 'fix: The Thing',
       },
