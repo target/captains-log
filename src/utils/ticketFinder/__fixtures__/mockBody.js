@@ -17,11 +17,6 @@ const mockBodyWithTicketsInBrackets = `
   JIRA
   ===
   [CAT-123]
-
-  GITHUB
-  ===
-
-  https://github.com/owner/repo/issues/123
 `;
 
 const mockBodyWithTicketLikeThings = `
