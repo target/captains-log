@@ -1,5 +1,11 @@
 const ticketFinder = require('..');
-const { mockBodyWithTickets, mockBodyWithNothing, mockBodyWithMultipleTickets } = require('../__fixtures__/mockBody');
+const {
+  mockBodyWithTickets,
+  mockBodyWithTicketsInBrackets,
+  mockBodyWithTicketLikeThings,
+  mockBodyWithMultipleTickets,
+  mockBodyWithNothing,
+} = require('../__fixtures__/mockBody');
 
 describe('ticketFinder', () => {
   it('should find tickets for all finders given a message body', async () => {
@@ -19,6 +25,21 @@ describe('ticketFinder', () => {
       },
       jira: { name: 'jira', tickets: [{ name: 'CAT-123' }] },
     });
+  });
+
+  it('should find Jira tickets in brackets in given a message body', async () => {
+    const tickets = await ticketFinder(mockBodyWithTicketsInBrackets);
+
+    expect(tickets).toEqual({
+      github: { name: 'github', tickets: [] },
+      jira: { name: 'jira', tickets: [{ name: 'CAT-123' }] },
+    });
+  });
+
+  it('should not find things that look almost like tickets in given a message body', async () => {
+    const tickets = await ticketFinder(mockBodyWithTicketLikeThings);
+
+    expect(tickets).toEqual({ github: { name: 'github', tickets: [] }, jira: { name: 'jira', tickets: [] } });
   });
 
   it('should find multiple tickets for all finders given a message body', async () => {
