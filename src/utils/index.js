@@ -6,9 +6,11 @@ const truncate = require('./truncate');
 const populateMessages = require('./populateMessages');
 const ticketFinder = require('./ticketFinder');
 const formatMessages = require('./formatMessages');
+const generateSlackFormatterUrl = require('./generateSlackFormatterUrl');
 
 module.exports = {
   groupFinder,
+  generateSlackFormatterUrl,
   getTagDiffFromTagId,
   formatMessages,
   nameSort,

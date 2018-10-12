@@ -5,7 +5,7 @@ const logger = require('./logger');
 const Team = require('./factories/Team');
 const Message = require('./factories/Message');
 const {
-  populateMessages, teams, nameSort, formatMessages,
+  populateMessages, teams, nameSort, formatMessages, generateSlackFormatterUrl,
 } = require('./utils');
 
 const defaultTeam = Team();
@@ -75,7 +75,8 @@ module.exports = async function App(config) {
   populateMessages(defaultTeam)(teamList, sortedMessages);
 
   const { message, attachments } = createAttachment(messages.length);
-  logger.info(message, JSON.stringify(attachments));
+
+  logger.info(`\n Slack Formatter Url. CMD+Click to open in your default browser \n \n ${generateSlackFormatterUrl(attachments)}`);
 
   await releaseCommunication.sendMessage(message, attachments);
 };
