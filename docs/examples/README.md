@@ -34,8 +34,8 @@ my-release-log-step:
       emoji: "✨"
       mentions: "<@person1>  <@person2>"
       issueTracking:
-        - jira:
-            projects:
+        jira:
+          projects:
             - TEAM1
             - TEAM1SUBGROUP
     - name: Team2
@@ -43,8 +43,8 @@ my-release-log-step:
       emoji: "🔥"
       mentions: "<@person3>"
       issueTracking:
-        - jira:
-            projects:
+        jira:
+          projects:
             - TEAM2
 ```
 
@@ -62,8 +62,8 @@ my-release-log-step:
       emoji: "✨"
       mentions: "<@person1>  <@person2>"
       issueTracking:
-        - github:
-            projects:
+        github:
+          projects:
             - ReactTraining/waffle_repo
 ```
 
