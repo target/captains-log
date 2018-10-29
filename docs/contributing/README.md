@@ -10,7 +10,7 @@ yarn
 yarn test
 ```
 
-Given the tests have passed, you can begin developing. If you'd like to run the tests while your working you can use `yarn test:watch` (runs Jest in watch mode). Be sure to write tests, when applicable, for any new changes.
+Given the tests have passed, you can begin developing. If you'd like to run the tests while you're working you can use `yarn test:watch` (runs Jest in watch mode). Be sure to write tests, when applicable, for any new changes.
 
 Once you've completed your work, you should test your changes.
 

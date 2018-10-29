@@ -71,12 +71,12 @@ teams:
     emoji: '🐶'
     mentions: '<@sam.i.am>'
     issueTracking:
-      - github:
-          projects:
-            - my_org/my_repo
-      - jira:
-          projects:
-            - MYJIRA
+      github:
+        projects:
+          - my_org/my_repo
+      jira:
+        projects:
+          - MYJIRA
 ```
 
 - `name` - this value will be used to identify the particular team name in the output
