@@ -82,7 +82,12 @@ teams:
 - `name` - this value will be used to identify the particular team name in the output
 - `color` - this will be the side strip color of the team's output
 - `emoji` - this will be the emoji next to the team name
-- `mentions` - this value is used to mention any people or groups about this section of the log. (Note: you will need to wrap all mentions in `<>` due to slack conventions. You can mention groups by using the following format: `<!subteam^1234ASDF|super-cool-team>` where **super-cool-team** is the group and `1234ASDF` is the unique group identifier found in the slack web client)
+- `mentions` - this value is used to mention any people or groups about this section of the log. You will need to wrap all mentions in `<>` due to slack conventions. You can mention groups by using the following format: `<!subteam^1234ASDF|super-cool-team>` where **super-cool-team** is the group and `1234ASDF` is the unique group identifier, which you can find as follows:
+  - Open your Slack workspace on the web client (e.g., https://our-space.slack.com)
+  - Click the settings menu in the upper right (three dots stacked vertically)
+  - Choose "User Groups" from that menu - a side panel will open.
+  - In the side panel, search for the group in question and, once found, click on it.
+  - Now look at the URL - the group ID is the last segment in the path (e.g., `1234ASDF` in https://our-space.slack.com/messages/ABCD12345/groups/1234ASDF/)
 - `issueTracking` - **required** - this is a list of different issue trackers. Currently Jira is the only supported issue tracker, there may be more in the future.
   - `jira` - this value is an object that has a `projects` array inside of it. Any string inside of the `projects` array will be used to match against issues found when scraping pull requests. For example `MYJIRA` will match `https://jira.myteamnamespace.com/browse/MYJIRA-1234`.
   - `github` - this value is an object that has a `projects` array inside of it. You'll want to use a project value that will match issues found. For instance, if you're trying to match `https://github.com/my_waffle/waffle_team` you would use the value of `my_waffle/waffle_team`.
