@@ -17,13 +17,18 @@ const Team = function Team(team = {}) {
   const trackers = IssueTracker(issueTracking);
 
   const messageMatch = (message = '') => {
-    let isMatch = false;
+    const isMatch = Object.values(trackers).reduce((acc, tracker) => {
+      const { matches = [] } = tracker;
+      const match = matches.filter(matcher => message.match(matcher));
 
-    Object.values(trackers).forEach(({ matches = [] }) => {
-      isMatch = !!matches.filter(match => message.match(match)).length;
-    });
+      if (match.length) {
+        return [...acc, ...match];
+      }
 
-    return isMatch;
+      return acc;
+    }, []);
+
+    return !!isMatch.length;
   };
 
   const addMessage = function addMessage(message = '', title = '', githubPr = '') {
