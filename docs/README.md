@@ -1,4 +1,4 @@
-# Captain's Log 👩‍✈️
+# Captain's Log
 
 A Drone plugin that provides automated release notes.
 
