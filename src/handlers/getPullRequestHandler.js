@@ -1,5 +1,6 @@
-const { Github: github } = require('../connectors');
+const { Github } = require('../connectors');
 
+const github = Github();
 module.exports = async function getPullRequest(owner, repo, number) {
   let pr = {};
   try {

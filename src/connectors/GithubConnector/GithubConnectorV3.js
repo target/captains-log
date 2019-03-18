@@ -1,5 +1,5 @@
 const Github = require('@octokit/rest');
-const config = require('../config');
+const config = require('../../config');
 
 const {
   domain, host, timeout, token,

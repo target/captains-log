@@ -1,4 +1,6 @@
-const { Github: github } = require('../connectors');
+const { Github } = require('../connectors');
+
+const github = Github();
 
 // query is required
 module.exports = async function searchIssuesByCommit(query) {
