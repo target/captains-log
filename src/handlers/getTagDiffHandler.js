@@ -1,4 +1,6 @@
-const { Github: github } = require('../connectors');
+const { Github } = require('../connectors');
+
+const github = Github();
 
 module.exports = async function getTagDiff(owner, repo, head, base) {
   let tagDiff = {};

@@ -10,6 +10,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@octokit/graphql": "^2.0.1",
     "@octokit/rest": "^15.8.1",
     "@slack/client": "^4.3.1",
     "common-tags": "^1.8.0",
@@ -18,7 +19,8 @@
     "lodash": "^4.17.10",
     "nconf": "^0.10.0",
     "node-fetch": "^2.1.2",
-    "pino": "^4.17.3"
+    "pino": "^4.17.3",
+    "prettier": "^1.16.4"
   },
   "devDependencies": {
     "eslint": "^4.19.1",
