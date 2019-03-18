@@ -7,11 +7,6 @@ const github = Github(true);
 module.exports = async function getTags(owner, repo) {
   let repository = [];
   try {
-    console.log(Github);
-    console.log(github);
-    console.log(github);
-    console.log(github);
-    console.log(github);
     repository = await github({
       query: `query GetTags($owner: String!, $repo: String!) {
         repository(owner: $owner, name: $repo) {
