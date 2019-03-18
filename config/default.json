@@ -1,9 +1,11 @@
 {
   "regexp": null,
   "github": {
+    "apiVersion": "v3",
     "timeout": 0,
     "token": "<REPLACE_ME>",
     "host": "https://github.com/api/v3",
+    "v4Host": "https://api.github.com/graphql",
     "domain": null
   },
   "slack": {

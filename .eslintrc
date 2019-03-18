@@ -4,6 +4,7 @@
     "jest": true
   },
   "rules": {
-    "max-len": ["error", 150]
+    "max-len": ["error", 150],
+    "no-debugger": 0
   }
 }
