@@ -12,7 +12,7 @@ const defaultTeam = Team();
 const teamList = teams.length ? teams.map(team => Team(team)) : [];
 
 const createAttachment = (hasMessages, { owner, repo }) => {
-  let message = EMPTY_MESSAGE;
+  let message = EMPTY_MESSAGE(owner, repo);
   let attachments = {};
 
   if (!hasMessages) {
@@ -20,7 +20,7 @@ const createAttachment = (hasMessages, { owner, repo }) => {
   }
 
   // add all the PRs if there are any
-  message = DEFAULT_HEADING`${owner}/${repo}`;
+  message = DEFAULT_HEADING(owner, repo);
   attachments = [];
 
   const teamsToAttach = [...teamList, defaultTeam];
