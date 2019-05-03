@@ -11,7 +11,7 @@ const {
 const defaultTeam = Team();
 const teamList = teams.length ? teams.map(team => Team(team)) : [];
 
-const createAttachment = (hasMessages) => {
+const createAttachment = (hasMessages, { owner, repo }) => {
   let message = EMPTY_MESSAGE;
   let attachments = {};
 
@@ -20,7 +20,7 @@ const createAttachment = (hasMessages) => {
   }
 
   // add all the PRs if there are any
-  message = DEFAULT_HEADING;
+  message = DEFAULT_HEADING`${owner}/${repo}`;
   attachments = [];
 
   const teamsToAttach = [...teamList, defaultTeam];
@@ -74,7 +74,7 @@ module.exports = async function App(config) {
 
   populateMessages(defaultTeam)(teamList, sortedMessages);
 
-  const { message, attachments } = createAttachment(messages.length);
+  const { message, attachments } = createAttachment(messages.length, { owner, repo });
 
   logger.info(`\n Slack Formatter Url. CMD+Click to open in your default browser \n \n ${generateSlackFormatterUrl(attachments)}`);
 
