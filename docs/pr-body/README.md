@@ -28,7 +28,7 @@ This PR addresses concerns brought up in https://jira.mycompany.com/browse/JIRA-
 
 There are many reasons that you would want to ignore an issue. One of the most common ones is when you have worked on multiple "sub-tasks" or "sub-tickets" that all roll into a single issue. It can be helpful to reference these in a pull request, especially if they close issues, like the github syntax allows you to do. However, you may just want Captain's Log to reference the "parent" issue on release. 
 
-Ignoring an issue or multiple issues is as easy as placing these issues inside of a Captain's Log _"ignore block"_. It is a simple HTML comment block with two sepcial key words, `icl` and `ecl`. This stands for `ignore captain's log` and `end captain's log` (ignore), respectively. 
+Ignoring an issue or multiple issues is as easy as placing these issues inside of a Captain's Log _"ignore block"_. It is a simple HTML comment block with two special key words, `icl` and `ecl`. This stands for `ignore captain's log` and `end captain's log` (ignore), respectively. 
 
 Place this in your pull request template, or copy and paste it on a pr basis:
 
