@@ -69,4 +69,4 @@ my-release-log-step:
 
 ---
 
-Next: [Contributing](/contributing/)
+Next: [Including issues in captian's log](/pr-body/).
