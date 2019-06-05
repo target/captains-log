@@ -12,7 +12,7 @@ The linking of _#34_ in the pull request will automatically get picked up by Cap
 
 The same goes for all of the github keywords, like "closes #34" (etc.).
 
-Linking Jira tickes is as easy as mentioning them in the ticket.
+Linking Jira tickets is as easy as mentioning them in the ticket.
 
 For example:
 
