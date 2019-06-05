@@ -69,4 +69,4 @@ my-release-log-step:
 
 ---
 
-Next: [Including issues in captian's log](/pr-body/).
+Next: [Including issues in Captain's Log](/pr-body/).
