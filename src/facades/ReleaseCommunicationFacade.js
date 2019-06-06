@@ -10,6 +10,7 @@ const {
 const { getTagDiffFromTagId, ticketFinder } = require('../utils');
 
 const PR_TEMPLATE_COMMENT_REGEX = new RegExp(/<!--[\s\S]*?-->/, 'gm');
+const STRIP_IGNORE_TICKETS = new RegExp(/<!--.+?icl.+?-->([\S\s.]*?)<!--.+?ecl.+?-->/, 'gm');
 
 const SQUASH_PR_REGEX = new RegExp(/\(#(.*)\)/, 'g');
 
@@ -92,7 +93,9 @@ class ReleaseCommunication {
     const pullRequests = await Promise.all(uniquePRNumbers.map(async prNum => getPullRequestHandler(this.owner, this.repo, prNum)));
 
     const pullRequestMessages = Promise.all(pullRequests.map(async (pr) => {
-      const noCommentBody = pr.body.replace(PR_TEMPLATE_COMMENT_REGEX, '');
+      const stripIgnoreTickets = pr.body.replace(STRIP_IGNORE_TICKETS, '');
+      const noCommentBody = stripIgnoreTickets.replace(PR_TEMPLATE_COMMENT_REGEX, '');
+
       const ticketGroups = await ticketFinder(noCommentBody);
 
       return {

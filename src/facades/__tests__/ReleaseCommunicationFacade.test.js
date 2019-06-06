@@ -6,6 +6,7 @@ const handlers = require('../../handlers');
 const tagResponse = require('../__fixtures__/tagResponse.json');
 const pullRequestResponse = require('../__fixtures__/pullRequestResponse.json');
 const pullRequestResponseRawLink = require('../__fixtures__/pullRequestResponseRawLink.json');
+const explicitIgnorePRResponse = require('../__fixtures__/explicitIgnore.json');
 const squashDiffResponse = require('../__fixtures__/squashDiffResponse.json');
 const mergedDiffResponse = require('../__fixtures__/mergeDiffResponse.json');
 const searchIssueResponse = require('../__fixtures__/searchIssueResponse');
@@ -75,6 +76,23 @@ describe('ReleaseCommunicationFacade', () => {
         github: { name: 'github', tickets: [] },
         jira: { name: 'jira', tickets: [{ name: 'JIRA-1234' }, { name: 'JIRA2-3455' }] },
         message: pullRequestResponseRawLink.body,
+        number: 1,
+        title: 'bla',
+      },
+    ];
+
+    expect(diff).toEqual(expectedDiff);
+  });
+
+  it('should strip out any explicitly ignored tickets', async () => {
+    expect.assertions(1);
+    handlers.getPullRequestHandler.mockResolvedValueOnce(explicitIgnorePRResponse);
+    const diff = await RC.parseDiff(squashDiffResponse);
+    const expectedDiff = [
+      {
+        github: { name: 'github', tickets: [] },
+        jira: { name: 'jira', tickets: [{ name: 'JIRA-1234' }] },
+        message: explicitIgnorePRResponse.body,
         number: 1,
         title: 'bla',
       },
