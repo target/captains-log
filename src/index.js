@@ -14,6 +14,7 @@ const teamList = teams.length ? teams.map(team => Team(team)) : [];
 const createAttachment = (hasMessages, { owner, repo }) => {
   let message = EMPTY_MESSAGE(owner, repo);
   let attachments = {};
+  let subChannelAttachments = [];
 
   if (!hasMessages) {
     return { message, attachments };
@@ -22,6 +23,8 @@ const createAttachment = (hasMessages, { owner, repo }) => {
   // add all the PRs if there are any
   message = DEFAULT_HEADING(owner, repo);
   attachments = [];
+  // team sub-channel attachments
+  subChannelAttachments = [];
 
   const teamsToAttach = [...teamList, defaultTeam];
 
@@ -31,10 +34,14 @@ const createAttachment = (hasMessages, { owner, repo }) => {
 
     if (attachment) {
       attachments.push(attachment);
+
+      // if a team has subchannels, generate attatchments to send
+      // to those channels here.
+      team.channels.forEach(channel => subChannelAttachments.push({ channel, attachment }));
     }
   });
 
-  return { message, attachments };
+  return { message, attachments, subChannelAttachments };
 };
 
 module.exports = async function App(config) {
@@ -74,9 +81,15 @@ module.exports = async function App(config) {
 
   populateMessages(defaultTeam)(teamList, sortedMessages);
 
-  const { message, attachments } = createAttachment(messages.length, { owner, repo });
+  const { message, attachments, subChannelAttachments } = createAttachment(messages.length, { owner, repo });
 
   logger.info(`\n Slack Formatter Url. CMD+Click to open in your default browser \n \n ${generateSlackFormatterUrl(attachments)}`);
 
   await releaseCommunication.sendMessage(message, attachments);
+
+  // Send all individual attachments to their respective channels per team.
+  if (subChannelAttachments.length) {
+    await Promise.all(subChannelAttachments.map(({ attachment, channel: subChannel }) =>
+      releaseCommunication.sendMessage(message, [attachment], subChannel, true)));
+  }
 };

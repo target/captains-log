@@ -12,7 +12,7 @@
   "dependencies": {
     "@octokit/graphql": "^2.0.1",
     "@octokit/rest": "^15.8.1",
-    "@slack/client": "^4.3.1",
+    "@slack/web-api": "^5.0.1",
     "common-tags": "^1.8.0",
     "idx": "^2.3.0",
     "jest": "^23.1.0",

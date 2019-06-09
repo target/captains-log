@@ -58,6 +58,8 @@ my-release-log-step:
   github_repo: react-media
   teams:
     - name: Team1
+      channels:
+        - my-teams-private-channel
       color: "#FFDC18"
       emoji: "✨"
       mentions: "<@person1>  <@person2>"
