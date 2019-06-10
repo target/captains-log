@@ -18,6 +18,7 @@ describe('Team', () => {
     const team = Team();
 
     expect(team).toEqual(expect.objectContaining({
+      channels: [],
       color: expect.any(String),
       emoji: expect.any(String),
       mentions: expect.any(String),

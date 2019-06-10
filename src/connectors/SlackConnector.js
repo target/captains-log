@@ -1,4 +1,4 @@
-const { WebClient } = require('@slack/client');
+const { WebClient } = require('@slack/web-api');
 const config = require('../config');
 
 // An access token (from your Slack app or custom integration - xoxp, xoxb, or xoxa)
