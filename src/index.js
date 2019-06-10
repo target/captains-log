@@ -13,7 +13,7 @@ const teamList = teams.length ? teams.map(team => Team(team)) : [];
 
 const createAttachment = (hasMessages, { owner, repo }) => {
   let message = EMPTY_MESSAGE(owner, repo);
-  let attachments = {};
+  let attachments = [];
   let subChannelAttachments = [];
 
   if (!hasMessages) {
