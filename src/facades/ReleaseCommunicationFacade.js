@@ -113,15 +113,18 @@ class ReleaseCommunication {
    * async sendMessage - Send slack message to desired channel
    *
    * @param  {String} text text to send to channel
-   * @param  {String} channelOverride  desired channel if it is not what exists in the constructor
+   * @param  {Array} attachments  list of attachments to send to a room
+   * @param  {String} channel desired channel if it is not what exists in the constructor
+   * @param  {Boolean} sendToChannelOnly if you wish to ignore the channelURL (which usually needs a channel) set to true
+   *
    * @return {Object} response object from the posted message https://slackapi.github.io/node-slack-sdk/web_api
    */
-  async sendMessage(text, attachments) {
+  async sendMessage(text, attachments, channel, sendToChannelOnly) {
     const response = await postMessageHandler({
-      channel: this.channel,
+      channel: channel || this.channel,
       text,
       attachments,
-      channelUrl: this.channelUrl,
+      channelUrl: sendToChannelOnly ? null : this.channelUrl,
     });
 
     return response;

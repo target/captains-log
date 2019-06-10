@@ -4,6 +4,7 @@ const { truncate } = require('../../utils');
 const Team = function Team(team = {}) {
   const {
     color = '#3ef2c5',
+    channels = [],
     emoji = '🌱',
     issueTracking = {},
     mentions = '',
@@ -66,11 +67,12 @@ const Team = function Team(team = {}) {
 
   return {
     addMessage,
-    name,
+    channels,
     color,
     emoji,
-    messageMatch,
     mentions,
+    messageMatch,
+    name,
     teamMessages: this.teamMessages,
     teamTitles: this.teamTitles,
     ...trackers,

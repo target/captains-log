@@ -67,6 +67,9 @@ github_tag_id: 'v([0-9]+-release)$'
 ```yaml
 teams:
   - name: Team 1
+    channels:
+      - my-first-channel
+      - my-second-channel
     color: '#f06d06'
     emoji: '🐶'
     mentions: '<@sam.i.am>'
@@ -80,6 +83,7 @@ teams:
 ```
 
 - `name` - this value will be used to identify the particular team name in the output
+-  `channels` - this list allows you to send your teams log to individual channels outside of the default channel for Captain's Log. These can be either channel names or channel IDs ([read more here](https://api.slack.com/methods/chat.postMessage)). Note, this feature is only available when using "slack tokens" for authentication **along side of** or **in place** of slack urls. If you're sending a message to a private room, be sure the Slack app (associated token) has access to send messages to that room, or Captain's Log will not be able to send a message to that channel.
 - `color` - this will be the side strip color of the team's output
 - `emoji` - this will be the emoji next to the team name
 - `mentions` - this value is used to mention any people or groups about this section of the log. You will need to wrap all mentions in `<>` due to slack conventions. You can mention groups by using the following format: `<!subteam^1234ASDF|super-cool-team>` where **super-cool-team** is the group and `1234ASDF` is the unique group identifier, which you can find as follows:
