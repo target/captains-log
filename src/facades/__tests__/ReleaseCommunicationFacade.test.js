@@ -50,6 +50,23 @@ describe('ReleaseCommunicationFacade', () => {
     expect(diff).toEqual(expectedDiff);
   });
 
+  it('should parse a diff response when a pull request has no body', async () => {
+    expect.assertions(1);
+    handlers.getPullRequestHandler.mockResolvedValueOnce({ ...pullRequestResponse, body: null });
+    const diff = await RC.parseDiff(squashDiffResponse);
+    const expectedDiff = [
+      {
+        github: { name: 'github', tickets: [] },
+        jira: { name: 'jira', tickets: [] },
+        message: '',
+        number: 1,
+        title: 'bla',
+      },
+    ];
+
+    expect(diff).toEqual(expectedDiff);
+  });
+
   it('should handle the retrieval and parse of non-squashed commits', async () => {
     expect.assertions(2);
     handlers.getTagsHandler.mockResolvedValue(tagResponse);
