@@ -81,7 +81,7 @@ module.exports = async function App(config) {
 
   populateMessages(defaultTeam)(teamList, sortedMessages);
 
-  const { message, attachments, subChannelAttachments } = createAttachment(messages.length, { owner, repo });
+  const { message, attachments, subChannelAttachments = [] } = createAttachment(messages.length, { owner, repo });
 
   logger.info(`\n Slack Formatter Url. CMD+Click to open in your default browser \n \n ${generateSlackFormatterUrl(attachments)}`);
 

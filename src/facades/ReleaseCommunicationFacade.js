@@ -93,14 +93,17 @@ class ReleaseCommunication {
     const pullRequests = await Promise.all(uniquePRNumbers.map(async prNum => getPullRequestHandler(this.owner, this.repo, prNum)));
 
     const pullRequestMessages = Promise.all(pullRequests.map(async (pr) => {
-      const stripIgnoreTickets = pr.body.replace(STRIP_IGNORE_TICKETS, '');
+      // Initialize body in case the PR description is empty.
+      const body = pr.body || '';
+
+      const stripIgnoreTickets = body.replace(STRIP_IGNORE_TICKETS, '');
       const noCommentBody = stripIgnoreTickets.replace(PR_TEMPLATE_COMMENT_REGEX, '');
 
       const ticketGroups = await ticketFinder(noCommentBody);
 
       return {
         number: pr.number,
-        message: pr.body,
+        message: body,
         ...ticketGroups,
         title: pr.title,
       };
