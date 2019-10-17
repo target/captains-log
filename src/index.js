@@ -1,6 +1,6 @@
 /* eslint max-len: [0] */
 const { ReleaseCommunication } = require('./facades');
-const { DEFAULT_HEADING, EMPTY_MESSAGE } = require('./constants');
+const { DEFAULT_HEADING, EMPTY_MESSAGE, DEFAULT_FOOTER } = require('./constants');
 const logger = require('./logger');
 const Team = require('./factories/Team');
 const Message = require('./factories/Message');
@@ -12,7 +12,7 @@ const defaultTeam = Team();
 const teamList = teams.length ? teams.map(team => Team(team)) : [];
 
 const createAttachment = (hasMessages, { owner, repo }) => {
-  let message = EMPTY_MESSAGE(owner, repo);
+  let message = EMPTY_MESSAGE(owner, repo) + DEFAULT_FOOTER;
   let attachments = [];
   let subChannelAttachments = [];
 
@@ -21,7 +21,7 @@ const createAttachment = (hasMessages, { owner, repo }) => {
   }
 
   // add all the PRs if there are any
-  message = DEFAULT_HEADING(owner, repo);
+  message = DEFAULT_HEADING(owner, repo) + DEFAULT_FOOTER;
   attachments = [];
   // team sub-channel attachments
   subChannelAttachments = [];
