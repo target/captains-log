@@ -125,7 +125,7 @@ describe('github finder', () => {
       ],
       name: 'github',
     };
-    expect(githubFinder(body)).toEqual(expectation);
+    expect(githubFinder({ body })).toEqual(expectation);
   });
 
   it('should return no tickets if there are no ticket types', () => {

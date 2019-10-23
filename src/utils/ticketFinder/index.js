@@ -25,16 +25,16 @@ const getFinderFunctions = async () => {
 };
 
 /**
- * Finds tickets in pull request bodies based on pre-defined regexs
- * @param  {String}  body pull request body
+ * Finds tickets in pull request based on pre-defined regexs
+ * @param  {String}    pr pull request response
  * @return {Promise}      resolves to return an object with separated buckets that have matches
  */
-const ticketFinder = async (body) => {
+const ticketFinder = async (pr) => {
   const finders = await getFinderFunctions();
   const ticketMap = {};
 
   finders.forEach((finder) => {
-    const { name = null, tickets } = finder(body);
+    const { name = null, tickets } = finder(pr);
 
     if (!ticketMap[name]) {
       ticketMap[name] = {};
