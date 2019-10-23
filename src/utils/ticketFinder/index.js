@@ -26,7 +26,7 @@ const getFinderFunctions = async () => {
 
 /**
  * Finds tickets in pull request based on pre-defined regexs
- * @param  {String}    pr pull request reqponse
+ * @param  {String}    pr pull request response
  * @return {Promise}      resolves to return an object with separated buckets that have matches
  */
 const ticketFinder = async (pr) => {
