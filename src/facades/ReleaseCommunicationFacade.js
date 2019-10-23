@@ -82,7 +82,15 @@ class ReleaseCommunication {
     }, []);
 
     if (nonSquashedPRs.length) {
-      const prNumbersByCommit = await Promise.all(nonSquashedPRs.map(async commit => searchIssuesByCommitHandler(commit)));
+      let prNumbersByCommit = [];
+
+      // Should allow execution to continue for repositories that use a different merge method.
+      try {
+        prNumbersByCommit = await Promise.all(nonSquashedPRs.map(async commit => searchIssuesByCommitHandler(commit)));
+      } catch (e) {
+        console.log('Unable to retreive issues by commit. Check if API limit was exceeded.', e);
+      }
+
       // There should only ever be one issue for a commit
       prNumbersByCommit.forEach(pr => pullRequestNumbers.push(idx(pr, _ => _.items[0].number)));
     }
@@ -99,7 +107,7 @@ class ReleaseCommunication {
       const stripIgnoreTickets = body.replace(STRIP_IGNORE_TICKETS, '');
       const noCommentBody = stripIgnoreTickets.replace(PR_TEMPLATE_COMMENT_REGEX, '');
 
-      const ticketGroups = await ticketFinder(noCommentBody);
+      const ticketGroups = await ticketFinder({ ...pr, body: noCommentBody });
 
       return {
         number: pr.number,
