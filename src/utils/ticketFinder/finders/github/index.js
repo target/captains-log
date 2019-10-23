@@ -21,7 +21,9 @@ const GITHUB_CLOSE_REGEX = new RegExp(CLOSE_ISSUE_SYNTAX, 'gm');
 const GITHUB_CLOSE_NUMBER_REGEX = new RegExp(CLOSE_SYNTAX_NUMBER, 'gm');
 const GITHUB_CLOSE_PROJECT_REGEX = new RegExp(CLOSE_SYNTAX_PROJECT, 'gm');
 
-const githubFinder = (body) => {
+const githubFinder = (pr) => {
+  const { body = '' } = pr;
+
   const fullUrls = uniq(groupFinder(GITHUB_URL_REGEX, body) || []);
   const closeSyntaxUrls = uniq(groupFinder(GITHUB_CLOSE_REGEX, body) || []);
 
