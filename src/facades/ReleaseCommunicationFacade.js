@@ -82,7 +82,7 @@ class ReleaseCommunication {
     }, []);
 
     if (nonSquashedPRs.length) {
-      let prNumbersByCommit;
+      let prNumbersByCommit = [];
 
       // Should allow execution to continue for repositories that use a different merge method.
       try {
