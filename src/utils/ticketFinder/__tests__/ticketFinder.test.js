@@ -47,7 +47,7 @@ describe('ticketFinder', () => {
 
   it('should find Jira ticket when there are tickets in the branch name only', async () => {
     // ticket id only
-    var tickets = await ticketFinder({ body: mockBodyWithNothing, head: { ref: 'JIRA-123' } });
+    let tickets = await ticketFinder({ body: mockBodyWithNothing, head: { ref: 'JIRA-123' } });
 
     expect(tickets).toEqual({
       github: { name: 'github', tickets: [] },
