@@ -46,11 +46,28 @@ describe('ticketFinder', () => {
   });
 
   it('should find Jira ticket when there are tickets in the branch name only', async () => {
-    const tickets = await ticketFinder({ body: mockBodyWithNothing, head: { ref: 'therynamo/JIRA-123' } });
+    // ticket id only
+    let tickets = await ticketFinder({ body: mockBodyWithNothing, head: { ref: 'JIRA-123' } });
 
     expect(tickets).toEqual({
       github: { name: 'github', tickets: [] },
       jira: { name: 'jira', tickets: [{ name: 'JIRA-123' }] },
+    });
+
+    // ticket at beginning
+    tickets = await ticketFinder({ body: mockBodyWithNothing, head: { ref: 'MANGO-123/therynamos-great-branch' } });
+
+    expect(tickets).toEqual({
+      github: { name: 'github', tickets: [] },
+      jira: { name: 'jira', tickets: [{ name: 'MANGO-123' }] },
+    });
+
+    // ticket at end
+    tickets = await ticketFinder({ body: mockBodyWithNothing, head: { ref: 'therynamo/JAVA-123' } });
+
+    expect(tickets).toEqual({
+      github: { name: 'github', tickets: [] },
+      jira: { name: 'jira', tickets: [{ name: 'JAVA-123' }] },
     });
   });
 
