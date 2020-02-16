@@ -5,19 +5,18 @@ const {
   getTagsHandler,
   getTagDiffHandler,
   postMessageHandler,
-  searchIssuesByCommitHandler,
+  searchIssuesByCommitHandler
 } = require('../handlers');
 const { getTagDiffFromTagId, ticketFinder } = require('../utils');
 
 const PR_TEMPLATE_COMMENT_REGEX = new RegExp(/<!--[\s\S]*?-->/, 'gm');
 const STRIP_IGNORE_TICKETS = new RegExp(/<!--.+?icl.+?-->([\S\s.]*?)<!--.+?ecl.+?-->/, 'gm');
+const STRIP_IGNORE_TICKETS_LONG = new RegExp(/<!--.+?ignorecl.+?-->([\S\s.]*?)<!--.+?endcl.+?-->/, 'gm');
 
 const SQUASH_PR_REGEX = new RegExp(/\(#(.*)\)/, 'g');
 
 class ReleaseCommunication {
-  constructor({
-    owner, repo, channel, channelUrl = null, tagId = null,
-  }) {
+  constructor({ owner, repo, channel, channelUrl = null, tagId = null }) {
     this.owner = owner;
     this.repo = repo;
     this.channel = channel;
@@ -98,24 +97,30 @@ class ReleaseCommunication {
     // Uniq the array and remove falsy elements
     const uniquePRNumbers = uniq(pullRequestNumbers).filter(n => n);
 
-    const pullRequests = await Promise.all(uniquePRNumbers.map(async prNum => getPullRequestHandler(this.owner, this.repo, prNum)));
+    const pullRequests = await Promise.all(
+      uniquePRNumbers.map(async prNum => getPullRequestHandler(this.owner, this.repo, prNum))
+    );
 
-    const pullRequestMessages = Promise.all(pullRequests.map(async (pr) => {
-      // Initialize body in case the PR description is empty.
-      const body = pr.body || '';
+    const pullRequestMessages = Promise.all(
+      pullRequests.map(async pr => {
+        // Initialize body in case the PR description is empty.
+        const body = pr.body || '';
 
-      const stripIgnoreTickets = body.replace(STRIP_IGNORE_TICKETS, '');
-      const noCommentBody = stripIgnoreTickets.replace(PR_TEMPLATE_COMMENT_REGEX, '');
+        // Remove all "ignored" portions of the body
+        const stripIgnoreTickets = body.replace(STRIP_IGNORE_TICKETS, '');
+        const stripIgnoreTicketsLong = stripIgnoreTickets.replace(STRIP_IGNORE_TICKETS_LONG, '');
+        const noCommentBody = stripIgnoreTicketsLong.replace(PR_TEMPLATE_COMMENT_REGEX, '');
 
-      const ticketGroups = await ticketFinder({ ...pr, body: noCommentBody });
+        const ticketGroups = await ticketFinder({ ...pr, body: noCommentBody });
 
-      return {
-        number: pr.number,
-        message: body,
-        ...ticketGroups,
-        title: pr.title,
-      };
-    }));
+        return {
+          number: pr.number,
+          message: body,
+          ...ticketGroups,
+          title: pr.title
+        };
+      })
+    );
 
     return pullRequestMessages;
   }
@@ -135,7 +140,7 @@ class ReleaseCommunication {
       channel: channel || this.channel,
       text,
       attachments,
-      channelUrl: sendToChannelOnly ? null : this.channelUrl,
+      channelUrl: sendToChannelOnly ? null : this.channelUrl
     });
 
     return response;
