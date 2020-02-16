@@ -9,7 +9,7 @@ const { populateMessages, getTeams, nameSort, formatMessages, generateSlackForma
 
 const defaultTeam = Team();
 
-const createAttachment = (hasMessages, { owner, repo, teamList }) => {
+const createAttachment = (hasMessages, { owner, repo, teamList, config }) => {
   let message = EMPTY_MESSAGE(owner, repo);
   let attachments = [];
   let subChannelAttachments = [];
@@ -19,7 +19,8 @@ const createAttachment = (hasMessages, { owner, repo, teamList }) => {
   }
 
   // add all the PRs if there are any
-  message = DEFAULT_HEADING(owner, repo);
+  const customHeading = config.get('slack:messageHeading');
+  message = customHeading || DEFAULT_HEADING(owner, repo);
   attachments = [];
   // team sub-channel attachments
   subChannelAttachments = [];
