@@ -3,7 +3,7 @@
 There are two options for configuration:
 
 - use the `.drone.yml` and create a build step with the configuration values required.
-- use a `captains.yml` file, and place the required configuration in there. (**note**, you will still need a _Captain's Log build step_, it just will not have any of the configuration values listed there.)
+- place a `captains.yml` file at the root of your directory. Place any required configuration in there. (**note**, you will still need a _Captain's Log build step_, it just will not have any of the configuration values listed there.)
 
 ## Options
 
