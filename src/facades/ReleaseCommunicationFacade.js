@@ -11,7 +11,10 @@ const { getTagDiffFromTagId, ticketFinder } = require('../utils');
 
 const PR_TEMPLATE_COMMENT_REGEX = new RegExp(/<!--[\s\S]*?-->/, 'gm');
 const STRIP_IGNORE_TICKETS = new RegExp(/<!--.+?icl.+?-->([\S\s.]*?)<!--.+?ecl.+?-->/, 'gm');
-const STRIP_IGNORE_TICKETS_LONG = new RegExp(/<!--.+?ignorecl.+?-->([\S\s.]*?)<!--.+?endcl.+?-->/, 'gm');
+const STRIP_IGNORE_TICKETS_LONG = new RegExp(
+  /<!--.+?captains-log-ignore.+?-->([\S\s.]*?)<!--.+?end-captains-log-ignore.+?-->/,
+  'gm'
+);
 
 const SQUASH_PR_REGEX = new RegExp(/\(#(.*)\)/, 'g');
 
