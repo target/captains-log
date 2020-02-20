@@ -84,7 +84,9 @@ module.exports = async function App(config) {
     owner,
     repo,
     teamList,
+    config
   });
+
 
   logger.info(`\n Slack Formatter Url. CMD+Click to open in your default browser \n \n ${generateSlackFormatterUrl(attachments)}`);
 
