@@ -3,7 +3,6 @@ const getTeams = config => {
   const teamsJSON = config.get('teams') || {};
 
   try {
-    debugger;
     teams = JSON.parse(teamsJSON);
   } catch (e) {
     if (!Object.keys(teamsJSON).length) {

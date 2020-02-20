@@ -22,6 +22,18 @@ describe('initializeCaptainsConfig', () => {
 
     initialize(config);
 
-    expect(config.set).toHaveBeenCalledTimes(11);
+    [
+      'github:domain',
+      'github:host',
+      'github:owner',
+      'github:repo',
+      'github:tagId',
+      'github:token',
+      'teams',
+      'slack:channel',
+      'slack:token',
+      'slack:channelUrl',
+      'jira:teamDomain',
+    ].forEach((call, i) => expect(config.set.mock.calls[i][0]).toEqual(call));
   });
 });

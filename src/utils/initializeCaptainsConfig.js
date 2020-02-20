@@ -4,7 +4,7 @@ const { safeLoad } = require('js-yaml');
 
 const initialize = config => {
   let conf = {};
-  debugger;
+
   try {
     const yamlConfig = readFileSync(findUp.sync('captains.yml'), 'utf8');
     conf = safeLoad(yamlConfig);

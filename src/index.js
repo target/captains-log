@@ -48,7 +48,6 @@ module.exports = async function App(config) {
   const { channel, channelUrl } = config.get('slack');
   const teams = getTeams(config);
   const teamList = teams.length ? teams.map(team => Team(team)) : [];
-  debugger;
 
   const releaseCommunication = new ReleaseCommunication({
     owner,
@@ -86,18 +85,13 @@ module.exports = async function App(config) {
     teamList,
   });
 
-  logger.info(
-    `\n Slack Formatter Url. CMD+Click to open in your default browser \n \n ${generateSlackFormatterUrl(attachments)}`,
-  );
+  logger.info(`\n Slack Formatter Url. CMD+Click to open in your default browser \n \n ${generateSlackFormatterUrl(attachments)}`);
 
   await releaseCommunication.sendMessage(message, attachments);
 
   // Send all individual attachments to their respective channels per team.
   if (subChannelAttachments.length) {
-    await Promise.all(
-      subChannelAttachments.map(({ attachment, channel: subChannel }) =>
-        releaseCommunication.sendMessage(message, [attachment], subChannel, true),
-      ),
-    );
+    await Promise.all(subChannelAttachments.map(({ attachment, channel: subChannel }) =>
+      releaseCommunication.sendMessage(message, [attachment], subChannel, true)));
   }
 };
