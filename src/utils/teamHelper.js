@@ -1,13 +1,20 @@
-const nconf = require('nconf');
+const getTeams = config => {
+  let teams = {};
+  const teamsJSON = config.get('teams') || {};
 
-const teamsJSON = nconf.get('teams') || {}; // add a default object if none
+  try {
+    teams = JSON.parse(teamsJSON);
+  } catch (e) {
+    if (!Object.keys(teamsJSON).length) {
+      // eslint-disable-next-line no-console
+      console.log('No custom teams found (or could not parse teams list).');
+    }
 
-let teams = {};
+    // Teams is already parsed with captains.yml
+    teams = teamsJSON;
+  }
 
-try {
-  teams = JSON.parse(teamsJSON);
-} catch (e) {
-  console.log('No custom teams found (or could not parse teams list).');
-}
+  return teams;
+};
 
-module.exports = teams;
+module.exports = getTeams;

@@ -4,14 +4,12 @@ const { DEFAULT_HEADING, EMPTY_MESSAGE } = require('./constants');
 const logger = require('./logger');
 const Team = require('./factories/Team');
 const Message = require('./factories/Message');
-const {
-  populateMessages, teams, nameSort, formatMessages, generateSlackFormatterUrl,
-} = require('./utils');
+
+const { populateMessages, getTeams, nameSort, formatMessages, generateSlackFormatterUrl } = require('./utils');
 
 const defaultTeam = Team();
-const teamList = teams.length ? teams.map(team => Team(team)) : [];
 
-const createAttachment = (hasMessages, { owner, repo }) => {
+const createAttachment = (hasMessages, { owner, repo, teamList }) => {
   let message = EMPTY_MESSAGE(owner, repo);
   let attachments = [];
   let subChannelAttachments = [];
@@ -28,7 +26,7 @@ const createAttachment = (hasMessages, { owner, repo }) => {
 
   const teamsToAttach = [...teamList, defaultTeam];
 
-  teamsToAttach.forEach((team) => {
+  teamsToAttach.forEach(team => {
     const msg = Message('slack', team);
     const attachment = msg.generate();
 
@@ -45,11 +43,11 @@ const createAttachment = (hasMessages, { owner, repo }) => {
 };
 
 module.exports = async function App(config) {
-  const {
-    repo, owner, tagId, domain: githubDomain,
-  } = config.get('github');
+  const { repo, owner, tagId, domain: githubDomain } = config.get('github');
   const { teamDomain: jiraTeam } = config.get('jira');
   const { channel, channelUrl } = config.get('slack');
+  const teams = getTeams(config);
+  const teamList = teams.length ? teams.map(team => Team(team)) : [];
 
   const releaseCommunication = new ReleaseCommunication({
     owner,
@@ -81,7 +79,11 @@ module.exports = async function App(config) {
 
   populateMessages(defaultTeam)(teamList, sortedMessages);
 
-  const { message, attachments, subChannelAttachments = [] } = createAttachment(messages.length, { owner, repo });
+  const { message, attachments, subChannelAttachments = [] } = createAttachment(messages.length, {
+    owner,
+    repo,
+    teamList,
+  });
 
   logger.info(`\n Slack Formatter Url. CMD+Click to open in your default browser \n \n ${generateSlackFormatterUrl(attachments)}`);
 
