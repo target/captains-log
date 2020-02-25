@@ -6,7 +6,7 @@ const initialize = config => {
   let conf = {};
 
   try {
-    const yamlConfig = readFileSync(findUp.sync('captains.yml'), 'utf8');
+    const yamlConfig = readFileSync(findUp.sync('.captains.yml'), 'utf8');
     conf = safeLoad(yamlConfig);
   } catch (e) {
     // eslint-disable-next-line no-console

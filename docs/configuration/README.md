@@ -2,8 +2,12 @@
 
 There are two options for configuration:
 
-- use the `.drone.yml` and create a build step with the configuration values required.
-- place a `captains.yml` file at the root of your directory. Place any required configuration in there. (**note**, you will still need a _Captain's Log build step_, it just will not have any of the configuration values listed there.)
+- use the `.drone.yml` and create a build step with the configuration values required (listed below).
+- place a `.captains.yml` file at the root of your directory. Place any required configuration in there. (**note**, you will still need a _Captain's Log build step_, it just will not have any of the configuration values listed there.)
+
+Both are usable, and at the same time. The `.captains.yml` will overwrite any variable that is in an `environment variable` (aka `.drone.yml` configurations).
+
+Suggested configuration would be to place secrets in your CI configuration, and then have all other Captain's Log configurations in the `.captain.yml`. 
 
 ## Options
 
@@ -27,7 +31,7 @@ There are two options for configuration:
 
 ### Example
 
-#### drone.yml
+#### .drone.yml
 
 ```yaml
 image: target/captains-log:1
@@ -45,7 +49,7 @@ jira_team_domain: myteamnamespace
 teams: ...
 ```
 
-#### captains.yml
+#### .captains.yml
 
 ```yaml
 image: target/captains-log:1
@@ -57,7 +61,7 @@ github_repo: captains-log
 github_tag_id: 'v([0-9]+-release)$'
 enterprise_host: https://git.myteam.com
 jira_team_domain: myteamnamespace
-teams: ...
+teams: ... # see teams configuration below
 ```
 
 **NOTE**: All though you _can_ provide your `github_token` and/or `slack_token/url` (which can _ease_ testing locally), it is advised that you do **NOT** check these tokens into source control. You should always use secrets where applicable.
@@ -87,7 +91,7 @@ github_tag_id: 'v([0-9]+-release)$'
 
 `teams` is a **list** of teams which allows you to logically group the output of Captain's Log into focused chunks. You only need a few things to configure a team.
 
-( will work for _both_ `captains.yml` and `.drone.yml`)
+( will work for _both_ `.captains.yml` and `.drone.yml`)
 
 ```yaml
 teams:

@@ -17,8 +17,8 @@ describe('initializeCaptainsConfig', () => {
     expect(config.set).not.toHaveBeenCalled();
   });
 
-  it('should read from a `captains.yml` file if one exists', () => {
-    findUp.sync = jest.fn(() => path.resolve('src/utils/__fixtures__/captains.yml'));
+  it('should read from a `.captains.yml` file if one exists', () => {
+    findUp.sync = jest.fn(() => path.resolve('src/utils/__fixtures__/.captains.yml'));
 
     initialize(config);
 
