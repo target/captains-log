@@ -33,6 +33,7 @@ describe('initializeCaptainsConfig', () => {
       'slack:channel',
       'slack:token',
       'slack:channelUrl',
+      'slack:messageHeading',
       'jira:teamDomain',
     ].forEach((call, i) => expect(config.set.mock.calls[i][0]).toEqual(call));
   });
