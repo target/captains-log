@@ -29,6 +29,7 @@ const initialize = config => {
     slack_url,
     jira_team_domain,
     teams,
+    slack_message_heading,
   } = conf;
 
   // Github
@@ -46,6 +47,7 @@ const initialize = config => {
   config.set('slack:channel', slack_channel);
   config.set('slack:token', slack_token);
   config.set('slack:channelUrl', slack_url);
+  config.set('slack:messageHeading', slack_message_heading);
 
   // Jira
   config.set('jira:teamDomain', jira_team_domain);
