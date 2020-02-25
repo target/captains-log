@@ -14,6 +14,9 @@ const initialize = config => {
     return;
   }
 
+  // if there are not config values, just return
+  if (!Object.keys(conf).length) return;
+
   const {
     enterprise_host,
     github_host,
