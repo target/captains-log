@@ -1,0 +1,14 @@
+image: target/captains-log:1
+pull: true
+github_owner: target
+github_repo: captains-log
+github_tag_id: 'v([0-9]+-release)$'
+teams:
+  - name: My Team
+    color: '#f06d06'
+    emoji: '🐶'
+    mentions: '<@therynamo>'
+    issueTracking:
+      jira:
+        projects:
+          - CAPN
