@@ -1,5 +1,6 @@
 const groupFinder = require('./groupFinder');
 const getTagDiffFromTagId = require('./getTagDiffFromTagId');
+const initialize = require('./initializeCaptainsConfig');
 const teamHelper = require('./teamHelper');
 const nameSort = require('./nameSort');
 const truncate = require('./truncate');
@@ -13,9 +14,10 @@ module.exports = {
   generateSlackFormatterUrl,
   getTagDiffFromTagId,
   formatMessages,
+  initialize,
   nameSort,
   populateMessages,
-  teams: teamHelper,
+  getTeams: teamHelper,
   truncate,
   ticketFinder,
 };

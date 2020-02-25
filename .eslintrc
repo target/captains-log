@@ -4,7 +4,10 @@
     "jest": true
   },
   "rules": {
+    "arrow-parens": "off",
     "max-len": ["error", 150],
-    "no-debugger": 0
+    "no-debugger": "off",
+    "camelcase": "off",
+    "object-curly-newline": "off"
   }
 }
