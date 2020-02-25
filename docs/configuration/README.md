@@ -64,7 +64,7 @@ jira_team_domain: myteamnamespace
 teams: ... # see teams configuration below
 ```
 
-**NOTE**: All though you _can_ provide your `github_token` and/or `slack_token/url` (which can _ease_ testing locally), it is advised that you do **NOT** check these tokens into source control. You should always use secrets where applicable.
+**NOTE**: Allthough you _can_ provide your `github_token` and/or `slack_token/url` (which can _ease_ testing locally), it is advised that you do **NOT** check these tokens into source control. You should always use secrets where applicable.
 
 ## Github Tag Ids
 
