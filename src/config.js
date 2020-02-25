@@ -64,6 +64,7 @@ if (process.env.NODE_ENV !== 'test') {
   nconf.set('slack:channel', process.env.PLUGIN_SLACK_CHANNEL);
   nconf.set('slack:token', process.env.SLACK_TOKEN);
   nconf.set('slack:channelUrl', process.env.SLACK_URL);
+  nconf.set('slack:messageHeading', process.env.PLUGIN_SLACK_MESSAGE_HEADING);
 
   // Jira
   nconf.set('jira:teamDomain', process.env.PLUGIN_JIRA_TEAM_DOMAIN);
