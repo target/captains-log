@@ -1,13 +1,20 @@
 {
-  "extends": ["airbnb", "plugin:prettier/recommended"],
+  "extends": [
+    "airbnb",
+    "plugin:prettier/recommended"
+  ],
   "env": {
     "jest": true
   },
   "rules": {
     "arrow-parens": "off",
-    "max-len": ["error", 150],
+    "max-len": [
+      "error",
+      150
+    ],
     "no-debugger": "off",
     "camelcase": "off",
-    "object-curly-newline": "off"
+    "object-curly-newline": "off",
+    "consistent-return": "off"
   }
 }

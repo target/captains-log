@@ -2,7 +2,7 @@ const findUp = require('find-up');
 const { readFileSync } = require('fs');
 const { safeLoad } = require('js-yaml');
 
-const initialize = config => {
+const initialize = () => {
   let conf = {};
 
   try {
@@ -13,9 +13,6 @@ const initialize = config => {
     console.log('Could not find `captains.yml` file, reverting to environment variables');
     return;
   }
-
-  // if there are not config values, just return
-  if (!Object.keys(conf).length) return;
 
   const {
     enterprise_host,
@@ -32,25 +29,29 @@ const initialize = config => {
     slack_message_heading,
   } = conf;
 
-  // Github
-  config.set('github:domain', enterprise_host);
-  config.set('github:host', github_host);
-  config.set('github:owner', github_owner);
-  config.set('github:repo', github_repo);
-  config.set('github:tagId', github_tag_id);
-  config.set('github:token', github_token);
+  const captainsConfig = {
+    // Github
+    enterprise_host: process.env.PLUGIN_ENTERPRISE_HOST || enterprise_host,
+    github_host: process.env.PLUGIN_GITHUB_HOST || github_host,
+    github_owner: process.env.PLUGIN_GITHUB_OWNER || github_owner,
+    github_repo: process.env.PLUGIN_GITHUB_REPO || github_repo,
+    github_tag_id: process.env.PLUGIN_GITHUB_TAG_ID || github_tag_id,
+    github_token: process.env.GITHUB_TOKEN || github_token,
 
-  // Team Configuration
-  config.set('teams', teams);
+    // Team Configuration
+    teams: process.env.PLUGIN_TEAMS || teams,
 
-  // Slack
-  config.set('slack:channel', slack_channel);
-  config.set('slack:token', slack_token);
-  config.set('slack:channelUrl', slack_url);
-  config.set('slack:messageHeading', slack_message_heading);
+    // Slack
+    slack_channel: process.env.PLUGIN_SLACK_CHANNEL || slack_channel,
+    slack_token: process.env.SLACK_TOKEN || slack_token,
+    slack_url: process.env.SLACK_URL || slack_url,
+    slack_message_heading: process.env.PLUGIN_SLACK_MESSAGE_HEADING || slack_message_heading,
 
-  // Jira
-  config.set('jira:teamDomain', jira_team_domain);
+    // Jira
+    jira_team_domain: process.env.PLUGIN_JIRA_TEAM_DOMAIN || jira_team_domain,
+  };
+
+  return captainsConfig;
 };
 
 module.exports = initialize;

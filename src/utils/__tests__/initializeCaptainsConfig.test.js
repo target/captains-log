@@ -3,38 +3,57 @@ const path = require('path');
 
 const initialize = require('../initializeCaptainsConfig');
 
-jest.mock('find-up');
-const config = {
-  set: jest.fn(),
-};
-
 describe('initializeCaptainsConfig', () => {
   it('should not set any config values if there is no `captains.yml` file', () => {
     findUp.sync = jest.fn(() => undefined);
 
-    initialize(config);
-
-    expect(config.set).not.toHaveBeenCalled();
+    expect(initialize()).toEqual(undefined);
   });
 
   it('should read from a `.captains.yml` file if one exists', () => {
     findUp.sync = jest.fn(() => path.resolve('src/utils/__fixtures__/.captains.yml'));
 
-    initialize(config);
+    expect(initialize()).toEqual({
+      enterprise_host: undefined,
+      github_host: undefined,
+      github_owner: 'target',
+      github_repo: 'captains-log',
+      github_tag_id: 'v([0-9]+-release)$',
+      github_token: undefined,
+      jira_team_domain: undefined,
+      slack_channel: undefined,
+      slack_message_heading: undefined,
+      slack_token: undefined,
+      slack_url: undefined,
+      teams: [
+        {
+          color: '#f06d06',
+          emoji: '🐶',
+          issueTracking: { jira: { projects: ['CAPN'] } },
+          mentions: '<@therynamo>',
+          name: 'My Team',
+        },
+      ],
+    });
+  });
 
-    [
-      'github:domain',
-      'github:host',
-      'github:owner',
-      'github:repo',
-      'github:tagId',
-      'github:token',
-      'teams',
-      'slack:channel',
-      'slack:token',
-      'slack:channelUrl',
-      'slack:messageHeading',
-      'jira:teamDomain',
-    ].forEach((call, i) => expect(config.set.mock.calls[i][0]).toEqual(call));
+  it('should read values from the environment', () => {
+    process.env.GITHUB_TOKEN = '123';
+
+    expect(initialize().github_token).toEqual('123');
+    process.env.GITHUB_TOKEN = '';
+  });
+
+  it('it should prioritize env vars over .captians.yml vars', () => {
+    process.env.PLUGIN_GITHUB_OWNER = '333';
+    expect(initialize().github_owner).toEqual('333');
+    process.env.PLUGIN_GITHUB_OWNER = '';
+  });
+
+  it('it should use .captians.yml vars when no env vars are provided', () => {
+    process.env.PLUGIN_GITHUB_OWNER = '';
+    // See __fixtures__/.captains.yml
+    expect(initialize().github_owner).toEqual('target');
+    process.env.PLUGIN_GITHUB_OWNER = '';
   });
 });

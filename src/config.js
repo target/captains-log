@@ -49,28 +49,45 @@ nconf.set('development', process.env.NODE_ENV === DEVELOPMENT);
 nconf.set('regexp', process.env.PLUGIN_REGEXP);
 
 if (process.env.NODE_ENV !== 'test') {
+  // Initialize captains.yml
+  const captainsConfig = initialize() || {};
+  const {
+    enterprise_host,
+    github_host,
+    github_owner,
+    github_repo,
+    github_tag_id,
+    github_token,
+    slack_channel,
+    slack_token,
+    slack_url,
+    jira_team_domain,
+    teams,
+    slack_message_heading,
+  } = captainsConfig;
+
   // Github
-  nconf.set('github:domain', process.env.PLUGIN_ENTERPRISE_HOST);
-  nconf.set('github:host', process.env.PLUGIN_GITHUB_HOST);
-  nconf.set('github:owner', process.env.PLUGIN_GITHUB_OWNER);
-  nconf.set('github:repo', process.env.PLUGIN_GITHUB_REPO);
-  nconf.set('github:tagId', process.env.PLUGIN_GITHUB_TAG_ID);
-  nconf.set('github:token', process.env.GITHUB_TOKEN);
+  nconf.set('github:domain', process.env.PLUGIN_ENTERPRISE_HOST || enterprise_host);
+  nconf.set('github:host', process.env.PLUGIN_GITHUB_HOST || github_host);
+  nconf.set('github:owner', process.env.PLUGIN_GITHUB_OWNER || github_owner);
+  nconf.set('github:repo', process.env.PLUGIN_GITHUB_REPO || github_repo);
+  nconf.set('github:tagId', process.env.PLUGIN_GITHUB_TAG_ID || github_tag_id);
+
+  if (!process.env.GITHUB_TOKEN && !github_token)
+    throw Error("Captain's log requires a Github Token to run. Please verify you've set one and try again.");
+  nconf.set('github:token', process.env.GITHUB_TOKEN || github_token);
 
   // Team Configuration
-  nconf.set('teams', process.env.PLUGIN_TEAMS);
+  nconf.set('teams', process.env.PLUGIN_TEAMS || teams);
 
   // Slack
-  nconf.set('slack:channel', process.env.PLUGIN_SLACK_CHANNEL);
-  nconf.set('slack:token', process.env.SLACK_TOKEN);
-  nconf.set('slack:channelUrl', process.env.SLACK_URL);
-  nconf.set('slack:messageHeading', process.env.PLUGIN_SLACK_MESSAGE_HEADING);
+  nconf.set('slack:channel', process.env.PLUGIN_SLACK_CHANNEL || slack_channel);
+  nconf.set('slack:token', process.env.SLACK_TOKEN || slack_token);
+  nconf.set('slack:channelUrl', process.env.SLACK_URL || slack_url);
+  nconf.set('slack:messageHeading', process.env.PLUGIN_SLACK_MESSAGE_HEADING || slack_message_heading);
 
   // Jira
-  nconf.set('jira:teamDomain', process.env.PLUGIN_JIRA_TEAM_DOMAIN);
-
-  // Initialize captains.yml
-  initialize(nconf);
+  nconf.set('jira:teamDomain', process.env.PLUGIN_JIRA_TEAM_DOMAIN || jira_team_domain);
 }
 
 module.exports = nconf;
