@@ -67,27 +67,27 @@ if (process.env.NODE_ENV !== 'test') {
   } = captainsConfig;
 
   // Github
-  nconf.set('github:domain', process.env.PLUGIN_ENTERPRISE_HOST || enterprise_host);
-  nconf.set('github:host', process.env.PLUGIN_GITHUB_HOST || github_host);
-  nconf.set('github:owner', process.env.PLUGIN_GITHUB_OWNER || github_owner);
-  nconf.set('github:repo', process.env.PLUGIN_GITHUB_REPO || github_repo);
-  nconf.set('github:tagId', process.env.PLUGIN_GITHUB_TAG_ID || github_tag_id);
+  nconf.set('github:domain', enterprise_host);
+  nconf.set('github:host', github_host);
+  nconf.set('github:owner', github_owner);
+  nconf.set('github:repo', github_repo);
+  nconf.set('github:tagId', github_tag_id);
 
-  if (!process.env.GITHUB_TOKEN && !github_token)
+  if (github_token)
     throw Error("Captain's log requires a Github Token to run. Please verify you've set one and try again.");
-  nconf.set('github:token', process.env.GITHUB_TOKEN || github_token);
+  nconf.set('github:token', github_token);
 
   // Team Configuration
-  nconf.set('teams', process.env.PLUGIN_TEAMS || teams);
+  nconf.set('teams', teams);
 
   // Slack
-  nconf.set('slack:channel', process.env.PLUGIN_SLACK_CHANNEL || slack_channel);
-  nconf.set('slack:token', process.env.SLACK_TOKEN || slack_token);
-  nconf.set('slack:channelUrl', process.env.SLACK_URL || slack_url);
-  nconf.set('slack:messageHeading', process.env.PLUGIN_SLACK_MESSAGE_HEADING || slack_message_heading);
+  nconf.set('slack:channel', slack_channel);
+  nconf.set('slack:token', slack_token);
+  nconf.set('slack:channelUrl', slack_url);
+  nconf.set('slack:messageHeading', slack_message_heading);
 
   // Jira
-  nconf.set('jira:teamDomain', process.env.PLUGIN_JIRA_TEAM_DOMAIN || jira_team_domain);
+  nconf.set('jira:teamDomain', jira_team_domain);
 }
 
 module.exports = nconf;
