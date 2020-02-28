@@ -11,7 +11,6 @@ const initialize = () => {
   } catch (e) {
     // eslint-disable-next-line no-console
     console.log('Could not find `captains.yml` file, reverting to environment variables');
-    return;
   }
 
   const {

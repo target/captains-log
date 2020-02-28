@@ -7,7 +7,20 @@ describe('initializeCaptainsConfig', () => {
   it('should not set any config values if there is no `captains.yml` file', () => {
     findUp.sync = jest.fn(() => undefined);
 
-    expect(initialize()).toEqual(undefined);
+    expect(initialize()).toEqual({
+      enterprise_host: undefined,
+      github_host: undefined,
+      github_owner: undefined,
+      github_repo: undefined,
+      github_tag_id: undefined,
+      github_token: undefined,
+      jira_team_domain: undefined,
+      slack_channel: undefined,
+      slack_message_heading: undefined,
+      slack_token: undefined,
+      slack_url: undefined,
+      teams: undefined,
+    });
   });
 
   it('should read from a `.captains.yml` file if one exists', () => {
