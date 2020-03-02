@@ -73,7 +73,7 @@ if (process.env.NODE_ENV !== 'test') {
   nconf.set('github:repo', github_repo);
   nconf.set('github:tagId', github_tag_id);
 
-  if (github_token)
+  if (!github_token)
     throw Error("Captain's log requires a Github Token to run. Please verify you've set one and try again.");
   nconf.set('github:token', github_token);
 
