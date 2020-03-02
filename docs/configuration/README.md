@@ -5,7 +5,7 @@ There are two options for configuration:
 - use the `.drone.yml` and create a build step with the configuration values required (listed below).
 - place a `.captains.yml` file at the root of your directory. Place any required configuration in there. (**note**, you will still need a _Captain's Log build step_, it just will not have any of the configuration values listed there.)
 
-Both are usable, and at the same time. The `.captains.yml` will overwrite any variable that is in an `environment variable` (aka `.drone.yml` configurations).
+Both are usable, and at the same time. Any environment variable set (e.g. by your CI server) will overwrite any values in the `.captains.yml`. 
 
 Suggested configuration would be to place secrets in your CI configuration, and then have all other Captain's Log configurations in the `.captain.yml`. 
 
