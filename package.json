@@ -31,11 +31,24 @@
     "eslint-plugin-jsx-a11y": "^6.0.3",
     "eslint-plugin-prettier": "^3.1.2",
     "eslint-plugin-react": "^7.9.1",
-    "prettier": "^1.16.4",
-    "jest": "^23.1.0"
+    "husky": ">=4",
+    "jest": "^23.1.0",
+    "lint-staged": ">=10",
+    "prettier": "^1.16.4"
   },
   "resolutions": {
     "minimist": "^1.2.2",
     "acorn": "^5.7.3"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.js": [
+      "prettier ./src/**/*.js --write",
+      "eslint ./src --cache --fix"
+    ]
   }
 }
