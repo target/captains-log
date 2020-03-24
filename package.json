@@ -16,13 +16,11 @@
     "common-tags": "^1.8.0",
     "find-up": "^4.1.0",
     "idx": "^2.3.0",
-    "jest": "^23.1.0",
     "js-yaml": "^3.13.1",
     "lodash": "^4.17.10",
     "nconf": "^0.10.0",
     "node-fetch": "^2.1.2",
-    "pino": "^4.17.3",
-    "prettier": "^1.16.4"
+    "pino": "^4.17.3"
   },
   "devDependencies": {
     "eslint": "^4.19.1",
@@ -31,6 +29,12 @@
     "eslint-plugin-import": "^2.12.0",
     "eslint-plugin-jsx-a11y": "^6.0.3",
     "eslint-plugin-prettier": "^3.1.2",
-    "eslint-plugin-react": "^7.9.1"
+    "eslint-plugin-react": "^7.9.1",
+    "prettier": "^1.16.4",
+    "jest": "^23.1.0"
+  },
+  "resolutions": {
+    "minimist": "^1.2.2",
+    "acorn": "^5.7.3"
   }
 }
