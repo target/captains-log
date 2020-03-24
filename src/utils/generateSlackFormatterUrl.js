@@ -1,6 +1,6 @@
 const querystring = require('querystring');
 
-const generateSlackFormatterUrl = (attachments) => {
+const generateSlackFormatterUrl = attachments => {
   const baseSlackUrl = 'https://api.slack.com/docs/messages/builder?';
 
   const attachmentsToStringify = JSON.stringify({

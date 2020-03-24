@@ -9,15 +9,17 @@ const getFinderFunctions = async () => {
   const finderPath = `${__dirname}/finders`;
   const finderDirs = await fs.readdir(finderPath);
 
-  const finderFiles = await Promise.all(finderDirs.map(async (file) => {
-    const filePath = path.resolve(finderPath, file);
-    const stats = await fs.lstat(filePath);
-    const isDir = stats.isDirectory();
+  const finderFiles = await Promise.all(
+    finderDirs.map(async file => {
+      const filePath = path.resolve(finderPath, file);
+      const stats = await fs.lstat(filePath);
+      const isDir = stats.isDirectory();
 
-    if (isDir) return file;
+      if (isDir) return file;
 
-    return null;
-  }));
+      return null;
+    }),
+  );
 
   const finderFunctions = finderFiles.filter(n => n).map(file => require(`${finderPath}/${file}`)); // eslint-disable-line
 
@@ -29,11 +31,11 @@ const getFinderFunctions = async () => {
  * @param  {String}    pr pull request response
  * @return {Promise}      resolves to return an object with separated buckets that have matches
  */
-const ticketFinder = async (pr) => {
+const ticketFinder = async pr => {
   const finders = await getFinderFunctions();
   const ticketMap = {};
 
-  finders.forEach((finder) => {
+  finders.forEach(finder => {
     const { name = null, tickets } = finder(pr);
 
     if (!ticketMap[name]) {

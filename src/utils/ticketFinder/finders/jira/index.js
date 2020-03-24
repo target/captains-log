@@ -10,7 +10,7 @@ const branchRegex = /([[A-Z][A-Z0-9]*-[1-9][0-9]*)/;
 const JIRA_REGEX = new RegExp(bodyRegex, 'g');
 const JIRA_BRANCH_REGEX = new RegExp(branchRegex, 'g');
 
-const jiraFinder = (pr) => {
+const jiraFinder = pr => {
   const { body = '' } = pr;
 
   const jiraTickets = uniq(groupFinder(JIRA_REGEX, body) || []);

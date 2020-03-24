@@ -17,27 +17,31 @@ describe('Team', () => {
   it('should create a default team', () => {
     const team = Team();
 
-    expect(team).toEqual(expect.objectContaining({
-      channels: [],
-      color: expect.any(String),
-      emoji: expect.any(String),
-      mentions: expect.any(String),
-      name: expect.any(String),
-      messageMatch: expect.any(Function),
-    }));
+    expect(team).toEqual(
+      expect.objectContaining({
+        channels: [],
+        color: expect.any(String),
+        emoji: expect.any(String),
+        mentions: expect.any(String),
+        name: expect.any(String),
+        messageMatch: expect.any(Function),
+      }),
+    );
   });
 
   it('should create an example team', () => {
     const team = Team(exampleTeam);
 
-    expect(team).toEqual(expect.objectContaining({
-      color: 'blue',
-      emoji: '🤷‍♀️',
-      jira: { matches: ['CHANDLER', 'MONICA'] },
-      mentions: '@MillhouseManaStorm',
-      messageMatch: expect.any(Function),
-      name: 'FRIENDS',
-    }));
+    expect(team).toEqual(
+      expect.objectContaining({
+        color: 'blue',
+        emoji: '🤷‍♀️',
+        jira: { matches: ['CHANDLER', 'MONICA'] },
+        mentions: '@MillhouseManaStorm',
+        messageMatch: expect.any(Function),
+        name: 'FRIENDS',
+      }),
+    );
   });
 
   it('should match on a message mentioning a team', () => {
@@ -49,7 +53,11 @@ describe('Team', () => {
   it('should match on a github message mentioning a team', () => {
     const team = Team({ ...exampleTeam, issueTracking: { github: { projects: ['my_owner/my_repo'] } } });
 
-    expect(team.messageMatch('<https://github.com/my_owner/my_repo/issues/3|example_user/example_project/#3> - <https://github.com/tester/project/pull/2|#2')).toEqual(true);
+    expect(
+      team.messageMatch(
+        '<https://github.com/my_owner/my_repo/issues/3|example_user/example_project/#3> - <https://github.com/tester/project/pull/2|#2',
+      ),
+    ).toEqual(true);
   });
 
   it('should match on a message mentioning a team with multiple issue trackers', () => {
@@ -59,13 +67,21 @@ describe('Team', () => {
       jira: { projects: ['TEST'] },
     });
 
-    expect(team.messageMatch('<https://github.com/my_owner/my_repo/issues/3|example_user/example_project/#3> - <https://github.com/tester/project/pull/2|#2')).toEqual(true);
+    expect(
+      team.messageMatch(
+        '<https://github.com/my_owner/my_repo/issues/3|example_user/example_project/#3> - <https://github.com/tester/project/pull/2|#2',
+      ),
+    ).toEqual(true);
   });
 
   it('should not match on a github message not mentioning a team', () => {
     const team = Team({ ...exampleTeam, issueTracking: { github: { projects: ['my_owner/my_repo'] } } });
 
-    expect(team.messageMatch('<https://github.com/test/project/issues/3|example_user/example_project/#3> - <https://github.com/my_owner/my_repo/pull/2|#2')).toEqual(false);
+    expect(
+      team.messageMatch(
+        '<https://github.com/test/project/issues/3|example_user/example_project/#3> - <https://github.com/my_owner/my_repo/pull/2|#2',
+      ),
+    ).toEqual(false);
   });
 
   it('should not match on a message not mentioning a team', () => {
@@ -117,9 +133,13 @@ describe('Team', () => {
       messages: 'This Is A Message',
     });
 
-    team.addMessage('message that is really long and far over 105 characters. We are fun fun fun, in the sun sun sun #realyLongText');
+    team.addMessage(
+      'message that is really long and far over 105 characters. We are fun fun fun, in the sun sun sun #realyLongText',
+    );
 
-    expect(team.teamMessages).toEqual('This Is A Message\n message that is really long and far over 105 characters. We are fun fun fun, in the sun sun sun #realyLongText');
+    expect(team.teamMessages).toEqual(
+      'This Is A Message\n message that is really long and far over 105 characters. We are fun fun fun, in the sun sun sun #realyLongText',
+    );
     expect(team.teamTitles).toEqual(' \n ');
   });
 });

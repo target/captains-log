@@ -4,6 +4,7 @@
   "description": "List out release notes in a digestable way",
   "main": "index.js",
   "scripts": {
+    "lint": "eslint src",
     "test": "jest",
     "test:watch": "jest --watchAll"
   },
