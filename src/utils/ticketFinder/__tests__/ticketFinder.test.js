@@ -71,6 +71,32 @@ describe('ticketFinder', () => {
     });
   });
 
+  it('should not find Jira ticket when there are tickets in the branch name only, but formatted incorrectly', async () => {
+    // ticket id only
+    let tickets = await ticketFinder({ body: mockBodyWithNothing, head: { ref: 'JIRa-123' } });
+
+    expect(tickets).toEqual({
+      github: { name: 'github', tickets: [] },
+      jira: { name: 'jira', tickets: [] },
+    });
+
+    // ticket at beginning
+    tickets = await ticketFinder({ body: mockBodyWithNothing, head: { ref: '[MANG-ABC]/therynamos-great-branch' } });
+
+    expect(tickets).toEqual({
+      github: { name: 'github', tickets: [] },
+      jira: { name: 'jira', tickets: [] },
+    });
+
+    // ticket at end
+    tickets = await ticketFinder({ body: mockBodyWithNothing, head: { ref: 'therynamo/JIRA123' } });
+
+    expect(tickets).toEqual({
+      github: { name: 'github', tickets: [] },
+      jira: { name: 'jira', tickets: [] },
+    });
+  });
+
   it('should not find things that look almost like tickets in given a message body', async () => {
     const tickets = await ticketFinder({ body: mockBodyWithTicketLikeThings });
 
