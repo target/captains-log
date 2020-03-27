@@ -5,7 +5,7 @@ const {
   getTagsHandler,
   getTagDiffHandler,
   postMessageHandler,
-  searchIssuesByCommitHandler
+  searchIssuesByCommitHandler,
 } = require('../handlers');
 const { getTagDiffFromTagId, ticketFinder } = require('../utils');
 
@@ -13,7 +13,7 @@ const PR_TEMPLATE_COMMENT_REGEX = new RegExp(/<!--[\s\S]*?-->/, 'gm');
 const STRIP_IGNORE_TICKETS = new RegExp(/<!--.+?icl.+?-->([\S\s.]*?)<!--.+?ecl.+?-->/, 'gm');
 const STRIP_IGNORE_TICKETS_LONG = new RegExp(
   /<!--.+?captains-log-ignore.+?-->([\S\s.]*?)<!--.+?end-captains-log-ignore.+?-->/,
-  'gm'
+  'gm',
 );
 
 const SQUASH_PR_REGEX = new RegExp(/\(#(.*)\)/, 'g');
@@ -101,7 +101,7 @@ class ReleaseCommunication {
     const uniquePRNumbers = uniq(pullRequestNumbers).filter(n => n);
 
     const pullRequests = await Promise.all(
-      uniquePRNumbers.map(async prNum => getPullRequestHandler(this.owner, this.repo, prNum))
+      uniquePRNumbers.map(async prNum => getPullRequestHandler(this.owner, this.repo, prNum)),
     );
 
     const pullRequestMessages = Promise.all(
@@ -120,9 +120,9 @@ class ReleaseCommunication {
           number: pr.number,
           message: body,
           ...ticketGroups,
-          title: pr.title
+          title: pr.title,
         };
-      })
+      }),
     );
 
     return pullRequestMessages;
@@ -143,7 +143,7 @@ class ReleaseCommunication {
       channel: channel || this.channel,
       text,
       attachments,
-      channelUrl: sendToChannelOnly ? null : this.channelUrl
+      channelUrl: sendToChannelOnly ? null : this.channelUrl,
     });
 
     return response;
