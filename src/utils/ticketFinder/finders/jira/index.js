@@ -18,7 +18,7 @@ const jiraFinder = pr => {
   const branchName = idx(pr, _ => _.head.ref) || '';
   const branchTicket = uniq(groupFinder(JIRA_BRANCH_REGEX, branchName) || []);
 
-  const formattedTickets = [...jiraTickets, ...branchTicket].map(ticket => ({
+  const formattedTickets = uniq([...jiraTickets, ...branchTicket]).map(ticket => ({
     name: ticket,
   }));
 
