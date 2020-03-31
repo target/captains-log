@@ -21,7 +21,7 @@ const GITHUB_CLOSE_REGEX = new RegExp(CLOSE_ISSUE_SYNTAX, 'gm');
 const GITHUB_CLOSE_NUMBER_REGEX = new RegExp(CLOSE_SYNTAX_NUMBER, 'gm');
 const GITHUB_CLOSE_PROJECT_REGEX = new RegExp(CLOSE_SYNTAX_PROJECT, 'gm');
 
-const githubFinder = (pr) => {
+const githubFinder = pr => {
   const { body = '' } = pr;
 
   const fullUrls = uniq(groupFinder(GITHUB_URL_REGEX, body) || []);
@@ -34,7 +34,7 @@ const githubFinder = (pr) => {
     name: uniq(groupFinder(GITHUB_URL_NUMBER_REGEX, url) || [])[0],
   }));
 
-  const formattedCloseTickets = closeSyntaxUrls.map((closer) => {
+  const formattedCloseTickets = closeSyntaxUrls.map(closer => {
     const issueNumber = uniq(groupFinder(GITHUB_CLOSE_NUMBER_REGEX, closer) || [])[0];
     const project = uniq(groupFinder(GITHUB_CLOSE_PROJECT_REGEX, closer) || [])[0] || `${owner}/${repo}`;
 

@@ -1,7 +1,5 @@
 const generateSlack = function generateSlack(team, message = '') {
-  const {
-    color = '#3ef2c5', mentions = '', emoji = '🌱', teamMessages = '', name = 'General', teamTitles = '',
-  } = team;
+  const { color = '#3ef2c5', mentions = '', emoji = '🌱', teamMessages = '', name = 'General', teamTitles = '' } = team;
   const teamName = `${name} ${emoji}`;
 
   if (!teamMessages && !message) return '';

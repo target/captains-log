@@ -6,7 +6,8 @@ const populateMessages = function populateMessages(defaultTeam) {
 
     if (teamsToPopulate.length === 0) {
       filteredMessages.forEach(({ message = '', title = '', githubPr = '' }) =>
-        defaultTeam.addMessage(message, title, githubPr));
+        defaultTeam.addMessage(message, title, githubPr),
+      );
       return true;
     }
 

@@ -51,7 +51,6 @@ describe('populateMessages', () => {
     expect(exampleTeam.teamTitles).toEqual(messages[0].title);
   });
 
-
   it('should add titles to default team if no team bucket exist', () => {
     populateMessages(defaultTeam)([exampleTeam], messages);
 
