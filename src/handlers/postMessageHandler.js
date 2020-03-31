@@ -14,9 +14,7 @@ const postOptions = (attachments, text, channel) => ({
   }),
 });
 
-module.exports = async function postMessage({
-  attachments, channel = null, text, channelUrl,
-}) {
+module.exports = async function postMessage({ attachments, channel = null, text, channelUrl }) {
   let response = {};
 
   if (channelUrl) {

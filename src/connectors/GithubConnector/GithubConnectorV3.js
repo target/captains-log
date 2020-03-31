@@ -1,9 +1,7 @@
 const Github = require('@octokit/rest');
 const config = require('../../config');
 
-const {
-  domain, host, timeout, token,
-} = config.get('github');
+const { domain, host, timeout, token } = config.get('github');
 
 const accepts = [
   'application/vnd.github.v3+json',

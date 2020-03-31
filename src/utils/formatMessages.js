@@ -22,11 +22,9 @@ const formatter = (formatArgs, number, title, messageCreator) => ticket => ({
  * @param {Object} args { change, githubDomain, owner, repo, jiraTeam }
  * @return {Array}      return an array of unsorted and merged messages
  */
-const format = (args) => {
+const format = args => {
   const { change } = args;
-  const {
-    jira = {}, github = {}, number, title,
-  } = change;
+  const { jira = {}, github = {}, number, title } = change;
 
   const jiraTickets = idx(jira, _ => _.tickets) || [];
   const githubTickets = idx(github, _ => _.tickets) || [];

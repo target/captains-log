@@ -20,35 +20,39 @@ describe('Message', () => {
   it('should generate a slack message for a default group', () => {
     const message = Message();
 
-    expect(message.generate('some message')).toEqual(expect.objectContaining({
-      color: expect.any(String),
-      fallback: 'some message',
-      fields: [],
-      text: '',
-      title: 'General 🌱',
-    }));
+    expect(message.generate('some message')).toEqual(
+      expect.objectContaining({
+        color: expect.any(String),
+        fallback: 'some message',
+        fields: [],
+        text: '',
+        title: 'General 🌱',
+      }),
+    );
   });
 
   it('should generate a slack message for a team', () => {
     const message = Message('slack', defaultTeam);
 
-    expect(message.generate()).toEqual(expect.objectContaining({
-      color: '#f06d06',
-      fallback: 'Where is Michael Scarn!?',
-      text: defaultTeam.mentions,
-      title: 'Dunder Mifflin 📄',
-      fields: [
-        {
-          short: true,
-          title: 'Stories',
-          value: defaultTeam.teamMessages,
-        },
-        {
-          short: true,
-          title: 'Details',
-          value: 'No. NOOOOO.',
-        },
-      ],
-    }));
+    expect(message.generate()).toEqual(
+      expect.objectContaining({
+        color: '#f06d06',
+        fallback: 'Where is Michael Scarn!?',
+        text: defaultTeam.mentions,
+        title: 'Dunder Mifflin 📄',
+        fields: [
+          {
+            short: true,
+            title: 'Stories',
+            value: defaultTeam.teamMessages,
+          },
+          {
+            short: true,
+            title: 'Details',
+            value: 'No. NOOOOO.',
+          },
+        ],
+      }),
+    );
   });
 });

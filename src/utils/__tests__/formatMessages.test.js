@@ -22,23 +22,27 @@ describe('format', () => {
   });
 
   it('should handle empty messages', () => {
-    expect(format({
-      change: emptyMessages,
-      owner,
-      repo,
-      githubDomain,
-      jiraTeam,
-    })).toEqual([]);
+    expect(
+      format({
+        change: emptyMessages,
+        owner,
+        repo,
+        githubDomain,
+        jiraTeam,
+      }),
+    ).toEqual([]);
   });
 
   it('should handle jira only messages', () => {
-    expect(format({
-      change: jiraOnlyMessages,
-      owner,
-      repo,
-      githubDomain,
-      jiraTeam,
-    })).toEqual([
+    expect(
+      format({
+        change: jiraOnlyMessages,
+        owner,
+        repo,
+        githubDomain,
+        jiraTeam,
+      }),
+    ).toEqual([
       {
         message: '<https://jira.FRANK.com/browse/CAT-123|[CAT-123]>',
         githubPr: '<https://github.com/tester/project/pull/2|#2>',
@@ -55,13 +59,15 @@ describe('format', () => {
   });
 
   it('should handle github only messages', () => {
-    expect(format({
-      change: githubOnlyMessages,
-      owner,
-      repo,
-      githubDomain,
-      jiraTeam,
-    })).toEqual([
+    expect(
+      format({
+        change: githubOnlyMessages,
+        owner,
+        repo,
+        githubDomain,
+        jiraTeam,
+      }),
+    ).toEqual([
       {
         message: '<https://github.com/example_user/example_project/issues/3|example_user/example_project/#3>',
         githubPr: '<https://github.com/tester/project/pull/2|#2>',
@@ -78,13 +84,15 @@ describe('format', () => {
   });
 
   it('should handle multiple message types', () => {
-    expect(format({
-      change: allMessages,
-      owner,
-      repo,
-      githubDomain,
-      jiraTeam,
-    })).toEqual([
+    expect(
+      format({
+        change: allMessages,
+        owner,
+        repo,
+        githubDomain,
+        jiraTeam,
+      }),
+    ).toEqual([
       {
         message: '<https://jira.FRANK.com/browse/CAT-123|[CAT-123]>',
         githubPr: '<https://github.com/tester/project/pull/2|#2>',

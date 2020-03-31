@@ -84,17 +84,21 @@ module.exports = async function App(config) {
     owner,
     repo,
     teamList,
-    config
+    config,
   });
 
-
-  logger.info(`\n Slack Formatter Url. CMD+Click to open in your default browser \n \n ${generateSlackFormatterUrl(attachments)}`);
+  logger.info(
+    `\n Slack Formatter Url. CMD+Click to open in your default browser \n \n ${generateSlackFormatterUrl(attachments)}`,
+  );
 
   await releaseCommunication.sendMessage(message, attachments);
 
   // Send all individual attachments to their respective channels per team.
   if (subChannelAttachments.length) {
-    await Promise.all(subChannelAttachments.map(({ attachment, channel: subChannel }) =>
-      releaseCommunication.sendMessage(message, [attachment], subChannel, true)));
+    await Promise.all(
+      subChannelAttachments.map(({ attachment, channel: subChannel }) =>
+        releaseCommunication.sendMessage(message, [attachment], subChannel, true),
+      ),
+    );
   }
 };
