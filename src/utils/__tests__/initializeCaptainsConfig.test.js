@@ -57,6 +57,13 @@ describe('initializeCaptainsConfig', () => {
     process.env.GITHUB_TOKEN = '';
   });
 
+  it('should read values from a Vela environment', () => {
+    process.env.PARAMETER_GITHUB_TOKEN = '123';
+
+    expect(initialize().github_token).toEqual('123');
+    process.env.PARAMETER_GITHUB_TOKEN = '';
+  });
+
   it('it should prioritize env vars over .captians.yml vars', () => {
     process.env.PLUGIN_GITHUB_OWNER = '333';
     expect(initialize().github_owner).toEqual('333');
