@@ -2,6 +2,22 @@ const findUp = require('find-up');
 const { readFileSync } = require('fs');
 const { safeLoad } = require('js-yaml');
 
+const getEnvVar = value => {
+  const formattedValue = value.toUpperCase();
+
+  if (process.env[formattedValue]) {
+    return process.env[formattedValue];
+  }
+
+  if (process.env[`PLUGIN_${formattedValue}`]) {
+    return process.env[`PLUGIN_${formattedValue}`];
+  }
+
+  if (process.env[`PARAMETER_${formattedValue}`]) {
+    return process.env[`PARAMETER_${formattedValue}`];
+  }
+};
+
 const initialize = () => {
   let conf = {};
 
@@ -30,24 +46,24 @@ const initialize = () => {
 
   const captainsConfig = {
     // Github
-    enterprise_host: process.env.PLUGIN_ENTERPRISE_HOST || enterprise_host,
-    github_host: process.env.PLUGIN_GITHUB_HOST || github_host,
-    github_owner: process.env.PLUGIN_GITHUB_OWNER || github_owner,
-    github_repo: process.env.PLUGIN_GITHUB_REPO || github_repo,
-    github_tag_id: process.env.PLUGIN_GITHUB_TAG_ID || github_tag_id,
-    github_token: process.env.GITHUB_TOKEN || github_token,
+    enterprise_host: getEnvVar('ENTERPRISE_HOST') || enterprise_host,
+    github_host: getEnvVar('GITHUB_HOST') || github_host,
+    github_owner: getEnvVar('GITHUB_OWNER') || github_owner,
+    github_repo: getEnvVar('GITHUB_REPO') || github_repo,
+    github_tag_id: getEnvVar('GITHUB_TAG_ID') || github_tag_id,
+    github_token: getEnvVar('GITHUB_TOKEN') || github_token,
 
     // Team Configuration
-    teams: process.env.PLUGIN_TEAMS || teams,
+    teams: getEnvVar('TEAMS') || teams,
 
     // Slack
-    slack_channel: process.env.PLUGIN_SLACK_CHANNEL || slack_channel,
-    slack_token: process.env.SLACK_TOKEN || slack_token,
-    slack_url: process.env.SLACK_URL || slack_url,
-    slack_message_heading: process.env.PLUGIN_SLACK_MESSAGE_HEADING || slack_message_heading,
+    slack_channel: getEnvVar('SLACK_CHANNEL') || slack_channel,
+    slack_token: getEnvVar('SLACK_TOKEN') || slack_token,
+    slack_url: getEnvVar('SLACK_URL') || slack_url,
+    slack_message_heading: getEnvVar('SLACK_MESSAGE_HEADING') || slack_message_heading,
 
     // Jira
-    jira_team_domain: process.env.PLUGIN_JIRA_TEAM_DOMAIN || jira_team_domain,
+    jira_team_domain: getEnvVar('JIRA_TEAM_DOMAIN') || jira_team_domain,
   };
 
   return captainsConfig;

@@ -1,8 +1,8 @@
 # Configuration
 
-There are two options for configuration:
+There are two primary options for configuration:
 
-- use the `.drone.yml` and create a build step with the configuration values required (listed below).
+- use a configuration file (e.g. `.vela.yml`,`.drone.yml`, etc.) and create a build step with the configuration values required (listed below).
 - place a `.captains.yml` file at the root of your directory. Place any required configuration in there. (**note**, you will still need a _Captain's Log build step_, it just will not have any of the configuration values listed there.)
 
 Both are usable, and at the same time. Any environment variable set (e.g. by your CI server) will overwrite any values in the `.captains.yml`. 
@@ -31,6 +31,22 @@ Suggested configuration would be to place secrets in your CI configuration, and 
 - `slack_message_heading` - you can provide a custom heading for the slack message that is posted, when using this field.
 
 ### Example
+
+#### .vela.yml
+
+```yaml
+image: target/captains-log:1
+pull: true
+secrets: [GITHUB_TOKEN, SLACK_URL]
+parameters:
+  github_owner: target
+  github_repo: captains-log
+  github_tag_id: 'v([0-9]+-release)$'
+  enterprise_host: https://git.myteam.com
+  jira_team_domain: myteamnamespace
+  teams: ...
+```
+
 
 #### .drone.yml
 
@@ -92,7 +108,7 @@ github_tag_id: 'v([0-9]+-release)$'
 
 `teams` is a **list** of teams which allows you to logically group the output of Captain's Log into focused chunks. You only need a few things to configure a team.
 
-( will work for _both_ `.captains.yml` and `.drone.yml`)
+( will work for _both_ `.captains.yml` and CI configuration file (e.g.`.vela.yml`))
 
 ```yaml
 teams:

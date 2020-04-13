@@ -1,8 +1,8 @@
 # Examples
 
-Example `.drone.yml` configurations that should provide a starting point for integrating Captain's Log.
+Example configurations that should provide a starting point for integrating Captain's Log.
 
-## Standard Configuration With No Teams
+## Standard Configuration With No Teams (Drone)
 
 **Uses `SLACK_URL`**
 
@@ -19,6 +19,21 @@ my-release-log-step:
 
 ### With Jira and Github Enterprise
 
+
+*Vela*
+```yaml
+image: target/captains-log:1
+pull: true
+secrets: [GITHUB_TOKEN, SLACK_URL]
+parameters:
+  github_owner: target
+  github_repo: captains-log
+  github_tag_id: 'v([0-9]+-release)$'
+  enterprise_host: https://git.myteam.com
+  jira_team_domain: myteamnamespace
+```
+
+*Drone*
 ```yaml
 my-release-log-step:
   image: target/captains-log:1
@@ -33,6 +48,40 @@ my-release-log-step:
 
 **Uses `SLACK_TOKEN`**
 
+
+*Vela*
+
+```yaml
+image: target/captains-log:1
+pull: true
+secrets: [GITHUB_TOKEN, SLACK_URL]
+parameters:
+  github_owner: target
+  github_repo: captains-log
+  github_tag_id: 'v([0-9]+-release)$'
+  enterprise_host: https://git.myteam.com
+  jira_team_domain: myteamnamespace
+  teams:
+    - name: Team1
+      color: '#FFDC18'
+      emoji: '✨'
+      mentions: '<@person1>  <@person2>'
+      issueTracking:
+        jira:
+          projects:
+            - TEAM1
+            - TEAM1SUBGROUP
+    - name: Team2
+      color: '#F48642'
+      emoji: '🔥'
+      mentions: '<@person3>'
+      issueTracking:
+        jira:
+          projects:
+            - TEAM2
+```
+
+*Drone*
 ```yaml
 my-release-log-step:
   image: target/captains-log:1
@@ -61,7 +110,7 @@ my-release-log-step:
             - TEAM2
 ```
 
-## Standard Github Configuration With Teams
+## Standard Github Configuration With Teams (Drone)
 
 ```yaml
 my-release-log-step:

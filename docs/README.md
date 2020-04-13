@@ -1,6 +1,6 @@
 # Captain's Log
 
-A Drone plugin that provides automated release notes.
+A continuous integration plugin that provides automated release notes.
 
 Providing seamless integrations between Github, Slack, and other issue trackers.
 
