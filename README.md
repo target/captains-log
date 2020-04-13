@@ -1,6 +1,6 @@
 # Captain's Log
 
-A drone plugin that will send release information via slack.
+A continuous integration plugin that will send release information via slack.
 
 ![ ](./docs/static/example-output.png)
 

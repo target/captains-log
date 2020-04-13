@@ -16,14 +16,15 @@ Once you've completed your work, you should test your changes.
 
 ## Testing Your Changes
 
-There are two ways to test your changes.
+There are different ways to test your changes.
 
 1.  Command Line - runs node directly, but you have to provide the plugin values
 2.  Drone Exec - runs the plugin in drone as it would in the pipeline, you will still have to provide the secrets.
+3.  Vela exec - _coming soon_
 
 ### Command Line
 
-Drone uses the convention of `PLUGIN_<key>` in order to access yaml variables in plugins. For instance, if you were to create a new key called `super_cool_key` in your `yaml`:
+Vela uses the convention `PARAMETER_<key>`. Drone uses the convention of `PLUGIN_<key>` in order to access yaml variables in plugins. For instance, if you were to create a new key called `super_cool_key` in your `yaml`:
 
 ```yaml
 my-release-log-step:
@@ -34,9 +35,9 @@ my-release-log-step:
   super_cool_key: ROCK STAR
 ```
 
-In the plugin, you would access that via `process.env.PLUGIN_SUPER_COOL_KEY`.
+In the plugin, you would access that via `process.env.PARAMETER` or `process.env.PLUGIN_SUPER_COOL_KEY`.
 
-Drone secrets, however, are their names alone. Therefore, `SLACK_TOKEN`, `SLACK_URL`, and `GITHUB_TOKEN` will all be accessed via those names.
+Vela and Drone secrets, however, are their names alone. Therefore, `SLACK_TOKEN`, `SLACK_URL`, and `GITHUB_TOKEN` will all be accessed via those names.
 
 The following is an example of all environment variables you will need in order to run Captains Log:
 
