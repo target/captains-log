@@ -96,9 +96,15 @@ module.exports = async function App(config) {
   // Send all individual attachments to their respective channels per team.
   if (subChannelAttachments.length) {
     await Promise.all(
-      subChannelAttachments.map(({ attachment, channel: subChannel }) =>
-        releaseCommunication.sendMessage(message, [attachment], subChannel, true),
-      ),
+      subChannelAttachments.map(async ({ attachment, channel: subChannel }) => {
+        try {
+          releaseCommunication.sendMessage(message, [attachment], subChannel, true);
+        } catch (e) {
+          logger.warn(
+            `\n Failed to send communication to channel: ${subChannel}`,
+          );
+        }
+      }),
     );
   }
 };
