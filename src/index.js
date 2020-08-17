@@ -98,7 +98,7 @@ module.exports = async function App(config) {
     await Promise.all(
       subChannelAttachments.map(async ({ attachment, channel: subChannel }) => {
         try {
-          releaseCommunication.sendMessage(message, [attachment], subChannel, true);
+          await releaseCommunication.sendMessage(message, [attachment], subChannel, true);
         } catch (e) {
           logger.warn(
             `\n Failed to send communication to channel: ${subChannel}`,
