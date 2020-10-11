@@ -1,32 +1,14 @@
+const { createTeamHeader } = require('../Blocks/header');
+const { createDivider } = require('../Blocks/divider');
+const { createMentions } = require('../Blocks/section');
+
 const generateSlack = function generateSlack(team, message = '') {
-  const { color = '#3ef2c5', mentions = '', emoji = '🌱', teamMessages = '', name = 'General', teamTitles = '' } = team;
-  const teamName = `${name} ${emoji}`;
+  const { mentions = '', emoji = '🌱', teamMessages = [], name = 'General' } = team;
+  const teamName = `${emoji} ${name}`;
 
-  if (!teamMessages && !message) return '';
+  if (!teamMessages.length && !message) return '';
 
-  let fields = [];
-  if (teamMessages) {
-    fields = [
-      {
-        title: 'Stories',
-        value: teamMessages,
-        short: true,
-      },
-      {
-        title: 'Details',
-        value: teamTitles,
-        short: true,
-      },
-    ];
-  }
-
-  return {
-    fallback: teamMessages || message,
-    color,
-    title: teamName,
-    text: mentions,
-    fields,
-  };
+  return [createTeamHeader(teamName), createMentions(mentions), ...teamMessages, createDivider()];
 };
 
 const generate = (type, team) => (message = '') => {

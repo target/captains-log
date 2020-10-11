@@ -42,6 +42,7 @@ const initialize = () => {
     jira_team_domain,
     teams,
     slack_message_heading,
+    slack_org_id,
   } = conf;
 
   const captainsConfig = {
@@ -61,6 +62,7 @@ const initialize = () => {
     slack_token: getEnvVar('SLACK_TOKEN') || slack_token,
     slack_url: getEnvVar('SLACK_URL') || slack_url,
     slack_message_heading: getEnvVar('SLACK_MESSAGE_HEADING') || slack_message_heading,
+    slack_org_id: getEnvVar('SLACK_ORG_ID') || slack_org_id,
 
     // Jira
     jira_team_domain: getEnvVar('JIRA_TEAM_DOMAIN') || jira_team_domain,

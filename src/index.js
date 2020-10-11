@@ -1,46 +1,45 @@
 /* eslint max-len: [0] */
 const { ReleaseCommunication } = require('./facades');
-const { DEFAULT_HEADING, EMPTY_MESSAGE } = require('./constants');
 const logger = require('./logger');
 const Team = require('./factories/Team');
 const Message = require('./factories/Message');
+const { createHeadingSection, createFooterSection } = require('./factories/Blocks/section');
 
 const { populateMessages, getTeams, nameSort, formatMessages, generateSlackFormatterUrl } = require('./utils');
 
 const defaultTeam = Team();
 
-const createAttachment = (hasMessages, { owner, repo, teamList, config }) => {
-  let message = EMPTY_MESSAGE(owner, repo);
-  let attachments = [];
-  let subChannelAttachments = [];
+const createBlocks = (hasMessages, { owner, repo, teamList, config, head, base }) => {
+  let subChannelBlocks = [];
+  const customHeading = config.get('slack:messageHeading');
+  const heading = createHeadingSection({ owner, repo, head, base, customHeading });
+  const footer = createFooterSection();
 
   if (!hasMessages) {
-    return { message, attachments };
+    return { blocks: [heading, footer] };
   }
 
   // add all the PRs if there are any
-  const customHeading = config.get('slack:messageHeading');
-  message = customHeading || DEFAULT_HEADING(owner, repo);
-  attachments = [];
+  const blocks = [];
   // team sub-channel attachments
-  subChannelAttachments = [];
+  subChannelBlocks = [];
 
   const teamsToAttach = [...teamList, defaultTeam];
 
   teamsToAttach.forEach(team => {
     const msg = Message('slack', team);
-    const attachment = msg.generate();
+    const teamBlocks = msg.generate();
 
-    if (attachment) {
-      attachments.push(attachment);
+    if (teamBlocks.length) {
+      blocks.push(...teamBlocks);
 
       // if a team has subchannels, generate attatchments to send
       // to those channels here.
-      team.channels.forEach(channel => subChannelAttachments.push({ channel, attachment }));
+      team.channels.forEach(channel => subChannelBlocks.push({ channel, blocks: teamBlocks }));
     }
   });
 
-  return { message, attachments, subChannelAttachments };
+  return { blocks: [heading, ...blocks, footer], subChannelBlocks };
 };
 
 module.exports = async function App(config) {
@@ -58,13 +57,16 @@ module.exports = async function App(config) {
     tagId,
   });
 
-  const diff = await releaseCommunication.diff();
+  const { diff, head, base } = await releaseCommunication.diff();
+
   const changes = await releaseCommunication.parseDiff(diff);
   const messages = changes.reduce((acc, change) => {
     const changeMessages = formatMessages({
       change,
       owner,
       repo,
+      head,
+      base,
       githubDomain,
       jiraTeam,
     });
@@ -80,24 +82,29 @@ module.exports = async function App(config) {
 
   populateMessages(defaultTeam)(teamList, sortedMessages);
 
-  const { message, attachments, subChannelAttachments = [] } = createAttachment(messages.length, {
+  const { blocks, subChannelBlocks = [] } = createBlocks(messages.length, {
     owner,
     repo,
     teamList,
     config,
+    head,
+    base,
   });
 
   logger.info(
-    `\n Slack Formatter Url. CMD+Click to open in your default browser \n \n ${generateSlackFormatterUrl(attachments)}`,
+    `\n Slack Formatter Url. CMD+Click to open in your default browser \n \n ${await generateSlackFormatterUrl(
+      blocks,
+      config,
+    )}`,
   );
 
-  await releaseCommunication.sendMessage(message, attachments);
+  await releaseCommunication.sendMessage(blocks);
 
   // Send all individual attachments to their respective channels per team.
-  if (subChannelAttachments.length) {
+  if (subChannelBlocks.length) {
     await Promise.all(
-      subChannelAttachments.map(({ attachment, channel: subChannel }) =>
-        releaseCommunication.sendMessage(message, [attachment], subChannel, true),
+      subChannelBlocks.map(({ blocks, channel: subChannel }) =>
+        releaseCommunication.sendMessage(blocks, subChannel, true),
       ),
     );
   }

@@ -21,7 +21,8 @@
     "lodash": "^4.17.19",
     "nconf": "^0.10.0",
     "node-fetch": "^2.1.2",
-    "pino": "^4.17.3"
+    "pino": "^4.17.3",
+    "tinyurl": "^1.1.7"
   },
   "devDependencies": {
     "eslint": "^4.19.1",

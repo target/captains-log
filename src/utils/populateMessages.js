@@ -5,19 +5,18 @@ const populateMessages = function populateMessages(defaultTeam) {
     let filteredMessages = messages;
 
     if (teamsToPopulate.length === 0) {
-      filteredMessages.forEach(({ message = '', title = '', githubPr = '' }) =>
-        defaultTeam.addMessage(message, title, githubPr),
-      );
+      filteredMessages.forEach(message => defaultTeam.addMessage(message));
       return true;
     }
 
     const [team, ...remainingTeams] = teamsToPopulate;
 
-    filteredMessages = messages.filter(({ message = '', title = '', githubPr = '' }) => {
-      if (team.messageMatch(message)) {
-        team.addMessage(message, title, githubPr);
+    debugger;
+    filteredMessages = messages.filter(message => {
+      if (team.messageMatch(message.url || '')) {
+        team.addMessage(message);
       }
-      return !team.messageMatch(message);
+      return !team.messageMatch(message.url);
     });
 
     return populate(remainingTeams, filteredMessages);

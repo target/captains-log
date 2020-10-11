@@ -64,6 +64,7 @@ if (process.env.NODE_ENV !== 'test') {
     jira_team_domain,
     teams,
     slack_message_heading,
+    slack_org_id,
   } = captainsConfig;
 
   // Github
@@ -85,6 +86,7 @@ if (process.env.NODE_ENV !== 'test') {
   nconf.set('slack:token', slack_token);
   nconf.set('slack:channelUrl', slack_url);
   nconf.set('slack:messageHeading', slack_message_heading);
+  nconf.set('slack:orgId', slack_org_id);
 
   // Jira
   nconf.set('jira:teamDomain', jira_team_domain);
