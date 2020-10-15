@@ -8,6 +8,7 @@ const generateSlack = function generateSlack(team, message = '') {
 
   if (!teamMessages.length && !message) return '';
 
+  // Each team, at a minimum, will have four "blocks"
   return [createTeamHeader(teamName), createMentions(mentions), ...teamMessages, createDivider()];
 };
 

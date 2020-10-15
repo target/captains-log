@@ -1,7 +1,4 @@
 const idx = require('idx');
-const config = require('../../config');
-
-const githubDomain = config.get('github:domain') || 'https://github.com';
 
 const createStorySection = function createStorySection(message) {
   const isGitIssue = message.url.includes('git');
@@ -10,7 +7,9 @@ const createStorySection = function createStorySection(message) {
     type: 'section',
     text: {
       type: 'mrkdwn',
-      text: `${isGitIssue ? `*${idx(message, _ => _.meta.ticket.project)} #` : '*'}${message.name}*: _${message.title}_`,
+      text: `${isGitIssue ? `*${idx(message, _ => _.meta.ticket.project)} #` : '*'}${message.name}*: _${
+        message.title
+      }_`,
     },
     accessory: {
       type: 'overflow',
@@ -27,32 +26,32 @@ const createStorySection = function createStorySection(message) {
         {
           text: {
             type: 'plain_text',
-            text: `🔖 See Issue: ${isGitIssue ? '#' : ''}${message.name}`,
+            text: `🎫 See Issue: ${isGitIssue ? '#' : ''}${message.name}`,
             emoji: true,
           },
           value: `${message.name}`,
           url: message.url,
-        }
+        },
       ],
       action_id: 'overflow-action',
     },
   };
 };
 
-const createHeadingSection = function createHeadingSection({ owner, repo, head, base, customHeading = null }) {
+const createHeadingSection = function createHeadingSection({ domain, owner, repo, head, base, customHeading = null }) {
   return {
     type: 'section',
     text: {
       type: 'mrkdwn',
-      text: customHeading || `🚀 ${owner}/${repo} deployed to production!`
+      text: customHeading || `🚀 ${owner}/${repo} deployed to production!`,
     },
     accessory: {
       type: 'button',
       text: {
         type: 'plain_text',
-        text: 'View Release'
+        text: 'View Release',
       },
-      url: `${githubDomain}/${owner}/${repo}/compare/${base}...${head}`
+      url: `${domain}/${owner}/${repo}/compare/${base}...${head}`,
     },
   };
 };
@@ -62,7 +61,7 @@ const createFooterSection = function createFooterSection() {
     type: 'section',
     text: {
       type: 'mrkdwn',
-      text: 'Don\'t see your issue, or think there\'s a bug? 👉'
+      text: "Don't see your issue 👀, or think there's a bug 🐛? 👉",
     },
     accessory: {
       type: 'overflow',
@@ -74,7 +73,7 @@ const createFooterSection = function createFooterSection() {
             emoji: true,
           },
           value: 'docs',
-          url: 'https://target.github.io/captains-log/#/configuration/'
+          url: 'https://target.github.io/captains-log/#/configuration/',
         },
         {
           text: {
@@ -83,10 +82,10 @@ const createFooterSection = function createFooterSection() {
             emoji: true,
           },
           value: 'bug',
-          url: 'https://github.com/target/captains-log/issues/new/choose'
+          url: 'https://github.com/target/captains-log/issues/new/choose',
         },
       ],
-      action_id: 'overflow-action'
+      action_id: 'overflow-action',
     },
   };
 };
@@ -96,7 +95,17 @@ const createMentions = function createMentions(mentions) {
     type: 'section',
     text: {
       type: 'mrkdwn',
-      text: `Attention to: ${mentions}` || ' ',
+      text: mentions ? `📣 ${mentions}` : ' ',
+    },
+  };
+};
+
+const createEmptyRelease = function createEmptyRelease() {
+  return {
+    type: 'section',
+    text: {
+      type: 'mrkdwn',
+      text: '_It appears there were no records for this release._ 📭',
     },
   };
 };
@@ -106,4 +115,5 @@ module.exports = {
   createStorySection,
   createFooterSection,
   createMentions,
-}
+  createEmptyRelease,
+};

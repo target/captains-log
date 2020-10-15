@@ -130,7 +130,6 @@ class ReleaseCommunication {
   /**
    * async sendMessage - Send slack message to desired channel
    *
-   * @param  {String} text text to send to channel
    * @param  {Array} blocks  list of blocks to send to a room
    * @param  {String} channel desired channel if it is not what exists in the constructor
    * @param  {Boolean} sendToChannelOnly if you wish to ignore the channelURL (which usually needs a channel) set to true

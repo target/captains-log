@@ -11,7 +11,6 @@ const populateMessages = function populateMessages(defaultTeam) {
 
     const [team, ...remainingTeams] = teamsToPopulate;
 
-    debugger;
     filteredMessages = messages.filter(message => {
       if (team.messageMatch(message.url || '')) {
         team.addMessage(message);

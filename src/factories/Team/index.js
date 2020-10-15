@@ -16,7 +16,6 @@ const Team = function Team(team = {}) {
   const trackers = IssueTracker(issueTracking);
 
   const messageMatch = (message = '') => {
-    debugger;
     const isMatch = Object.values(trackers).reduce((acc, tracker) => {
       const { matches = [] } = tracker;
       const match = matches.filter(matcher => message.match(matcher));

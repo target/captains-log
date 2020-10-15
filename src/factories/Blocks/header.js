@@ -5,8 +5,8 @@ const createTeamHeader = function createTeamHeader(teamName) {
       type: 'plain_text',
       text: teamName,
       emoji: true,
-    }
-  }
+    },
+  };
 };
 
 module.exports = {
