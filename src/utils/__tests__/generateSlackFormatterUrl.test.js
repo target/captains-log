@@ -1,4 +1,3 @@
-const querystring = require('querystring');
 const generateSlackFormatterUrl = require('../generateSlackFormatterUrl');
 
 describe('generateSlackFormatterUrl', () => {

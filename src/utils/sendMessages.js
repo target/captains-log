@@ -1,4 +1,6 @@
-const sleep = require('util').promisify(setTimeout);
+const { promisify } = require('util');
+
+const sleep = promisify(setTimeout);
 
 /**
  * Slack has a 50 block limit, per message. We need to chunk blocks so we can send them
@@ -12,7 +14,6 @@ const sleep = require('util').promisify(setTimeout);
  * @param {Array} blocks Slack "blocks" to send via message
  */
 const sendDelayedMessages = async function sendMessages(sender, blocks) {
-  debugger;
   await Promise.all(
     blocks.map(async (blockChunk, i) => {
       // The slack rate limit for messages is 1 per second, unless it is defined in
