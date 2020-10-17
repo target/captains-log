@@ -100,5 +100,4 @@ describe('Team', () => {
 
     expect(team.teamMessages).toEqual([{ msg: 'Hi' }, createStorySection('Bye')]);
   });
-
 });

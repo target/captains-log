@@ -8,12 +8,12 @@ describe('populateMessages', () => {
     {
       message: 'CHANDLER-123: The one with the wedding',
       title: 'bugfix: find missing Chandler',
-      url: 'https://jira.you.com/browse/CHANDLER-123'
+      url: 'https://jira.you.com/browse/CHANDLER-123',
     },
     {
       message: 'JOEY-4345: The one with the duck',
       title: 'ducks!!!',
-      url: 'https://jira.you.com/browse/JOEY-4345'
+      url: 'https://jira.you.com/browse/JOEY-4345',
     },
   ];
 
@@ -48,6 +48,4 @@ describe('populateMessages', () => {
 
     expect(exampleTeam.teamMessages).toEqual([createStorySection(messages[0])]);
   });
-
-
 });

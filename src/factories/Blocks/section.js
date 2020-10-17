@@ -7,8 +7,9 @@ const createStorySection = function createStorySection(message) {
     type: 'section',
     text: {
       type: 'mrkdwn',
-      text: `${isGitIssue ? `*${idx(message, _ => _.meta.ticket.project)} #` : '*'}${message.name}*: _${message.title
-        }_`,
+      text: `${isGitIssue ? `*${idx(message, _ => _.meta.ticket.project)} #` : '*'}${message.name}*: _${
+        message.title
+      }_`,
     },
     accessory: {
       type: 'overflow',
