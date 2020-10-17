@@ -22,7 +22,8 @@
     "nconf": "^0.10.0",
     "node-fetch": "^2.1.2",
     "pino": "^4.17.3",
-    "tinyurl": "^1.1.7"
+    "tinyurl": "^1.1.7",
+    "yargs-parser": "13.1.2"
   },
   "devDependencies": {
     "eslint": "^4.19.1",
