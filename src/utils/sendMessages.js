@@ -17,7 +17,7 @@ const sendDelayedMessages = async function sendMessages(sender, blocks) {
   await Promise.all(
     blocks.map(async (blockChunk, i) => {
       // The slack rate limit for messages is 1 per second, unless it is defined in
-      // "special rate limites".
+      // "special rate limits".
       if (i !== 0) await sleep(1500);
       try {
         sender(blockChunk);
