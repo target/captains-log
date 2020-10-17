@@ -1,15 +1,14 @@
 const idx = require('idx');
 
 const createStorySection = function createStorySection(message) {
-  const isGitIssue = message.url.includes('git');
+  const isGitIssue = idx(message, _ => _.url.includes('git'));
 
   return {
     type: 'section',
     text: {
       type: 'mrkdwn',
-      text: `${isGitIssue ? `*${idx(message, _ => _.meta.ticket.project)} #` : '*'}${message.name}*: _${
-        message.title
-      }_`,
+      text: `${isGitIssue ? `*${idx(message, _ => _.meta.ticket.project)} #` : '*'}${message.name}*: _${message.title
+        }_`,
     },
     accessory: {
       type: 'overflow',
@@ -17,10 +16,10 @@ const createStorySection = function createStorySection(message) {
         {
           text: {
             type: 'plain_text',
-            text: `💻 View PR: #${message.meta.number}`,
+            text: `💻 View PR: #${idx(message, _ => _.meta.number)}`,
             emoji: true,
           },
-          value: `${message.meta.number}`,
+          value: `${idx(message, _ => _.meta.number)}`,
           url: message.githubPr,
         },
         {
