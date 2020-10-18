@@ -1,3 +1,5 @@
+const { chunk } = require('lodash');
+
 const Message = require('../factories/Message');
 const { createHeadingSection, createFooterSection, createEmptyRelease } = require('../factories/Blocks/section');
 
@@ -15,21 +17,7 @@ const chunkBlocks = (heading, blocks, footer) => {
 
   if (allBlocks.length <= 50) return [allBlocks];
 
-  let counter = 0;
-  const chunkedBlocks = blocks.reduce(
-    (acc, block) => {
-      if (counter < 49) {
-        counter += 1;
-        const lastIndex = acc.length - 1;
-        acc[lastIndex].push(block);
-        return acc;
-      }
-
-      counter = 0;
-      return [...acc, [block]];
-    },
-    [[]],
-  );
+  const chunkedBlocks = chunk(blocks, 49);
 
   chunkedBlocks[0].unshift(heading);
   chunkedBlocks[chunkedBlocks.length - 1].push(footer);
