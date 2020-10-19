@@ -1,15 +1,19 @@
-const querystring = require('querystring');
+const tinyurl = require('tinyurl');
 
-const generateSlackFormatterUrl = attachments => {
-  const baseSlackUrl = 'https://api.slack.com/docs/messages/builder?';
+const generateSlackFormatterUrl = async (blocks, config) => {
+  const baseSlackUrl = `https://app.slack.com/block-kit-builder/${config.get('slack:orgId')}#`;
+  let url;
 
-  const attachmentsToStringify = JSON.stringify({
-    attachments,
-  });
+  const stringifiedBlocks = JSON.stringify(blocks);
+  const stringifiedQuery = encodeURIComponent(stringifiedBlocks);
 
-  const stringifiedQuery = querystring.stringify({ msg: attachmentsToStringify });
+  const longUrl = `${baseSlackUrl}%7B"blocks":${stringifiedQuery}%7D`;
 
-  return `${baseSlackUrl}${stringifiedQuery}`;
+  if (process.env.ENABLE_TINY) {
+    url = await tinyurl.shorten(longUrl);
+  }
+
+  return url || longUrl;
 };
 
 module.exports = generateSlackFormatterUrl;

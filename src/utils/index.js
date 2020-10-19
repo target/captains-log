@@ -5,9 +5,11 @@ const teamHelper = require('./teamHelper');
 const nameSort = require('./nameSort');
 const truncate = require('./truncate');
 const populateMessages = require('./populateMessages');
+const prepareBlocks = require('./prepareBlocks');
 const ticketFinder = require('./ticketFinder');
 const formatMessages = require('./formatMessages');
 const generateSlackFormatterUrl = require('./generateSlackFormatterUrl');
+const { sendDelayedMessages } = require('./sendMessages');
 
 module.exports = {
   groupFinder,
@@ -17,7 +19,9 @@ module.exports = {
   initialize,
   nameSort,
   populateMessages,
+  prepareBlocks,
   getTeams: teamHelper,
   truncate,
   ticketFinder,
+  sendDelayedMessages,
 };

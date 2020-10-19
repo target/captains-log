@@ -6,7 +6,7 @@ const main = async function main() {
   await App(config);
 };
 
-main().catch((e) => {
+main().catch(e => {
   logger.error(e);
 
   // Always exit 0, we never want to stop execution for this plugin

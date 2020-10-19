@@ -1,4 +1,5 @@
 const Message = require('..');
+const { createStorySection } = require('../../Blocks/section');
 const Team = require('../../Team');
 
 describe('Message', () => {
@@ -8,7 +9,7 @@ describe('Message', () => {
     emoji: '📄',
     issueTracking: { jira: { teams: ['ACCOUNTING', 'ASSISTANT_TO_THE_REGIONAL_MANAGER'] } },
     mentions: '@Dwight.K.Schrute @Michael.J.Scott @Pam.Beasley',
-    messages: 'Where is Michael Scarn!?',
+    blocks: [createStorySection('Where is Michael Scarn!?')],
     titles: 'No. NOOOOO.',
   });
 
@@ -20,39 +21,40 @@ describe('Message', () => {
   it('should generate a slack message for a default group', () => {
     const message = Message();
 
-    expect(message.generate('some message')).toEqual(
-      expect.objectContaining({
-        color: expect.any(String),
-        fallback: 'some message',
-        fields: [],
-        text: '',
-        title: 'General 🌱',
-      }),
-    );
+    expect(message.generate('some message')).toEqual([
+      { text: { emoji: true, text: '🌱 General', type: 'plain_text' }, type: 'header' },
+      { text: { text: ' ', type: 'mrkdwn' }, type: 'section' },
+      { type: 'divider' },
+    ]);
   });
 
   it('should generate a slack message for a team', () => {
     const message = Message('slack', defaultTeam);
 
-    expect(message.generate()).toEqual(
-      expect.objectContaining({
-        color: '#f06d06',
-        fallback: 'Where is Michael Scarn!?',
-        text: defaultTeam.mentions,
-        title: 'Dunder Mifflin 📄',
-        fields: [
-          {
-            short: true,
-            title: 'Stories',
-            value: defaultTeam.teamMessages,
-          },
-          {
-            short: true,
-            title: 'Details',
-            value: 'No. NOOOOO.',
-          },
-        ],
-      }),
-    );
+    expect(message.generate()).toEqual([
+      { text: { emoji: true, text: '📄 Dunder Mifflin', type: 'plain_text' }, type: 'header' },
+      { text: { text: '📣 @Dwight.K.Schrute @Michael.J.Scott @Pam.Beasley', type: 'mrkdwn' }, type: 'section' },
+      {
+        accessory: {
+          action_id: 'overflow-action',
+          options: [
+            {
+              text: { emoji: true, text: '💻 View PR: #undefined', type: 'plain_text' },
+              url: undefined,
+              value: 'undefined',
+            },
+            {
+              text: { emoji: true, text: '🎫 See Issue: undefined', type: 'plain_text' },
+              url: undefined,
+              value: 'undefined',
+            },
+          ],
+          type: 'overflow',
+        },
+        text: { text: '*undefined*: _undefined_', type: 'mrkdwn' },
+        type: 'section',
+      },
+      { type: 'divider' },
+    ]);
   });
 });

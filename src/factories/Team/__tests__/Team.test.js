@@ -1,3 +1,4 @@
+const { createStorySection } = require('../../Blocks/section');
 /* eslint max-len: [0, 120] */
 const Team = require('..');
 
@@ -91,55 +92,12 @@ describe('Team', () => {
   });
 
   it('should add a message to existing messages', () => {
-    const team = Team({ ...exampleTeam, messages: 'Hi' });
+    const team = Team({ ...exampleTeam, blocks: [{ msg: 'Hi' }] });
 
-    expect(team.teamMessages).toEqual('Hi');
+    expect(team.teamMessages).toEqual([{ msg: 'Hi' }]);
 
     team.addMessage('Bye');
 
-    expect(team.teamMessages).toEqual('Hi\n Bye');
-  });
-
-  it('should add a title to existing titles', () => {
-    const team = Team({ ...exampleTeam, titles: 'This Is A Title' });
-
-    expect(team.teamTitles).toEqual('This Is A Title');
-
-    team.addMessage('', 'Bye');
-
-    expect(team.teamTitles).toEqual('This Is A Title\n Bye');
-  });
-
-  it('should wrap a title and add a new line to the message if message does not need to wrap', () => {
-    const team = Team({
-      ...exampleTeam,
-      titles: 'This Is A Title',
-    });
-
-    expect(team.teamTitles).toEqual('This Is A Title');
-
-    team.addMessage(
-      '',
-      'title that is really long and far over lots characters. We should be truncating this very soon',
-    );
-
-    expect(team.teamTitles).toEqual('This Is A Title\n title that is really long and far over lots characte...');
-    expect(team.teamMessages).toEqual(' \n ');
-  });
-
-  it('should wrap a message and add a new line to the title if message does not need to wrap', () => {
-    const team = Team({
-      ...exampleTeam,
-      messages: 'This Is A Message',
-    });
-
-    team.addMessage(
-      'message that is really long and far over 105 characters. We are fun fun fun, in the sun sun sun #realyLongText',
-    );
-
-    expect(team.teamMessages).toEqual(
-      'This Is A Message\n message that is really long and far over 105 characters. We are fun fun fun, in the sun sun sun #realyLongText',
-    );
-    expect(team.teamTitles).toEqual(' \n ');
+    expect(team.teamMessages).toEqual([{ msg: 'Hi' }, createStorySection('Bye')]);
   });
 });

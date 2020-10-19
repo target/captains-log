@@ -21,7 +21,7 @@ describe('ReleaseCommunicationFacade', () => {
   it('should retrieve and return a diff of two commits given the repo and owner', async () => {
     handlers.getTagsHandler.mockResolvedValue(tagResponse);
     handlers.getTagDiffHandler.mockResolvedValue(squashDiffResponse);
-    const diff = await RC.diff();
+    const { diff } = await RC.diff();
     const expectedDiff = squashDiffResponse;
 
     expect(diff).toEqual(expectedDiff);
@@ -74,7 +74,7 @@ describe('ReleaseCommunicationFacade', () => {
     handlers.getPullRequestHandler.mockResolvedValueOnce(pullRequestResponse);
     handlers.searchIssuesByCommitHandler.mockResolvedValueOnce(searchIssueResponse);
 
-    const diff = await RC.diff();
+    const { diff } = await RC.diff();
     const expectedDiff = mergedDiffResponse;
 
     expect(diff).toEqual(expectedDiff);
