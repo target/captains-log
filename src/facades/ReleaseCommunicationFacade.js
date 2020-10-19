@@ -89,7 +89,7 @@ class ReleaseCommunication {
       try {
         prNumbersByCommit = await Promise.all(nonSquashedPRs.map(async commit => searchIssuesByCommitHandler(commit)));
       } catch (e) {
-        console.log('Unable to retreive issues by commit. Check if API limit was exceeded.', e);
+        console.log('Unable to retrieve issues by commit. Check if API limit was exceeded.', e);
       }
 
       // There should only ever be one issue for a commit
