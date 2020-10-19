@@ -21,7 +21,8 @@
     "lodash": "^4.17.19",
     "nconf": "^0.10.0",
     "node-fetch": "^2.1.2",
-    "pino": "^4.17.3"
+    "pino": "^4.17.3",
+    "tinyurl": "^1.1.7"
   },
   "devDependencies": {
     "eslint": "^4.19.1",
@@ -32,7 +33,7 @@
     "eslint-plugin-prettier": "^3.1.2",
     "eslint-plugin-react": "^7.9.1",
     "husky": "^4",
-    "jest": "^23.1.0",
+    "jest": "^26.5.3",
     "lint-staged": "^10",
     "prettier": "^1.16.4"
   },

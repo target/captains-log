@@ -44,16 +44,42 @@ describe('format', () => {
       }),
     ).toEqual([
       {
-        message: '<https://jira.FRANK.com/browse/CAT-123|[CAT-123]>',
-        githubPr: '<https://github.com/tester/project/pull/2|#2>',
+        githubPr: 'https://github.com/tester/project/pull/2',
+        meta: {
+          change: {
+            jira: { tickets: [{ name: 'CAT-123' }, { name: 'DOG-345' }] },
+            number: '2',
+            title: 'fix: The Thing',
+          },
+          githubDomain: 'https://github.com',
+          jiraTeam: 'FRANK',
+          number: '2',
+          owner: 'tester',
+          repo: 'project',
+          ticket: { name: 'CAT-123' },
+        },
         name: 'CAT-123',
         title: 'fix: The Thing',
+        url: 'https://jira.FRANK.com/browse/CAT-123',
       },
       {
-        message: '<https://jira.FRANK.com/browse/DOG-345|[DOG-345]>',
-        githubPr: '<https://github.com/tester/project/pull/2|#2>',
+        githubPr: 'https://github.com/tester/project/pull/2',
+        meta: {
+          change: {
+            jira: { tickets: [{ name: 'CAT-123' }, { name: 'DOG-345' }] },
+            number: '2',
+            title: 'fix: The Thing',
+          },
+          githubDomain: 'https://github.com',
+          jiraTeam: 'FRANK',
+          number: '2',
+          owner: 'tester',
+          repo: 'project',
+          ticket: { name: 'DOG-345' },
+        },
         name: 'DOG-345',
         title: 'fix: The Thing',
+        url: 'https://jira.FRANK.com/browse/DOG-345',
       },
     ]);
   });
@@ -69,16 +95,82 @@ describe('format', () => {
       }),
     ).toEqual([
       {
-        message: '<https://github.com/example_user/example_project/issues/3|example_user/example_project/#3>',
-        githubPr: '<https://github.com/tester/project/pull/2|#2>',
+        githubPr: 'https://github.com/tester/project/pull/2',
+        meta: {
+          change: {
+            github: {
+              tickets: [
+                {
+                  fullLinkedUrl: 'https://github.com/example_user/example_project/issues/3',
+                  issueNumber: '3',
+                  name: '3',
+                  project: 'example_user/example_project',
+                },
+                {
+                  fullLinkedUrl: 'https://github.com/example_user/example_project/issues/4',
+                  issueNumber: '4',
+                  name: '4',
+                  project: 'example_user/example_project',
+                },
+              ],
+            },
+            number: '2',
+            title: 'fix: The Thing',
+          },
+          githubDomain: 'https://github.com',
+          jiraTeam: 'FRANK',
+          number: '2',
+          owner: 'tester',
+          repo: 'project',
+          ticket: {
+            fullLinkedUrl: 'https://github.com/example_user/example_project/issues/3',
+            issueNumber: '3',
+            name: '3',
+            project: 'example_user/example_project',
+          },
+        },
         name: '3',
         title: 'fix: The Thing',
+        url: 'https://github.com/example_user/example_project/issues/3',
       },
       {
-        message: '<https://github.com/example_user/example_project/issues/4|example_user/example_project/#4>',
-        githubPr: '<https://github.com/tester/project/pull/2|#2>',
+        githubPr: 'https://github.com/tester/project/pull/2',
+        meta: {
+          change: {
+            github: {
+              tickets: [
+                {
+                  fullLinkedUrl: 'https://github.com/example_user/example_project/issues/3',
+                  issueNumber: '3',
+                  name: '3',
+                  project: 'example_user/example_project',
+                },
+                {
+                  fullLinkedUrl: 'https://github.com/example_user/example_project/issues/4',
+                  issueNumber: '4',
+                  name: '4',
+                  project: 'example_user/example_project',
+                },
+              ],
+            },
+            number: '2',
+            title: 'fix: The Thing',
+          },
+          githubDomain: 'https://github.com',
+          jiraTeam: 'FRANK',
+          number: '2',
+          owner: 'tester',
+          repo: 'project',
+          ticket: {
+            fullLinkedUrl: 'https://github.com/example_user/example_project/issues/4',
+            issueNumber: '4',
+            name: '4',
+            project: 'example_user/example_project',
+          },
+        },
         name: '4',
         title: 'fix: The Thing',
+        url: 'https://github.com/example_user/example_project/issues/4',
       },
     ]);
   });
@@ -94,28 +186,154 @@ describe('format', () => {
       }),
     ).toEqual([
       {
-        message: '<https://jira.FRANK.com/browse/CAT-123|[CAT-123]>',
-        githubPr: '<https://github.com/tester/project/pull/2|#2>',
+        githubPr: 'https://github.com/tester/project/pull/2',
+        meta: {
+          change: {
+            github: {
+              tickets: [
+                {
+                  fullLinkedUrl: 'https://github.com/example_user/example_project/issues/3',
+                  issueNumber: '3',
+                  name: '3',
+                  project: 'example_user/example_project',
+                },
+                {
+                  fullLinkedUrl: 'https://github.com/example_user/example_project/issues/4',
+                  issueNumber: '4',
+                  name: '4',
+                  project: 'example_user/example_project',
+                },
+              ],
+            },
+            jira: { tickets: [{ name: 'CAT-123' }, { name: 'DOG-345' }] },
+            number: '2',
+            title: 'fix: The Thing',
+          },
+          githubDomain: 'https://github.com',
+          jiraTeam: 'FRANK',
+          number: '2',
+          owner: 'tester',
+          repo: 'project',
+          ticket: { name: 'CAT-123' },
+        },
         name: 'CAT-123',
         title: 'fix: The Thing',
+        url: 'https://jira.FRANK.com/browse/CAT-123',
       },
       {
-        message: '<https://jira.FRANK.com/browse/DOG-345|[DOG-345]>',
-        githubPr: '<https://github.com/tester/project/pull/2|#2>',
+        githubPr: 'https://github.com/tester/project/pull/2',
+        meta: {
+          change: {
+            github: {
+              tickets: [
+                {
+                  fullLinkedUrl: 'https://github.com/example_user/example_project/issues/3',
+                  issueNumber: '3',
+                  name: '3',
+                  project: 'example_user/example_project',
+                },
+                {
+                  fullLinkedUrl: 'https://github.com/example_user/example_project/issues/4',
+                  issueNumber: '4',
+                  name: '4',
+                  project: 'example_user/example_project',
+                },
+              ],
+            },
+            jira: { tickets: [{ name: 'CAT-123' }, { name: 'DOG-345' }] },
+            number: '2',
+            title: 'fix: The Thing',
+          },
+          githubDomain: 'https://github.com',
+          jiraTeam: 'FRANK',
+          number: '2',
+          owner: 'tester',
+          repo: 'project',
+          ticket: { name: 'DOG-345' },
+        },
         name: 'DOG-345',
         title: 'fix: The Thing',
+        url: 'https://jira.FRANK.com/browse/DOG-345',
       },
       {
-        message: '<https://github.com/example_user/example_project/issues/3|example_user/example_project/#3>',
-        githubPr: '<https://github.com/tester/project/pull/2|#2>',
+        githubPr: 'https://github.com/tester/project/pull/2',
+        meta: {
+          change: {
+            github: {
+              tickets: [
+                {
+                  fullLinkedUrl: 'https://github.com/example_user/example_project/issues/3',
+                  issueNumber: '3',
+                  name: '3',
+                  project: 'example_user/example_project',
+                },
+                {
+                  fullLinkedUrl: 'https://github.com/example_user/example_project/issues/4',
+                  issueNumber: '4',
+                  name: '4',
+                  project: 'example_user/example_project',
+                },
+              ],
+            },
+            jira: { tickets: [{ name: 'CAT-123' }, { name: 'DOG-345' }] },
+            number: '2',
+            title: 'fix: The Thing',
+          },
+          githubDomain: 'https://github.com',
+          jiraTeam: 'FRANK',
+          number: '2',
+          owner: 'tester',
+          repo: 'project',
+          ticket: {
+            fullLinkedUrl: 'https://github.com/example_user/example_project/issues/3',
+            issueNumber: '3',
+            name: '3',
+            project: 'example_user/example_project',
+          },
+        },
         name: '3',
         title: 'fix: The Thing',
+        url: 'https://github.com/example_user/example_project/issues/3',
       },
       {
-        message: '<https://github.com/example_user/example_project/issues/4|example_user/example_project/#4>',
-        githubPr: '<https://github.com/tester/project/pull/2|#2>',
+        githubPr: 'https://github.com/tester/project/pull/2',
+        meta: {
+          change: {
+            github: {
+              tickets: [
+                {
+                  fullLinkedUrl: 'https://github.com/example_user/example_project/issues/3',
+                  issueNumber: '3',
+                  name: '3',
+                  project: 'example_user/example_project',
+                },
+                {
+                  fullLinkedUrl: 'https://github.com/example_user/example_project/issues/4',
+                  issueNumber: '4',
+                  name: '4',
+                  project: 'example_user/example_project',
+                },
+              ],
+            },
+            jira: { tickets: [{ name: 'CAT-123' }, { name: 'DOG-345' }] },
+            number: '2',
+            title: 'fix: The Thing',
+          },
+          githubDomain: 'https://github.com',
+          jiraTeam: 'FRANK',
+          number: '2',
+          owner: 'tester',
+          repo: 'project',
+          ticket: {
+            fullLinkedUrl: 'https://github.com/example_user/example_project/issues/4',
+            issueNumber: '4',
+            name: '4',
+            project: 'example_user/example_project',
+          },
+        },
         name: '4',
         title: 'fix: The Thing',
+        url: 'https://github.com/example_user/example_project/issues/4',
       },
     ]);
   });

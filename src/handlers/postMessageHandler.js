@@ -2,11 +2,11 @@ const fetch = require('node-fetch');
 const { Slack: slack } = require('../connectors');
 const logger = require('../logger');
 
-const postOptions = (attachments, text, channel) => ({
+const postOptions = (blocks, text, channel) => ({
   headers: { 'Content-Type': 'application/json' },
   method: 'POST',
   body: JSON.stringify({
-    attachments,
+    blocks,
     channel,
     username: 'Drone',
     text,
@@ -14,12 +14,12 @@ const postOptions = (attachments, text, channel) => ({
   }),
 });
 
-module.exports = async function postMessage({ attachments, channel = null, text, channelUrl }) {
+module.exports = async function postMessage({ blocks, channel = null, text, channelUrl }) {
   let response = {};
 
   if (channelUrl) {
     try {
-      await fetch(channelUrl, postOptions(attachments, text, channel));
+      await fetch(channelUrl, postOptions(blocks, text, channel));
     } catch (e) {
       throw e;
     }
@@ -29,7 +29,7 @@ module.exports = async function postMessage({ attachments, channel = null, text,
 
   if (channel) {
     try {
-      response = await slack.chat.postMessage({ attachments, channel, text });
+      response = await slack.chat.postMessage({ blocks, channel, text });
     } catch (e) {
       throw e;
     }

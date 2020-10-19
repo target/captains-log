@@ -4,3 +4,4 @@ coverage/
 .idea
 .eslintcache
 .cache/**
+.captains.yml

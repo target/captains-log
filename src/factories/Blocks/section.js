@@ -1,0 +1,119 @@
+const idx = require('idx');
+
+const createStorySection = function createStorySection(message) {
+  const isGitIssue = idx(message, _ => _.url.includes('git'));
+
+  return {
+    type: 'section',
+    text: {
+      type: 'mrkdwn',
+      text: `${isGitIssue ? `*${idx(message, _ => _.meta.ticket.project)} #` : '*'}${message.name}*: _${
+        message.title
+      }_`,
+    },
+    accessory: {
+      type: 'overflow',
+      options: [
+        {
+          text: {
+            type: 'plain_text',
+            text: `💻 View PR: #${idx(message, _ => _.meta.number)}`,
+            emoji: true,
+          },
+          value: `${idx(message, _ => _.meta.number)}`,
+          url: message.githubPr,
+        },
+        {
+          text: {
+            type: 'plain_text',
+            text: `🎫 See Issue: ${isGitIssue ? '#' : ''}${message.name}`,
+            emoji: true,
+          },
+          value: `${message.name}`,
+          url: message.url,
+        },
+      ],
+      action_id: 'overflow-action',
+    },
+  };
+};
+
+const createHeadingSection = function createHeadingSection({ domain, owner, repo, head, base, customHeading = null }) {
+  return {
+    type: 'section',
+    text: {
+      type: 'mrkdwn',
+      text: customHeading || `🚀 ${owner}/${repo} deployed to production!`,
+    },
+    accessory: {
+      type: 'button',
+      text: {
+        type: 'plain_text',
+        text: 'View Release',
+      },
+      url: `${domain}/${owner}/${repo}/compare/${base}...${head}`,
+    },
+  };
+};
+
+const createFooterSection = function createFooterSection() {
+  return {
+    type: 'section',
+    text: {
+      type: 'mrkdwn',
+      text: "Don't see your issue 👀, or think there's a bug 🐛? 👉",
+    },
+    accessory: {
+      type: 'overflow',
+      options: [
+        {
+          text: {
+            type: 'plain_text',
+            text: '✍ Check the docs',
+            emoji: true,
+          },
+          value: 'docs',
+          url: 'https://target.github.io/captains-log/#/configuration/',
+        },
+        {
+          text: {
+            type: 'plain_text',
+            text: '🐛 Report a bug',
+            emoji: true,
+          },
+          value: 'bug',
+          url: 'https://github.com/target/captains-log/issues/new/choose',
+        },
+      ],
+      action_id: 'overflow-action',
+    },
+  };
+};
+
+const createMentions = function createMentions(mentions) {
+  return {
+    type: 'section',
+    text: {
+      type: 'mrkdwn',
+      text: mentions ? `📣 ${mentions}` : ' ',
+    },
+  };
+};
+
+const createEmptyRelease = function createEmptyRelease() {
+  return {
+    type: 'section',
+    text: {
+      type: 'mrkdwn',
+      text: '_It appears there were no records for this release._ 📭',
+    },
+  };
+};
+
+module.exports = {
+  createHeadingSection,
+  createStorySection,
+  createFooterSection,
+  createMentions,
+  createEmptyRelease,
+};
