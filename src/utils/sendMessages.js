@@ -14,12 +14,14 @@ const sleep = promisify(setTimeout);
  * @param {Array} blocks Slack "blocks" to send via message
  */
 const sendDelayedMessages = async function sendMessages(sender, blocks) {
+  // eslint-disable-next-line no-restricted-syntax
   for (const [i, blockChunk] of blocks.entries()) {
     // The slack rate limit for messages is 1 per second, unless it is defined in
     // "special rate limits".
+    // eslint-disable-next-line no-await-in-loop
     if (i !== 0) await sleep(1500);
     try {
-      await sender(blockChunk);
+      sender(blockChunk);
     } catch (error) {
       console.log(error);
     }
