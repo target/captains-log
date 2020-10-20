@@ -128,6 +128,57 @@ describe('github finder', () => {
     expect(githubFinder({ body })).toEqual(expectation);
   });
 
+  it('should return 2 tickets, not one, if they grouped together by only words or whitespace', () => {
+    const PRBody = `
+      ## Summary
+
+
+      https://git.you.com/wow/woohoo/issues/27158 and https://git.you.com/wow/woohoo/issue/27166
+
+      ### Addresses issue
+
+      prod issue
+      ### Steps to reproduce & screenshots/GIFs
+    `;
+    const expectation = {
+      tickets: [
+        {
+          fullLinkedUrl: 'https://git.you.com/wow/woohoo/issues/27158',
+          project: 'wow/woohoo',
+          issueNumber: '27158',
+          name: '27158',
+        },
+        {
+          fullLinkedUrl: 'https://git.you.com/wow/woohoo/issue/27166',
+          project: 'wow/woohoo',
+          issueNumber: '27166',
+          name: '27166',
+        },
+      ],
+      name: 'github',
+    };
+
+    expect(githubFinder({ body: PRBody })).toEqual(expectation);
+  });
+
+  it('should return no tickets if there are only pull request', () => {
+    const PRBody = `
+      ## Summary
+
+
+      https://git.you.com/wow/woohoo/pull/27158 and https://git.you.com/wow/woohoo/pull/27166
+      ### Addresses issue
+
+      prod issue
+      ### Steps to reproduce & screenshots/GIFs
+    `;
+    const expectation = {
+      tickets: [],
+      name: 'github',
+    };
+    expect(githubFinder({ body: PRBody })).toEqual(expectation);
+  });
+
   it('should return no tickets if there are no ticket types', () => {
     const expectation = {
       tickets: [],
