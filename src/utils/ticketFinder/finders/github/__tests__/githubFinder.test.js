@@ -15,7 +15,9 @@ resolved super/duper/#11
 
 https://github.com/example_user/example_project/issues/3
 https://github.com/example_user/example_project/issues/4
+https://github.com/example_user/example_project/issues/5#some-hash
 https://git.myenterprise.com/example_user/example_project/issues/5
+https://git.subdomain.myenterprise.com/example_user/example_project/issues/5
 https://www.github.com/example_user/example_project/issues/6
 https://github.com/example_user/example_project/issues/7
 https://github.com/example_user/example_project/issues/8
@@ -39,7 +41,19 @@ describe('github finder', () => {
           name: '4',
         },
         {
+          fullLinkedUrl: 'https://github.com/example_user/example_project/issues/5',
+          project: 'example_user/example_project',
+          issueNumber: '5',
+          name: '5',
+        },
+        {
           fullLinkedUrl: 'https://git.myenterprise.com/example_user/example_project/issues/5',
+          project: 'example_user/example_project',
+          issueNumber: '5',
+          name: '5',
+        },
+        {
+          fullLinkedUrl: 'https://git.subdomain.myenterprise.com/example_user/example_project/issues/5',
           project: 'example_user/example_project',
           issueNumber: '5',
           name: '5',
@@ -128,12 +142,39 @@ describe('github finder', () => {
     expect(githubFinder({ body })).toEqual(expectation);
   });
 
+  it('should find ticket with period at end of URL', () => {
+    const PRBody = `
+      ## Summary
+
+
+      https://git.you.com/wow/woohoo/issues/27158.
+
+      ### Addresses issue
+
+      prod issue
+      ### Steps to reproduce & screenshots/GIFs
+    `;
+    const expectation = {
+      tickets: [
+        {
+          fullLinkedUrl: 'https://git.you.com/wow/woohoo/issues/27158',
+          project: 'wow/woohoo',
+          issueNumber: '27158',
+          name: '27158',
+        },
+      ],
+      name: 'github',
+    };
+
+    expect(githubFinder({ body: PRBody })).toEqual(expectation);
+  });
+
   it('should return 2 tickets, not one, if they grouped together by only words or whitespace', () => {
     const PRBody = `
       ## Summary
 
 
-      https://git.you.com/wow/woohoo/issues/27158 and https://git.you.com/wow/woohoo/issue/27166
+      https://git.you.com/wow/woohoo/issues/27158 and https://git.you.com/wow/woohoo/issues/27166
 
       ### Addresses issue
 
@@ -149,7 +190,7 @@ describe('github finder', () => {
           name: '27158',
         },
         {
-          fullLinkedUrl: 'https://git.you.com/wow/woohoo/issue/27166',
+          fullLinkedUrl: 'https://git.you.com/wow/woohoo/issues/27166',
           project: 'wow/woohoo',
           issueNumber: '27166',
           name: '27166',
@@ -176,6 +217,26 @@ describe('github finder', () => {
       tickets: [],
       name: 'github',
     };
+    expect(githubFinder({ body: PRBody })).toEqual(expectation);
+  });
+
+  it('should not think other GitHub URL is a ticket', () => {
+    const PRBody = `
+      ## Summary
+
+
+      https://git.you.com/wow/woohoo/tree/main/config/123
+
+      ### Addresses issue
+
+      prod issue
+      ### Steps to reproduce & screenshots/GIFs
+    `;
+    const expectation = {
+      tickets: [],
+      name: 'github',
+    };
+
     expect(githubFinder({ body: PRBody })).toEqual(expectation);
   });
 
