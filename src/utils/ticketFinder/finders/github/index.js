@@ -7,7 +7,7 @@ const githubDomain = config.get('github:domain') || 'https://github.com';
 const owner = config.get('github:owner');
 const repo = config.get('github:repo');
 
-const GITHUB_QUALIFIED_URL = /(https:\/\/(?:www.git|git)(?:\.\w+|\w+)\.com\/[a-zA-Z0-9_-]+\/[a-zA-Z0-9_-]+\/[^pull]+\w+\/\d+)/;
+const GITHUB_QUALIFIED_URL = /(https:\/\/(?:www.git|git)[^\s]*(\.[^\s]+)+\/[^\s]+\/[^\s]+\/issues\/\d+)/;
 const GITHUB_QUALIFIED_NUMBER_URL = /https:\/\/(?:www.git|git).*\..+\/(\d+)/;
 const CLOSE_ISSUE_SYNTAX = /(?:close|closes|closed|fix|fixes|fixed|resolve|resolves|resolved)\s(\S.*\/\S.*#\d+|#\d+)/;
 const CLOSE_SYNTAX_NUMBER = /#(\d+)/;
