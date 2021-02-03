@@ -9,6 +9,7 @@ fixes #14
 fixed #15
 resolve #1
 resolves #13
+Resolves #16
 resolved #20
 resolves super/duper/#10
 resolved super/duper/#11
@@ -117,6 +118,12 @@ describe('github finder', () => {
           project: 'test_owner/test_repo',
           issueNumber: '15',
           name: '15',
+        },
+        {
+          fullLinkedUrl: 'https://github.com/test_owner/test_repo/issues/16',
+          project: 'test_owner/test_repo',
+          issueNumber: '16',
+          name: '16',
         },
         {
           fullLinkedUrl: 'https://github.com/test_owner/test_repo/issues/20',
