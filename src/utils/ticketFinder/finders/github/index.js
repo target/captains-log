@@ -17,7 +17,7 @@ const OWNER_PROJECT = /https:\/\/(?:www.git|git).*\.com\/(.+)?\/.+\/\d+$/;
 const GITHUB_URL_REGEX = new RegExp(GITHUB_QUALIFIED_URL, 'gm');
 const GITHUB_URL_NUMBER_REGEX = new RegExp(GITHUB_QUALIFIED_NUMBER_URL, 'gm');
 const GITHUB_PROJECT_REGEX = new RegExp(OWNER_PROJECT, 'gm');
-const GITHUB_CLOSE_REGEX = new RegExp(CLOSE_ISSUE_SYNTAX, 'gm');
+const GITHUB_CLOSE_REGEX = new RegExp(CLOSE_ISSUE_SYNTAX, 'gmi');
 const GITHUB_CLOSE_NUMBER_REGEX = new RegExp(CLOSE_SYNTAX_NUMBER, 'gm');
 const GITHUB_CLOSE_PROJECT_REGEX = new RegExp(CLOSE_SYNTAX_PROJECT, 'gm');
 
