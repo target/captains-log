@@ -12,6 +12,8 @@ const {
   prepareBlocks,
   sendDelayedMessages,
 } = require('./utils');
+const { delaySending } = require('./utils/delaySending');
+const postToPRHandler = require('./handlers/postToPRHandler');
 
 const defaultTeam = Team();
 
@@ -81,4 +83,22 @@ module.exports = async function App(config) {
       subChannelBlocks,
     );
   }
+
+  const { prNumbers } = await releaseCommunication.getUniquePullRequestsFromDiff(diff);
+
+  // By default we opt users into posting back to their pull requests
+  // If they use some other tool to do this, or do not want it, we allow
+  // them to opt out by adding this to their configuration.
+  const shouldNotPostToPr = config.get('github:skip_pr_post');
+  if (shouldNotPostToPr) return;
+
+  await delaySending(
+    postToPRHandler,
+    prNumbers.map(prNumber => ({
+      head,
+      owner,
+      repo,
+      number: prNumber,
+    })),
+  );
 };
