@@ -57,6 +57,7 @@ if (process.env.NODE_ENV !== 'test') {
     github_owner,
     github_repo,
     github_skip_pr_comment,
+    github_pr_text,
     github_tag_id,
     github_token,
     slack_channel,
@@ -75,6 +76,7 @@ if (process.env.NODE_ENV !== 'test') {
   nconf.set('github:repo', github_repo);
   nconf.set('github:tagId', github_tag_id);
   nconf.set('github:skip_pr_post', github_skip_pr_comment);
+  nconf.set('github:pr_text', github_pr_text);
 
   if (!github_token)
     throw Error("Captain's log requires a Github Token to run. Please verify you've set one and try again.");

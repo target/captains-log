@@ -37,6 +37,7 @@ const initialize = () => {
     github_tag_id,
     github_token,
     github_skip_pr_comment,
+    github_pr_text,
     slack_channel,
     slack_token,
     slack_url,
@@ -55,6 +56,7 @@ const initialize = () => {
     github_tag_id: getEnvVar('GITHUB_TAG_ID') || github_tag_id,
     github_token: getEnvVar('GITHUB_TOKEN') || github_token,
     github_skip_pr_comment: getEnvVar('GITHUB_SKIP_PR_COMMENT') || github_skip_pr_comment,
+    github_pr_text: getEnvVar('GITHUB_PR_TEXT') || github_pr_text,
 
     // Team Configuration
     teams: getEnvVar('TEAMS') || teams,
