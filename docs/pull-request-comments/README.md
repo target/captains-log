@@ -2,7 +2,7 @@
 
 Captain's Log will comment back on pull requests to let users know what version their pull request got released in. 
 
-![pull request comment after release]('../static/normal_comment.png')
+![ ](../static/normal_comment.png)
 
 ## Disabling Comments On Pull Requests
 
@@ -26,4 +26,4 @@ github_pr_text: "Hey there partner, how ya doing?"
 
 And the result looks like this:
 
-![pull request with additional context]('../static/context_comment.png')
+![ ](../static/context_comment.png)
