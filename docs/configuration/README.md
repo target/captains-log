@@ -30,7 +30,7 @@ Suggested configuration would be to place secrets in your CI configuration, and 
 - `teams` - a list of teams which allows you to organize the output of Captain's Log into meaningful chunks. (more below)
 - `slack_message_heading` - you can provide a custom heading for the slack message that is posted, when using this field.
 - `github_pr_text` - you can provide custom text that will be inserted into the PR comment when a release is completed.
-- `github_skip_pr_comment` - you can skip the PR comment entirely, on release by setting this field to `true`.
+- `github_skip_pr_comment` - you can skip the PR comment on release by setting this field to `true`.
 
 ### Example
 
