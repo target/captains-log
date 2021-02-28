@@ -29,7 +29,7 @@ Suggested configuration would be to place secrets in your CI configuration, and 
 - `slack_channel`/`SLACK_URL` - when using the API, you should use `slack_channel` to specify which room you'd like to post to. When using `SLACK_URL` you should **not** specify the room (i.e. `slack_channel`) because the room is already a part of the incoming webhook. ([Setting Up A Webhook (e.g. SLACK_URL)](https://api.slack.com/incoming-webhooks), [Setting Up A Slack Token](https://api.slack.com/docs/token-types#verification))
 - `teams` - a list of teams which allows you to organize the output of Captain's Log into meaningful chunks. (more below)
 - `slack_message_heading` - you can provide a custom heading for the slack message that is posted, when using this field.
-- `github_pr_text` - you can provide custom text that will be inserted into the PR comment when a release is complted.
+- `github_pr_text` - you can provide custom text that will be inserted into the PR comment when a release is completed.
 - `github_skip_pr_comment` - you can skip the PR comment entirely, on release by setting this field to `true`.
 
 ### Example
