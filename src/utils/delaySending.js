@@ -12,15 +12,17 @@ const sleep = promisify(setTimeout);
  * @param {Number} ms a time in miliseconds that each request should wait for before processing
  */
 const delaySending = async function delaySending(sender, items, ms) {
-  items.map(async (item, i) => {
+  // eslint-disable-next-line no-const-assign
+  // eslint-disable-next-line no-plusplus
+  for (let i = 0; i < items.length; i++) {
+    // eslint-disable-next-line no-await-in-loop
     if (i !== 0) await sleep(ms || 1500);
-
     try {
-      sender(item);
+      sender(items[i]);
     } catch (error) {
       console.log(error);
     }
-  });
+  }
 };
 
 module.exports = { delaySending };
