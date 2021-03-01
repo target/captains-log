@@ -8,10 +8,11 @@ const customBody = config.get('github:pr_text');
 
 module.exports = async function postReleaseVersionToPR({ owner, repo, number, head }) {
   const url = `${head}](${ghUrl}/${owner}/${repo}/releases/tag/${head}`;
+  const userDefinedBody = customBody || '';
 
   const body = `:rocket:   Posted by [**Captain's Log**](https://target.github.io/captains-log/):
 
-  ${customBody}
+  ${userDefinedBody}
 
   This pull request was released as a part of [Release: ${url}).
   `;
