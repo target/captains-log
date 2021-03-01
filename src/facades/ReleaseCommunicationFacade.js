@@ -53,13 +53,7 @@ class ReleaseCommunication {
     return { diff: tagDiff, head, base };
   }
 
-  /**
-   * async parseDiff - parses out all of the pull request bodies from a given diff
-   *
-   * @param  {Object} diff an object containing the diff of two tags
-   * @return {Array}      array containing objects of each message its corresponding PR and JIRA ticket number
-   */
-  async parseDiff(diff = {}) {
+  async getUniquePullRequestsFromDiff(diff = {}) {
     const { commits = [] } = diff;
     const nonSquashedPRs = [];
 
@@ -102,6 +96,18 @@ class ReleaseCommunication {
     const pullRequests = await Promise.all(
       uniquePRNumbers.map(async prNum => getPullRequestHandler(this.owner, this.repo, prNum)),
     );
+
+    return { pullRequests, prNumbers: uniquePRNumbers };
+  }
+
+  /**
+   * async parseDiff - parses out all of the pull request bodies from a given diff
+   *
+   * @param  {Object} diff an object containing the diff of two tags
+   * @return {Array}      array containing objects of each message its corresponding PR and JIRA ticket number
+   */
+  async parseDiff(diff = {}) {
+    const { pullRequests } = await this.getUniquePullRequestsFromDiff(diff);
 
     const pullRequestMessages = Promise.all(
       pullRequests.map(async pr => {

@@ -2,5 +2,6 @@
 - [Configuration](/configuration/)
 - [Examples](/examples/)
 - [Pull Request Body](/pr-body/)
+- [Pull Request Comments](/pull-request-comments/)
 - [Contributing](/contributing/)
 - [Code of Conduct](/code-of-conduct/)
