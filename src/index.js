@@ -74,14 +74,22 @@ module.exports = async function App(config) {
     )}`,
   );
 
-  await sendDelayedMessages(blocks => releaseCommunication.sendMessage(blocks), preparedBlocks);
+  try {
+    await sendDelayedMessages(blocks => releaseCommunication.sendMessage(blocks), preparedBlocks);
+  } catch (error) {
+    console.log(`Failed to send message to release channel ${error}`);
+    throw error;
+  }
 
   // Send all individual attachments to their respective channels per team.
   if (subChannelBlocks.length) {
-    await sendDelayedMessages(
-      ({ channel: subChannel, blocks }) => releaseCommunication.sendMessage(blocks, subChannel, true),
-      subChannelBlocks,
-    );
+    try {
+      await sendDelayedMessages(({ channel: subChannel, blocks }) => {
+        releaseCommunication.sendMessage(blocks, subChannel, true);
+      }, subChannelBlocks);
+    } catch (error) {
+      console.log(`Unable to post to subchannels: ${error}`);
+    }
   }
 
   const { prNumbers } = await releaseCommunication.getUniquePullRequestsFromDiff(diff);
@@ -92,13 +100,17 @@ module.exports = async function App(config) {
   const shouldNotPostToPr = config.get('github:skip_pr_post');
   if (shouldNotPostToPr) return;
 
-  await delaySending(
-    postToPRHandler,
-    prNumbers.map(prNumber => ({
-      head,
-      owner,
-      repo,
-      number: prNumber,
-    })),
-  );
+  try {
+    await delaySending(
+      postToPRHandler,
+      prNumbers.map(prNumber => ({
+        head,
+        owner,
+        repo,
+        number: prNumber,
+      })),
+    );
+  } catch (error) {
+    console.log(`Unable to post back to pull requests with release notes: ${error}`);
+  }
 };
