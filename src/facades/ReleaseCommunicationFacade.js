@@ -82,8 +82,8 @@ class ReleaseCommunication {
       // Should allow execution to continue for repositories that use a different merge method.
       try {
         prNumbersByCommit = await Promise.all(nonSquashedPRs.map(async commit => searchIssuesByCommitHandler(commit)));
-      } catch (e) {
-        console.log('Unable to retrieve issues by commit. Check if API limit was exceeded.', e);
+      } catch (error) {
+        console.error('Unable to retrieve issues by commit. Check if API limit was exceeded.', error);
       }
 
       // There should only ever be one issue for a commit
