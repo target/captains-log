@@ -88,7 +88,7 @@ module.exports = async function App(config) {
         releaseCommunication.sendMessage(blocks, subChannel, true);
       }, subChannelBlocks);
     } catch (error) {
-      console.log(`Unable to post to subchannels: ${error}`);
+      console.error('Unable to post to subchannels:', error);
     }
   }
 
