@@ -20,7 +20,7 @@ const delaySending = async function delaySending(sender, items, ms) {
     try {
       sender(items[i]);
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   }
 };
