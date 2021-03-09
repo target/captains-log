@@ -23,7 +23,7 @@ const sendDelayedMessages = async function sendMessages(sender, blocks) {
     try {
       sender(blockChunk);
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   }
 };
