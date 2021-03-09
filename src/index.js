@@ -111,6 +111,6 @@ module.exports = async function App(config) {
       })),
     );
   } catch (error) {
-    console.log(`Unable to post back to pull requests with release notes: ${error}`);
+    console.error('Unable to post back to pull requests with release notes:', error);
   }
 };
