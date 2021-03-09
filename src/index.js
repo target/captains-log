@@ -77,7 +77,7 @@ module.exports = async function App(config) {
   try {
     await sendDelayedMessages(blocks => releaseCommunication.sendMessage(blocks), preparedBlocks);
   } catch (error) {
-    console.log(`Failed to send message to release channel ${error}`);
+    console.error('Failed to send message to release channel:', error);
     throw error;
   }
 
