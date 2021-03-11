@@ -12,6 +12,7 @@
       "error",
       150
     ],
+    "no-console": "off",
     "no-debugger": "off",
     "camelcase": "off",
     "object-curly-newline": "off",
