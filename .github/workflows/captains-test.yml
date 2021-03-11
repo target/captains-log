@@ -8,23 +8,21 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Cache
-      uses: actions/cache@v1.1.2
-      with:
-        # A directory to store and save the cache
-        path: .cache/
-        # An explicit key for restoring and saving the cache
-        key: cl
+      - name: Cache
+        uses: actions/cache@v1.1.2
+        with:
+          # A directory to store and save the cache
+          path: .cache/
+          # An explicit key for restoring and saving the cache
+          key: cl
 
-    - uses: actions/checkout@v2
-    - name: Use Node.js '12.x'
-      uses: actions/setup-node@v1
-      with:
-        node-version: '12.x'
-    - run: npm install
-    - run: npm run lint
-    - run: npm test
-      env:
-        CI: true
-    
-    
+      - uses: actions/checkout@v2
+      - name: Use Node.js '12.x'
+        uses: actions/setup-node@v1
+        with:
+          node-version: "12.x"
+      - run: npm install
+      - run: npm run lint
+      - run: npm test
+        env:
+          CI: true

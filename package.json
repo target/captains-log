@@ -7,7 +7,8 @@
     "lint": "eslint src",
     "test": "jest",
     "test:watch": "jest --watchAll",
-    "docs": "docsify serve docs"
+    "docs": "docsify serve docs",
+    "release": "auto shipit"
   },
   "author": "",
   "license": "ISC",
@@ -26,6 +27,11 @@
     "tinyurl": "^1.1.7"
   },
   "devDependencies": {
+    "@auto-it/all-contributors": "^10.18.4",
+    "@auto-it/conventional-commits": "^10.18.4",
+    "@auto-it/first-time-contributor": "^10.18.4",
+    "@auto-it/git-tag": "^10.18.4",
+    "auto": "^10.18.4",
     "docsify-cli": "^4.4.2",
     "eslint": "^4.19.1",
     "eslint-config-airbnb": "^16.1.0",

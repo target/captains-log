@@ -1,0 +1,13 @@
+{
+  "plugins": [
+    "git-tag",
+    "all-contributors",
+    "conventional-commits",
+    "first-time-contributor",
+    "released"
+  ],
+  "owner": "target",
+  "repo": "captains-log",
+  "name": "therynamo",
+  "email": "theryn.groetken@target.com"
+}
