@@ -21,7 +21,7 @@ module.exports = async function postMessage({ blocks, channel = null, text, chan
     try {
       await fetch(channelUrl, postOptions(blocks, text, channel));
     } catch (e) {
-      throw e;
+      console.error(`Channel not found at URL: ${channelUrl}`, e);
     }
 
     return response;
@@ -31,7 +31,7 @@ module.exports = async function postMessage({ blocks, channel = null, text, chan
     try {
       response = await slack.chat.postMessage({ blocks, channel, text });
     } catch (e) {
-      throw e;
+      console.error(`Channel "${channel}" not found.`, e);
     }
 
     return response;

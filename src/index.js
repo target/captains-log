@@ -78,7 +78,6 @@ module.exports = async function App(config) {
     await sendDelayedMessages(blocks => releaseCommunication.sendMessage(blocks), preparedBlocks);
   } catch (error) {
     console.error('Failed to send message to release channel:', error);
-    throw error;
   }
 
   // Send all individual attachments to their respective channels per team.
