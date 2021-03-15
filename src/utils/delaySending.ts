@@ -1,4 +1,4 @@
-const { promisify } = require('util');
+import { promisify } from 'util';
 
 const sleep = promisify(setTimeout);
 
@@ -11,7 +11,11 @@ const sleep = promisify(setTimeout);
  * @param {Array} items an array of items to iterate over and process through the sender
  * @param {Number} ms a time in miliseconds that each request should wait for before processing
  */
-const delaySending = async function delaySending(sender, items, ms) {
+export const delaySending = async function delaySending<S extends (v: any) => void, I extends []>(
+  sender: S,
+  items: I,
+  ms?: number,
+) {
   // eslint-disable-next-line no-const-assign
   // eslint-disable-next-line no-plusplus
   for (let i = 0; i < items.length; i++) {
@@ -24,5 +28,3 @@ const delaySending = async function delaySending(sender, items, ms) {
     }
   }
 };
-
-module.exports = { delaySending };

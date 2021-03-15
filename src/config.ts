@@ -1,9 +1,11 @@
 /* eslint-disable no-sync */
-const fs = require('fs');
-const path = require('path');
-const nconf = require('nconf');
-const packageJSON = require('../package.json');
-const { initialize } = require('./utils');
+import fs from 'fs';
+import path from 'path';
+// @ts-expect-error
+import nconf from 'nconf';
+import { initialize } from './utils';
+import packageJSON from '../package.json';
+import { AppConfig } from './types';
 
 /**
  * Prepare environment configuration
@@ -14,8 +16,8 @@ process.env.NODE_ENV = process.env.NODE_ENV || DEVELOPMENT;
 /**
  * Expand configuration file paths
  */
-const defaultConfigPath = path.resolve(__dirname, '../config', 'default.json');
-const envConfigPath = path.resolve(__dirname, '../config', `${process.env.NODE_ENV}.json`);
+const defaultConfigPath = path.resolve(__dirname, './config', 'default.json');
+const envConfigPath = path.resolve(__dirname, './config', `${process.env.NODE_ENV}.json`);
 
 /**
  * Instantiate nconf configuration object from numerous sources (e.g.
@@ -96,4 +98,4 @@ if (process.env.NODE_ENV !== 'test') {
   nconf.set('jira:teamDomain', jira_team_domain);
 }
 
-module.exports = nconf;
+export default nconf as AppConfig;

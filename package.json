@@ -4,7 +4,9 @@
   "description": "List out release notes in a digestable way",
   "main": "index.js",
   "scripts": {
-    "lint": "eslint src",
+    "clean": "rm -rf dist",
+    "build": "yarn clean && yarn tsc",
+    "lint": "eslint ./src/**/*.ts",
     "test": "jest",
     "test:watch": "jest --watchAll",
     "docs": "docsify serve docs"
@@ -15,6 +17,7 @@
     "@octokit/graphql": "^2.0.1",
     "@octokit/rest": "^15.8.1",
     "@slack/web-api": "^5.0.1",
+    "@types/lodash": "^4.14.168",
     "common-tags": "^1.8.0",
     "find-up": "^4.1.0",
     "idx": "^2.3.0",
@@ -26,10 +29,12 @@
     "tinyurl": "^1.1.7"
   },
   "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^4.17.0",
+    "@typescript-eslint/parser": "^4.17.0",
     "docsify-cli": "^4.4.2",
-    "eslint": "^4.19.1",
+    "eslint": "^7.22.0",
     "eslint-config-airbnb": "^16.1.0",
-    "eslint-config-prettier": "^6.10.0",
+    "eslint-config-prettier": "^8.1.0",
     "eslint-plugin-import": "^2.12.0",
     "eslint-plugin-jsx-a11y": "^6.0.3",
     "eslint-plugin-prettier": "^3.1.2",
@@ -37,7 +42,8 @@
     "husky": "^4",
     "jest": "^26.5.3",
     "lint-staged": "^10",
-    "prettier": "^1.16.4"
+    "prettier": "^1.16.4",
+    "typescript": "^4.2.3"
   },
   "resolutions": {
     "minimist": "^1.2.2",

@@ -1,13 +1,13 @@
-const idx = require('idx');
-const { uniq } = require('lodash');
-const {
+// @ts-nocheck
+import { uniq } from 'lodash';
+import {
   getPullRequestHandler,
   getTagsHandler,
   getTagDiffHandler,
   postMessageHandler,
   searchIssuesByCommitHandler,
-} = require('../handlers');
-const { getTagDiffFromTagId, ticketFinder } = require('../utils');
+} from '../handlers';
+import { getTagDiffFromTagId, ticketFinder } from '../utils';
 
 const PR_TEMPLATE_COMMENT_REGEX = new RegExp(/<!--[\s\S]*?-->/, 'gm');
 const STRIP_IGNORE_TICKETS = new RegExp(/<!--.+?icl.+?-->([\S\s.]*?)<!--.+?ecl.+?-->/, 'gm');
@@ -18,15 +18,32 @@ const STRIP_IGNORE_TICKETS_LONG = new RegExp(
 
 const SQUASH_PR_REGEX = new RegExp(/\(#(.*)\)/, 'g');
 
-class ReleaseCommunication {
-  constructor({ owner, repo, channel, channelUrl = null, tagId = null }) {
+interface ReleaseCommunicationProps {
+  owner: string;
+  repo: string;
+  channel?: string;
+  channelUrl?: string | null;
+  tagId?: string | null;
+}
+
+interface ReleaseCommunicationClass {
+  diff: () => Promise<{ diff: any; head: string; base: string }>;
+}
+
+class ReleaseCommunication implements ReleaseCommunicationClass {
+  owner: string;
+  repo: string;
+  channel?: string;
+  channelUrl?: string | null;
+  tagId?: string | null;
+
+  constructor({ owner, repo, channel, channelUrl = null, tagId = null }: ReleaseCommunicationProps) {
     this.owner = owner;
     this.repo = repo;
     this.channel = channel;
     this.channelUrl = channelUrl;
     this.tagId = tagId;
   }
-
   /**
    * async diff - Returns the diff of the last two tags of a repo
    *
@@ -153,4 +170,4 @@ class ReleaseCommunication {
   }
 }
 
-module.exports = ReleaseCommunication;
+export default ReleaseCommunication;

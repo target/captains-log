@@ -1,6 +1,6 @@
-const config = require('./src/config');
-const logger = require('./src/logger');
-const App = require('./src');
+import App from './App';
+import config from './config';
+import logger from './logger';
 
 const main = async function main() {
   await App(config);

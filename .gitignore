@@ -5,3 +5,5 @@ coverage/
 .eslintcache
 .cache/**
 .captains.yml
+dist
+yarn-error.log

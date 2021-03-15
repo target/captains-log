@@ -1,5 +1,5 @@
-const Github = require('@octokit/rest');
-const config = require('../../config');
+import Github from '@octokit/rest';
+import config from '../../config';
 
 const { domain, host, timeout, token } = config.get('github');
 
@@ -26,4 +26,4 @@ github.authenticate({
   token,
 });
 
-module.exports = github;
+export default github;

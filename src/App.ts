@@ -1,9 +1,9 @@
-/* eslint max-len: [0] */
-const { ReleaseCommunication } = require('./facades');
-const logger = require('./logger');
-const Team = require('./factories/Team');
+// @ts-nocheck
 
-const {
+import { ReleaseCommunication } from './facades';
+import logger from './logger';
+import Team from './factories/Team';
+import {
   populateMessages,
   getTeams,
   nameSort,
@@ -11,13 +11,14 @@ const {
   generateSlackFormatterUrl,
   prepareBlocks,
   sendDelayedMessages,
-} = require('./utils');
-const { delaySending } = require('./utils/delaySending');
-const postToPRHandler = require('./handlers/postToPRHandler');
+} from './utils';
+import { delaySending } from './utils/delaySending';
+import postToPRHandler from './handlers/postToPRHandler';
+import { AppConfig } from './types';
 
 const defaultTeam = Team();
 
-module.exports = async function App(config) {
+async function App(config: AppConfig) {
   const { repo, owner, tagId, domain: githubDomain } = config.get('github');
   const { teamDomain: jiraTeam } = config.get('jira');
   const { channel, channelUrl } = config.get('slack');
@@ -103,7 +104,7 @@ module.exports = async function App(config) {
   try {
     await delaySending(
       postToPRHandler,
-      prNumbers.map(prNumber => ({
+      prNumbers.map((prNumber: string) => ({
         head,
         owner,
         repo,
@@ -113,4 +114,6 @@ module.exports = async function App(config) {
   } catch (error) {
     console.error('Unable to post back to pull requests with release notes:', error);
   }
-};
+}
+
+export default App;

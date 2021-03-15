@@ -1,0 +1,7 @@
+coverage
+.cache
+.github
+node_modules
+.git
+*.md
+LICENSE

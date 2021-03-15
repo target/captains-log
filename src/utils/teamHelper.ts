@@ -1,6 +1,8 @@
-const getTeams = config => {
-  let teams = {};
-  const teamsJSON = config.get('teams') || {};
+import { AppConfig, Teams } from '../types';
+
+const getTeams = (config: AppConfig) => {
+  let teams: Teams[] = [];
+  const teamsJSON = config.get('teams') || [];
 
   try {
     teams = JSON.parse(teamsJSON);
@@ -17,4 +19,4 @@ const getTeams = config => {
   return teams;
 };
 
-module.exports = getTeams;
+export default getTeams;
