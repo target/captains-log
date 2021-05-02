@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>https://target.github.io/blog</id>
+    <title>Captain's Log Blog</title>
+    <updated>2021-05-02T18:17:41.448Z</updated>
+    <generator>https://github.com/jpmonette/feed</generator>
+    <link rel="alternate" href="https://target.github.io/blog"/>
+    <subtitle>Captain's Log Blog</subtitle>
+    <icon>https://target.github.io/img/favicon.ico</icon>
+    <entry>
+        <title type="html"><![CDATA[Nothing here yet!]]></title>
+        <id>Nothing here yet!</id>
+        <link href="https://target.github.io/captains-log/blog/index"/>
+        <updated>2021-05-02T18:17:41.448Z</updated>
+    </entry>
+</feed>
