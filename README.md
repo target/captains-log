@@ -2,7 +2,7 @@
 
 A continuous integration plugin that will send release information via slack.
 
-![ ](./docs/static/example-output.png)
+![ ](./docs/static/img/example-output.png)
 
 [See More On Captain's Log Documentation Site](https://target.github.io/captains-log/)
 
