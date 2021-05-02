@@ -8,7 +8,7 @@ In order for Captain's log to pick up any issues addressed in a pull request, yo
 
 For example:
 
-![ ](../static/pr-example.png)
+![ ](/img/pr-example.png)
 
 The linking of _#34_ in the pull request will automatically get picked up by Captain's Log.
 
