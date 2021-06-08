@@ -9,7 +9,7 @@ const pullRequestResponseRawLink = require('../__fixtures__/pullRequestResponseR
 const explicitIgnorePRResponse = require('../__fixtures__/explicitIgnore.json');
 const squashDiffResponse = require('../__fixtures__/squashDiffResponse.json');
 const mergedDiffResponse = require('../__fixtures__/mergeDiffResponse.json');
-const searchIssueResponse = require('../__fixtures__/searchIssueResponse');
+const searchIssueResponse = require('../__fixtures__/searchIssueResponse.json');
 
 describe('ReleaseCommunicationFacade', () => {
   let RC;
