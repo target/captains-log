@@ -21,7 +21,7 @@ module.exports = async function postMessage({ blocks, channel = null, text, chan
     try {
       await fetch(channelUrl, postOptions(blocks, text, channel));
     } catch (e) {
-      console.error(`Channel not found at URL: ${channelUrl}`, e);
+      console.error(`Channel not found:`, e);
     }
 
     return response;
