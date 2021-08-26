@@ -1,11 +1,15 @@
 const config = require('../../config');
 
-const { domain, v4Host, token } = config.get('github');
+// https://github.com/semantic-release/github/issues/268#issuecomment-628829510
+const { domain, token } = config.get('github');
+
+const baseUrl = domain ? { baseUrl: `${domain}/api` } : {};
+console.log({ baseUrl1: baseUrl, token });
 
 const GithubGraphQL = require('@octokit/graphql').defaults({
-  baseUrl: `${domain}/api` || v4Host,
+  ...baseUrl,
   headers: {
-    authorization: `bearer ${token}`,
+    authorization: `token ${token}`,
   },
 });
 

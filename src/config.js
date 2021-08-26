@@ -64,6 +64,7 @@ if (process.env.NODE_ENV !== 'test') {
     slack_token,
     slack_url,
     jira_team_domain,
+    jira_host,
     teams,
     slack_message_heading,
     slack_org_id,
@@ -94,6 +95,7 @@ if (process.env.NODE_ENV !== 'test') {
 
   // Jira
   nconf.set('jira:teamDomain', jira_team_domain);
+  nconf.set('jira:host', jira_host);
 }
 
 module.exports = nconf;

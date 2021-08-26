@@ -1,6 +1,7 @@
 const idx = require('idx');
 
-const jiraMessage = ({ jiraTeam }, { name }) => `https://jira.${jiraTeam}.com/browse/${name}`;
+const jiraMessage = ({ jiraTeam, jiraHost }, { name }) =>
+  jiraHost ? `${jiraHost}/browse/${name}` : `https://jira.${jiraTeam}.com/browse/${name}`;
 
 const githubMessage = (args, { fullLinkedUrl }) => `${fullLinkedUrl}`;
 
