@@ -30,7 +30,14 @@ const createBlocks = (hasMessages, { owner, repo, teamList, config, head, base, 
   const customHeading = config.get('slack:messageHeading');
   const domain = config.get('github:domain');
 
-  const heading = createHeadingSection({ domain, owner, repo, head, base, customHeading });
+  const heading = createHeadingSection({
+    domain: domain || 'https://github.com',
+    owner,
+    repo,
+    head,
+    base,
+    customHeading,
+  });
   const footer = createFooterSection();
 
   // We return an empty header and footer if there are no messages

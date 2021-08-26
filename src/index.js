@@ -18,7 +18,7 @@ const postToPRHandler = require('./handlers/postToPRHandler');
 const defaultTeam = Team();
 
 module.exports = async function App(config) {
-  const { repo, owner, tagId, domain: githubDomain } = config.get('github');
+  const { repo, owner, tagId, domain: githubDomain = 'https://github.com' } = config.get('github');
   const { teamDomain: jiraTeam, host: jiraHost } = config.get('jira');
   const { channel, channelUrl } = config.get('slack');
   const teams = getTeams(config);

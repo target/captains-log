@@ -12,13 +12,15 @@ const accepts = [
   'application/json',
 ];
 
+const baseUrl = domain ? `${domain}/api/v3` : host;
+
 const github = new Github({
   timeout,
   headers: {
     accept: accepts.join(','),
     'user-agent': 'octokit/rest v15.8.1',
   },
-  baseUrl: `${domain}/api/v3` || host,
+  baseUrl,
 });
 
 github.authenticate({
