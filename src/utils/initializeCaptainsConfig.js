@@ -42,6 +42,7 @@ const initialize = () => {
     slack_token,
     slack_url,
     jira_team_domain,
+    jira_host,
     teams,
     slack_message_heading,
     slack_org_id,
@@ -70,6 +71,7 @@ const initialize = () => {
 
     // Jira
     jira_team_domain: getEnvVar('JIRA_TEAM_DOMAIN') || jira_team_domain,
+    jira_host: getEnvVar('JIRA_HOST') || jira_host,
   };
 
   return captainsConfig;
