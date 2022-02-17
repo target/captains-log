@@ -1,9 +1,3 @@
----
-id: base-config
-title: Base Configuration
-sidebar_position: 1
----
-
 # Base Configuration
 
 There are two primary options for configuration:

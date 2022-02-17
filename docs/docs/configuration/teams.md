@@ -1,7 +1,3 @@
----
-sidebar_position: 2
----
-
 # Using Teams to Structure Output
 
 `teams` is a **list** of teams which allows you to logically group the output of Captain's Log into focused chunks. You only need a few things to configure a team.
