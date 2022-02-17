@@ -1,3 +1,7 @@
+---
+sidebar_position: 1
+---
+
 # Contributor Covenant Code of Conduct
 
 ## Our Pledge
