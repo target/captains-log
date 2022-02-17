@@ -4,6 +4,10 @@ const path = require('path');
 const initialize = require('../initializeCaptainsConfig');
 
 describe('initializeCaptainsConfig', () => {
+  beforeEach(() => {
+    delete process.env.GITHUB_TOKEN;
+  });
+
   it('should not set any config values if there is no `captains.yml` file', () => {
     findUp.sync = jest.fn(() => undefined);
 
