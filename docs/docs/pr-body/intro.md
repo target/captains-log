@@ -42,4 +42,4 @@ https://jira.target.com/browse/JIRA-212
 <!-- ecl -->
 ```
 
-Next up, [contributing](/contributing/).
+Next up, [contributing](/docs/contributing/intro).

@@ -80,4 +80,4 @@ This process replicates what the the plugin goes through when running live. If t
 
 ---
 
-Next: [Code of Conduct](/code-of-conduct/)
+Next: [Code of Conduct](/docs/code-of-conduct/intro)
