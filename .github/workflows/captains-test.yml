@@ -17,14 +17,13 @@ jobs:
         key: cl
 
     - uses: actions/checkout@v2
-    - name: Use Node.js '12.x'
-      uses: actions/setup-node@v1
+    - name: Use Node.js '16.x'
+      uses: actions/setup-node@v3
       with:
-        node-version: '12.x'
-    - run: npm install
-    - run: npm run lint
-    - run: npm test
+        node-version: '16.x'
+        cache: 'yarn'
+    - run: yarn install --frozen-lockfile
+    - run: yarn lint
+    - run: yarn test
       env:
         CI: true
-    
-    
