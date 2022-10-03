@@ -7,6 +7,7 @@ const {
   postMessageHandler,
   searchIssuesByCommitHandler,
 } = require('../handlers');
+const logger = require('../logger');
 const { getTagDiffFromTagId, ticketFinder } = require('../utils');
 
 const PR_TEMPLATE_COMMENT_REGEX = new RegExp(/<!--[\s\S]*?-->/, 'gm');
@@ -148,6 +149,8 @@ class ReleaseCommunication {
       blocks,
       channelUrl: sendToChannelOnly ? null : this.channelUrl,
     });
+
+    logger.info(`send message response: ${response}`);
 
     return response;
   }
