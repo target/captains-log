@@ -64,4 +64,59 @@ describe('createBlocks', () => {
       }).preparedBlocks,
     ).toHaveLength(3);
   });
+
+  it('should create empty release for teams when there are no messages', () => {
+    const exampleTeam = Team({
+      color: 'blue',
+      emoji: '🤷‍♀️',
+      mentions: '@MillhouseManaStorm',
+      name: 'FRIENDS',
+      blocks: Array(5).fill([createStorySection('hi')]),
+      issueTracking: {
+        jira: {
+          projects: ['CHANDLER', 'MONICA'],
+        },
+      },
+      channels: ['test-channel-1', 'test-channel-2'],
+    });
+    const blocks = createBlocks(false, {
+      config: fakeConfig,
+      owner: 'you',
+      repo: 'me',
+      teamList: [exampleTeam],
+      head: 'sweet',
+      base: 'dude',
+      defaultTeam,
+    });
+    expect(blocks.loggerBlocks).toHaveLength(1);
+    expect(blocks.preparedBlocks).toHaveLength(1);
+    expect(blocks.subChannelBlocks).toHaveLength(2);
+  });
+
+  it('should create message for default team only when there are no messages and no additional team channels', () => {
+    const exampleTeam = Team({
+      color: 'blue',
+      emoji: '🤷‍♀️',
+      mentions: '@MillhouseManaStorm',
+      name: 'FRIENDS',
+      blocks: Array(5).fill([createStorySection('hi')]),
+      issueTracking: {
+        jira: {
+          projects: ['CHANDLER', 'MONICA'],
+        },
+      },
+    });
+    const blocks = createBlocks(false, {
+      config: fakeConfig,
+      owner: 'you',
+      repo: 'me',
+      teamList: [exampleTeam],
+      head: 'sweet',
+      base: 'dude',
+      defaultTeam,
+    });
+    expect(blocks.loggerBlocks).toHaveLength(1);
+    expect(blocks.preparedBlocks).toHaveLength(1);
+    expect(blocks.subChannelBlocks).toHaveLength(0);
+  });
 });

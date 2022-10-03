@@ -29,7 +29,13 @@ const createBlocks = (hasMessages, { owner, repo, teamList, config, head, base, 
   const subChannelBlocks = [];
   const customHeading = config.get('slack:messageHeading');
   const domain = config.get('github:domain');
-  const teamsToAttach = [...teamList, defaultTeam];
+  const teamsToAttach = [];
+  if (defaultTeam) {
+    teamsToAttach.push(defaultTeam);
+  }
+  if (teamList) {
+    teamsToAttach.push(...teamList);
+  }
 
   const heading = createHeadingSection({
     domain: domain || 'https://github.com',
