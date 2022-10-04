@@ -66,6 +66,7 @@ describe('createBlocks', () => {
   });
 
   it('should create empty release for teams with channels when there are no messages', () => {
+    const hasMessages = false;
     const exampleTeam = Team({
       color: 'blue',
       emoji: '🤷‍♀️',
@@ -79,7 +80,7 @@ describe('createBlocks', () => {
       },
       channels: ['test-channel-1', 'test-channel-2'],
     });
-    const blocks = createBlocks(false, {
+    const blocks = createBlocks(hasMessages, {
       config: fakeConfig,
       owner: 'you',
       repo: 'me',
@@ -94,6 +95,7 @@ describe('createBlocks', () => {
   });
 
   it('should create message for default team only when there are no messages and no additional team channels', () => {
+    const hasMessages = false;
     const exampleTeam = Team({
       color: 'blue',
       emoji: '🤷‍♀️',
@@ -106,7 +108,7 @@ describe('createBlocks', () => {
         },
       },
     });
-    const blocks = createBlocks(false, {
+    const blocks = createBlocks(hasMessages, {
       config: fakeConfig,
       owner: 'you',
       repo: 'me',
