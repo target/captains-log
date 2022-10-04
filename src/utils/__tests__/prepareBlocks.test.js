@@ -65,7 +65,7 @@ describe('createBlocks', () => {
     ).toHaveLength(3);
   });
 
-  it('should create empty release for teams when there are no messages', () => {
+  it('should create empty release for teams with channels when there are no messages', () => {
     const exampleTeam = Team({
       color: 'blue',
       emoji: '🤷‍♀️',
