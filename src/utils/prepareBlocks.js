@@ -29,6 +29,13 @@ const createBlocks = (hasMessages, { owner, repo, teamList, config, head, base, 
   const subChannelBlocks = [];
   const customHeading = config.get('slack:messageHeading');
   const domain = config.get('github:domain');
+  const teamsToAttach = [];
+  if (defaultTeam) {
+    teamsToAttach.push(defaultTeam);
+  }
+  if (teamList) {
+    teamsToAttach.push(...teamList);
+  }
 
   const heading = createHeadingSection({
     domain: domain || 'https://github.com',
@@ -43,12 +50,17 @@ const createBlocks = (hasMessages, { owner, repo, teamList, config, head, base, 
   // We return an empty header and footer if there are no messages
   if (!hasMessages) {
     const defaultBlocks = [[heading, createEmptyRelease(), footer]];
-    return { preparedBlocks: defaultBlocks, loggerBlocks: defaultBlocks };
+
+    teamsToAttach.forEach(team => {
+      team.channels.forEach(channel =>
+        subChannelBlocks.push({ channel, blocks: [heading, createEmptyRelease(), footer] }),
+      );
+    });
+
+    return { preparedBlocks: defaultBlocks, subChannelBlocks, loggerBlocks: defaultBlocks };
   }
 
   const blocks = [];
-
-  const teamsToAttach = [...teamList, defaultTeam];
 
   teamsToAttach.forEach(team => {
     const msg = Message('slack', team);

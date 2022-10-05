@@ -26,8 +26,12 @@ describe('createBlocks', () => {
         },
       },
     });
+    // this param signifies an empty release or not
+    // true -> release is not empty
+    // false -> release is empty
+    const hasMessages = true;
     expect(
-      createBlocks(true, {
+      createBlocks(hasMessages, {
         config: fakeConfig,
         owner: 'you',
         repo: 'me',
@@ -52,8 +56,12 @@ describe('createBlocks', () => {
         },
       },
     });
+    // this param signifies an empty release or not
+    // true -> release is not empty
+    // false -> release is empty
+    const hasMessages = true;
     expect(
-      createBlocks(true, {
+      createBlocks(hasMessages, {
         config: fakeConfig,
         owner: 'you',
         repo: 'me',
@@ -63,5 +71,68 @@ describe('createBlocks', () => {
         defaultTeam,
       }).preparedBlocks,
     ).toHaveLength(3);
+  });
+
+  it('should create empty release for teams with channels when there are no messages', () => {
+    const exampleTeam = Team({
+      color: 'blue',
+      emoji: '🤷‍♀️',
+      mentions: '@MillhouseManaStorm',
+      name: 'FRIENDS',
+      blocks: Array(5).fill([createStorySection('hi')]),
+      issueTracking: {
+        jira: {
+          projects: ['CHANDLER', 'MONICA'],
+        },
+      },
+      channels: ['test-channel-1', 'test-channel-2'],
+    });
+    // this param signifies an empty release or not
+    // true -> release is not empty
+    // false -> release is empty
+    const hasMessages = false;
+    const blocks = createBlocks(hasMessages, {
+      config: fakeConfig,
+      owner: 'you',
+      repo: 'me',
+      teamList: [exampleTeam],
+      head: 'sweet',
+      base: 'dude',
+      defaultTeam,
+    });
+    expect(blocks.loggerBlocks).toHaveLength(1);
+    expect(blocks.preparedBlocks).toHaveLength(1);
+    expect(blocks.subChannelBlocks).toHaveLength(2);
+  });
+
+  it('should create message for default team only when there are no messages and no additional team channels', () => {
+    const exampleTeam = Team({
+      color: 'blue',
+      emoji: '🤷‍♀️',
+      mentions: '@MillhouseManaStorm',
+      name: 'FRIENDS',
+      blocks: Array(5).fill([createStorySection('hi')]),
+      issueTracking: {
+        jira: {
+          projects: ['CHANDLER', 'MONICA'],
+        },
+      },
+    });
+    // this param signifies an empty release or not
+    // true -> release is not empty
+    // false -> release is empty
+    const hasMessages = false;
+    const blocks = createBlocks(hasMessages, {
+      config: fakeConfig,
+      owner: 'you',
+      repo: 'me',
+      teamList: [exampleTeam],
+      head: 'sweet',
+      base: 'dude',
+      defaultTeam,
+    });
+    expect(blocks.loggerBlocks).toHaveLength(1);
+    expect(blocks.preparedBlocks).toHaveLength(1);
+    expect(blocks.subChannelBlocks).toHaveLength(0);
   });
 });
