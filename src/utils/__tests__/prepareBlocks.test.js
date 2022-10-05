@@ -26,7 +26,10 @@ describe('createBlocks', () => {
         },
       },
     });
-    const hasMessages = true; // this param signifies an empty release or not
+    // this param signifies an empty release or not
+    // true -> release is not empty
+    // false -> release is empty
+    const hasMessages = true;
     expect(
       createBlocks(hasMessages, {
         config: fakeConfig,
@@ -53,7 +56,10 @@ describe('createBlocks', () => {
         },
       },
     });
-    const hasMessages = true; // this param signifies an empty release or not
+    // this param signifies an empty release or not
+    // true -> release is not empty
+    // false -> release is empty
+    const hasMessages = true;
     expect(
       createBlocks(hasMessages, {
         config: fakeConfig,
@@ -81,7 +87,10 @@ describe('createBlocks', () => {
       },
       channels: ['test-channel-1', 'test-channel-2'],
     });
-    const hasMessages = false; // this param signifies an empty release or not
+    // this param signifies an empty release or not
+    // true -> release is not empty
+    // false -> release is empty
+    const hasMessages = false;
     const blocks = createBlocks(hasMessages, {
       config: fakeConfig,
       owner: 'you',
@@ -109,7 +118,10 @@ describe('createBlocks', () => {
         },
       },
     });
-    const hasMessages = false; // this param signifies an empty release or not
+    // this param signifies an empty release or not
+    // true -> release is not empty
+    // false -> release is empty
+    const hasMessages = false;
     const blocks = createBlocks(hasMessages, {
       config: fakeConfig,
       owner: 'you',
