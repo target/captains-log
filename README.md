@@ -1,11 +1,3 @@
 # Captain's Log
 
-A continuous integration plugin that will send release information via slack.
-
-![ ](./docs/static/img/example-output.png)
-
-[See More On Captain's Log Documentation Site](https://target.github.io/captains-log/)
-
-# Code Of Conduct
-
-[Code of Conduct](./CODE_OF_CONDUCT.md)
+This repository is in an archived state. Use caution when evaluating or using this code as its methods or dependencies may be outdated or insecure.
